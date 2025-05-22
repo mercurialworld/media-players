@@ -1,0 +1,53 @@
+.card {
+    background-color: var(--mantine-color-body);
+}
+
+.label {
+    font-weight: 700;
+    line-height: 1;
+}
+
+.lead {
+    line-height: 1;
+}
+
+.inner {
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+
+    @media (max-width: $mantine-breakpoint-xs) {
+        flex-direction: column;
+    }
+}
+
+.image {
+    max-width: 128px;
+
+    @mixin smaller-than 755px {
+        max-width: 100%;
+    }
+}
+
+.icon {
+    flex: 1;
+    display: flex;
+    align-items: center;
+
+    @media (max-width: $mantine-breakpoint-xs) {
+        justify-content: center;
+        margin-top: var(--mantine-spacing-md);
+    }
+}
+
+.detail {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    @media (max-width: $mantine-breakpoint-xs) {
+        justify-content: center;
+        margin-top: var(--mantine-spacing-md);
+    }
+}
