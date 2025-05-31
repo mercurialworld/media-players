@@ -5,6 +5,12 @@ import {
     IconWorld,
 } from "@tabler/icons-react";
 import type { Source } from "../types/MediaPlayer";
+import {
+    AvailableOnLinux,
+    AvailableOnMac,
+    AvailableOnWeb,
+    AvailableOnWindows,
+} from "../utils/CheckAvailability";
 
 // there will only be three operating systems and the web this is fine :^)
 type SourceProps = {
@@ -12,17 +18,17 @@ type SourceProps = {
 };
 
 export const LinuxAvailability = ({ source }: SourceProps) => {
-    return source.lin_mpris ? <IconBrandUbuntu /> : null;
+    return AvailableOnLinux(source) ? <IconBrandUbuntu /> : null;
 };
 
 export const WindowsAvailability = ({ source }: SourceProps) => {
-    return source.win_winrt || source.win_smtc ? <IconBrandWindowsFilled /> : null;
+    return AvailableOnWindows(source) ? <IconBrandWindowsFilled /> : null;
 };
 
 export const MacAvailability = ({ source }: SourceProps) => {
-    return source.mac_mediaremote || source.mac_bundle ? <IconBrandApple /> : null;
+    return AvailableOnMac(source) ? <IconBrandApple /> : null;
 };
 
 export const WebAvailability = ({ source }: SourceProps) => {
-    return source.web_domain ? <IconWorld /> : null;
+    return AvailableOnWeb(source) ? <IconWorld /> : null;
 };

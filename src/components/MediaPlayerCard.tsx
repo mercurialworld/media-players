@@ -13,7 +13,7 @@ type MediaPlayerProps = {
     icon: string;
 };
 
-export const MediaPlayerCard = ({ player, icon }: MediaPlayerProps) => {
+const MediaPlayerCard = ({ player, icon }: MediaPlayerProps) => {
     // const theme = useMantineTheme();
 
     return (
@@ -37,3 +37,5 @@ export const MediaPlayerCard = ({ player, icon }: MediaPlayerProps) => {
         </Card>
     );
 };
+
+export default MediaPlayerCard;
