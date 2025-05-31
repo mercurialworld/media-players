@@ -1,4 +1,9 @@
-import { createTheme } from "@mantine/core";
+import {
+    createTheme,
+    defaultVariantColorsResolver,
+    parseThemeColor,
+    rgba,
+} from "@mantine/core";
 
 export const MantineTheme = createTheme({
     colors: {
@@ -14,5 +19,21 @@ export const MantineTheme = createTheme({
             "#5f6067",
             "#323339",
         ],
+    },
+    variantColorResolver: (input) => {
+        const defaultResolvedColors = defaultVariantColorsResolver(input);
+        const parsedColor = parseThemeColor({
+            color: input.color || input.theme.primaryColor,
+            theme: input.theme,
+        });
+
+        if (input.variant === "weblink") {
+            return {
+                ...defaultResolvedColors,
+                background: rgba(parsedColor.value, 0),
+                hover: rgba(parsedColor.value, 0),
+            };
+        }
+        return defaultResolvedColors;
     },
 });

@@ -1,4 +1,4 @@
-import { Card, Image, Title } from "@mantine/core";
+import { Button, Card, Image, Title } from "@mantine/core";
 import classes from "./MediaPlayerCard.module.css";
 import type { MediaPlayer } from "../types/MediaPlayer";
 import {
@@ -7,6 +7,7 @@ import {
     WebAvailability,
     WindowsAvailability,
 } from "./MediaPlayerPlatforms";
+import { IconExternalLink } from "@tabler/icons-react";
 
 type MediaPlayerProps = {
     player: MediaPlayer;
@@ -26,7 +27,17 @@ const MediaPlayerCard = ({ player, icon }: MediaPlayerProps) => {
                     <Title order={1} className={classes.lead}>
                         {player.name}
                     </Title>
-                    <div>
+                    <Button
+                        className={classes.websitebutton}
+                        rightSection={<IconExternalLink size={14} />}
+                        size="compact-md"
+                        variant="weblink"
+                        component="a"
+                        href={player.url}
+                    >
+                        Website
+                    </Button>
+                    <div className={classes.platforms}>
                         <WindowsAvailability source={player.sources} />
                         <MacAvailability source={player.sources} />
                         <LinuxAvailability source={player.sources} />
