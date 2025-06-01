@@ -35,7 +35,7 @@
     max-width: 128px;
 
     @mixin smaller-than 755px {
-        max-width: 100%;
+        max-width: 50%;
     }
 }
 

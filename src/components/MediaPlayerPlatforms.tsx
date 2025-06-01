@@ -1,11 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Source } from "../types/MediaPlayer";
-import {
-    AvailableOnLinux,
-    AvailableOnMac,
-    AvailableOnWeb,
-    AvailableOnWindows,
-} from "../utils/CheckAvailability";
+import { AvailableOn, Platform } from "../utils/CheckAvailability";
 import { faApple, faLinux, faWindows } from "@fortawesome/free-brands-svg-icons";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 
@@ -15,17 +10,25 @@ type SourceProps = {
 };
 
 export const LinuxAvailability = ({ source }: SourceProps) => {
-    return AvailableOnLinux(source) ? <FontAwesomeIcon icon={faLinux} /> : null;
+    return AvailableOn(Platform.Linux, source) ? (
+        <FontAwesomeIcon icon={faLinux} />
+    ) : null;
 };
 
 export const WindowsAvailability = ({ source }: SourceProps) => {
-    return AvailableOnWindows(source) ? <FontAwesomeIcon icon={faWindows} /> : null;
+    return AvailableOn(Platform.Windows, source) ? (
+        <FontAwesomeIcon icon={faWindows} />
+    ) : null;
 };
 
 export const MacAvailability = ({ source }: SourceProps) => {
-    return AvailableOnMac(source) ? <FontAwesomeIcon icon={faApple} /> : null;
+    return AvailableOn(Platform.Mac, source) ? (
+        <FontAwesomeIcon icon={faApple} />
+    ) : null;
 };
 
 export const WebAvailability = ({ source }: SourceProps) => {
-    return AvailableOnWeb(source) ? <FontAwesomeIcon icon={faGlobe} /> : null;
+    return AvailableOn(Platform.Web, source) ? (
+        <FontAwesomeIcon icon={faGlobe} />
+    ) : null;
 };

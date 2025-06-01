@@ -8,17 +8,54 @@ import { MantineTheme } from "./theme";
 import MediaPlayersList from "./components/MediaPlayersList";
 import SearchBar from "./components/SearchBar";
 import { useGetMediaPlayers } from "./hooks/useGetMediaPlayers";
+import PlatformFilters from "./components/PlatformFilters";
+import { AvailableOn } from "./utils/CheckAvailability";
 
 function App() {
     const { players, icons, loading, error } = useGetMediaPlayers();
     const [filteredPlayers, setFilteredPlayers] = useState([]);
+    const [search, setSearch] = useState("");
 
-    const handleSearchInputChange = (search: string) => {
-        const filteredItems = players.filter((player: MediaPlayer) =>
+    const filterPlayers = (platforms: string[] | null = null, search: string) => {
+        var filteredItems = players.filter((player: MediaPlayer) =>
             player.name.toLowerCase().includes(search.toLowerCase()),
         );
 
+        if (platforms) {
+            const platformFiltered = filteredItems.filter(function (
+                player: MediaPlayer,
+            ) {
+                // no platforms selected
+                if (platforms.length === 0) {
+                    return true;
+                } else {
+                    // counts if the player is available in all platforms listed
+                    var platformCount = 0;
+
+                    platforms.forEach((platform) => {
+                        if (AvailableOn(platform, player.sources)) {
+                            platformCount++;
+                        }
+                    });
+
+                    return platformCount === platforms.length;
+                }
+            });
+
+            filteredItems = platformFiltered;
+        }
+
         setFilteredPlayers(filteredItems);
+    };
+
+    const handleSearchInputChange = (search: string) => {
+        setSearch(search);
+
+        filterPlayers(null, search);
+    };
+
+    const handleFiltersChange = (platforms: string[]) => {
+        filterPlayers(platforms, search);
     };
 
     useEffect(() => {
@@ -52,6 +89,7 @@ function App() {
                 repository.
             </p>
             <SearchBar callback={handleSearchInputChange} />
+            <PlatformFilters callback={handleFiltersChange} />
             {loading && <p>Loading...</p>}
             {error && <p>Error loading players.</p>}
             {!loading && !error && (

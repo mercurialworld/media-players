@@ -1,17 +1,26 @@
 import type { Source } from "../types/MediaPlayer";
 
-export const AvailableOnLinux = (source: Source) => {
-    return source.lin_mpris;
+export const Platform = {
+    Linux: "LINUX",
+    Mac: "MACOS",
+    Windows: "WINDOWS",
+    Web: "WEB",
 };
 
-export const AvailableOnWindows = (source: Source) => {
-    return source.win_winrt || source.win_smtc;
-};
-
-export const AvailableOnMac = (source: Source) => {
-    return source.mac_mediaremote || source.mac_bundle;
-};
-
-export const AvailableOnWeb = (source: Source) => {
-    return source.web_domain;
-};
+export function AvailableOn(platform: string, source: Source): boolean | null {
+    switch (platform) {
+        case Platform.Linux:
+            return source.lin_mpris !== undefined;
+        case Platform.Windows:
+            return source.win_winrt !== undefined || source.win_smtc !== undefined;
+        case Platform.Mac:
+            return (
+                source.mac_mediaremote !== undefined ||
+                source.mac_bundle !== undefined
+            );
+        case Platform.Web:
+            return source.web_domain !== undefined;
+        default:
+            return null;
+    }
+}

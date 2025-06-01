@@ -34,6 +34,23 @@ export const MantineTheme = createTheme({
                 hover: rgba(parsedColor.value, 0),
             };
         }
+
+        if (input.variant === "filterunpressed") {
+            return {
+                ...defaultResolvedColors,
+                background: "var(--mantine-color-dark-3)",
+                hover: "var(--mantine-color-dark-4)",
+            };
+        }
+
+        if (input.variant === "filterpressed") {
+            return {
+                ...defaultResolvedColors,
+                background: "var(--mantine-color-dark-4)",
+                hover: "var(--mantine-color-dark-3)",
+            };
+        }
+
         return defaultResolvedColors;
     },
 });
