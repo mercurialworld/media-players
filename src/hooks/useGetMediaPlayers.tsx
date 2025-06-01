@@ -13,7 +13,6 @@ export const useGetMediaPlayers = () => {
         fetch("https://live.musicpresence.app/v3/players.json")
             .then((response) => response.json())
             .then((data) => {
-                console.log(data.icons);
                 setPlayers(data.players);
                 setIcons(data.icons);
             })
