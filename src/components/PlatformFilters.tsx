@@ -45,7 +45,7 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
     return (
         <div>
             <Text>
-                <p>Filter by platform:</p>
+                <br /> Filter by platform...
             </Text>
             <Group justify="center">
                 <Button

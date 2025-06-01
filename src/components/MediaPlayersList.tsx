@@ -14,7 +14,7 @@ const MediaPlayersList = ({ players, icons }: MediaPlayersListProps) => {
             icons[player.id]?.[2]?.url ?? // tray icon
             "https://raw.githubusercontent.com/music-presence/icons/refs/heads/master/dist/tray-dark.png";
 
-        return <MediaPlayerCard player={player} icon={icon} />;
+        return <MediaPlayerCard key={player.id} player={player} icon={icon} />;
     };
 
     return (
