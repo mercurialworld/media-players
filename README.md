@@ -11,5 +11,11 @@ deno install
 deno run dev
 ```
 
+To preview the production build, run
+```sh
+deno run build
+deno run preview
+```
+
 # TODO
 - better web design
