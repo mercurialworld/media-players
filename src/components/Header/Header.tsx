@@ -1,4 +1,3 @@
-import { Group } from "@mantine/core";
 import classes from "./Header.module.css";
 import SearchBar from "./SearchBar";
 import PlatformFilters from "./PlatformFilters";

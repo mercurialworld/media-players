@@ -1,4 +1,4 @@
-import { Button, Flex, Group, SimpleGrid, Text } from "@mantine/core";
+import { Button, Flex, SimpleGrid, Text } from "@mantine/core";
 import { useState } from "react";
 import { Platform } from "../../utils/CheckAvailability";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
