@@ -11,24 +11,24 @@ type SourceProps = {
 
 export const LinuxAvailability = ({ source }: SourceProps) => {
     return AvailableOn(Platform.Linux, source) ? (
-        <FontAwesomeIcon icon={faLinux} />
+        <FontAwesomeIcon icon={faLinux} title="Linux" />
     ) : null;
 };
 
 export const WindowsAvailability = ({ source }: SourceProps) => {
     return AvailableOn(Platform.Windows, source) ? (
-        <FontAwesomeIcon icon={faWindows} />
+        <FontAwesomeIcon icon={faWindows} title="Windows" />
     ) : null;
 };
 
 export const MacAvailability = ({ source }: SourceProps) => {
     return AvailableOn(Platform.Mac, source) ? (
-        <FontAwesomeIcon icon={faApple} />
+        <FontAwesomeIcon icon={faApple} title="MacOS" />
     ) : null;
 };
 
 export const WebAvailability = ({ source }: SourceProps) => {
     return AvailableOn(Platform.Web, source) ? (
-        <FontAwesomeIcon icon={faGlobe} />
+        <FontAwesomeIcon icon={faGlobe} title="Web" />
     ) : null;
 };

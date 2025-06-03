@@ -2,13 +2,21 @@
     background-color: var(--mantine-color-body);
     display: flex;
     justify-content: center;
-    filter: drop-shadow(5px 5px 10px var(--mantine-color-black));
+    box-shadow: 5px 5px 10px var(--mantine-color-dark-9);
 
     transition: transform 250ms;
 }
 
 .card:hover {
+    border: 1px solid var(--mantine-color-dark-3);
     transform: translateY(-5px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .card:hover {
+        border: 1px solid var(--mantine-color-dark-3);
+        transform: translateY(-5px);
+    }
 }
 
 .label {
@@ -19,6 +27,7 @@
 .lead {
     line-height: 1;
     font-size: 1.6em;
+    color: var(--mantine-color-white);
 }
 
 .inner {

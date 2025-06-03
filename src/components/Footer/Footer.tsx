@@ -7,7 +7,10 @@ const Footer = () => {
             link: "https://github.com/ungive/discord-music-presence/",
             label: "Music Presence",
         },
-        { link: "https://github.com/mercurialworld/media-players", label: "Source" },
+        {
+            link: "https://github.com/mercurialworld/media-players/",
+            label: "Source",
+        },
     ];
 
     const items = links.map((link) => (
@@ -27,13 +30,21 @@ const Footer = () => {
             <Container className={classes.inner}>
                 <Group>
                     <div>
-                        Made with ♥ by{" "}
-                        <Anchor
-                            href="https://github.com/mercurialworld"
+                        Made by{" "}
+                        <a
+                            className={classes.footerLink}
+                            href="https://github.com/mercurialworld/"
                             target="_blank"
                         >
                             mercurialworld
-                        </Anchor>
+                        </a>{" "}
+                        with data from{" "}
+                        <a
+                            className={classes.footerLink}
+                            href="https://github.com/music-presence/media-players"
+                        >
+                            music-presence/media-players
+                        </a>
                         .
                     </div>
                 </Group>

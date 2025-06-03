@@ -1,5 +1,14 @@
 .info {
-    max-width: 1280px;
+    max-width: 900px;
     margin: 0 auto;
     text-align: center;
+
+    @media (max-width: $mantine-breakpoint-sm) {
+        width: 100%;
+    }
+}
+
+.info h1 {
+    font-size: 3em;
+    color: var(--mantine-color-white);
 }

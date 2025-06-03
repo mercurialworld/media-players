@@ -4,6 +4,7 @@
     gap: 0.5em;
     justify-content: center;
     align-items: center;
+    color: var(--mantine-color-dark-2);
 
     @media (max-width: $mantine-breakpoint-sm) {
         flex-direction: column;

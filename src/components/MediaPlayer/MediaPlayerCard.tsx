@@ -15,8 +15,6 @@ type MediaPlayerProps = {
 };
 
 const MediaPlayerCard = ({ player, icon }: MediaPlayerProps) => {
-    // const theme = useMantineTheme();
-
     return (
         <Card withBorder p="xl" radius="md" className={classes.card}>
             <div className={classes.inner} color="#000">

@@ -10,6 +10,10 @@
     top: 0;
     padding: 0.5em 0.25em;
     z-index: 100;
+
+    @media (max-width: $mantine-breakpoint-sm) {
+        width: 100vw;
+    }
 }
 
 .inner {

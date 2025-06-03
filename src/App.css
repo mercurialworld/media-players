@@ -3,3 +3,7 @@
     padding: 2rem;
     text-align: center;
 }
+
+a {
+    color: var(--mantine-color-white);
+}
