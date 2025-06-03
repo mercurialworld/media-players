@@ -1,6 +1,6 @@
 import { Button, Card, Image, Title } from "@mantine/core";
 import classes from "./MediaPlayerCard.module.css";
-import type { MediaPlayer } from "../types/MediaPlayer";
+import type { MediaPlayer } from "../../types/MediaPlayer";
 import {
     LinuxAvailability,
     MacAvailability,

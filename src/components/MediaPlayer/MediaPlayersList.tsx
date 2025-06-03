@@ -1,6 +1,7 @@
 import { SimpleGrid } from "@mantine/core";
-import type { MediaPlayer } from "../types/MediaPlayer";
+import type { MediaPlayer } from "../../types/MediaPlayer";
 import MediaPlayerCard from "./MediaPlayerCard";
+import classes from "./MediaPlayersList.module.css";
 
 type MediaPlayersListProps = {
     players: MediaPlayer[];
@@ -18,7 +19,12 @@ const MediaPlayersList = ({ players, icons }: MediaPlayersListProps) => {
     };
 
     return (
-        <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl" mt={50}>
+        <SimpleGrid
+            cols={{ base: 1, md: 3 }}
+            spacing="xl"
+            mt={50}
+            className={classes.playersList}
+        >
             {players.map((player) => createPlayerCard(player))}
         </SimpleGrid>
     );

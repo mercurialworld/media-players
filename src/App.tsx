@@ -5,11 +5,12 @@ import { MantineProvider } from "@mantine/core";
 import { useState, useEffect } from "react";
 import type { MediaPlayer } from "./types/MediaPlayer";
 import { MantineTheme } from "./theme";
-import MediaPlayersList from "./components/MediaPlayersList";
-import SearchBar from "./components/SearchBar";
+import MediaPlayersList from "./components/MediaPlayer/MediaPlayersList";
 import { useGetMediaPlayers } from "./hooks/useGetMediaPlayers";
-import PlatformFilters from "./components/PlatformFilters";
 import { AvailableOn } from "./utils/CheckAvailability";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import Info from "./components/Header/Information";
 
 function App() {
     const { players, icons, loading, error } = useGetMediaPlayers();
@@ -66,35 +67,17 @@ function App() {
 
     return (
         <MantineProvider defaultColorScheme="dark" theme={MantineTheme}>
-            <h1>Media Players</h1>
-            <p>
-                Note that, although your media player may be compatible, it might not
-                be right out of the box. Check the{" "}
-                <a href="https://github.com/ungive/discord-music-presence/blob/master/documentation/supported-media-players.md#additional-notes">
-                    Additional Notes
-                </a>{" "}
-                of the original media player compatibility document for extra setup.
-            </p>
-            <p>
-                Don't see your media player?{" "}
-                <a href="https://github.com/ungive/discord-music-presence/blob/master/documentation/troubleshooting.md#if-your-media-player-is-still-not-detected">
-                    Submit it!
-                </a>
-            </p>
-            <p>
-                All compatible players taken from the{" "}
-                <a href="https://github.com/music-presence/media-players">
-                    music-presence/media-players
-                </a>{" "}
-                repository.
-            </p>
-            <SearchBar callback={handleSearchInputChange} />
-            <PlatformFilters callback={handleFiltersChange} />
+            <Info />
+            <Header
+                searchCallback={handleSearchInputChange}
+                filterCallback={handleFiltersChange}
+            />
             {loading && <p>Loading...</p>}
             {error && <p>Error loading players.</p>}
             {!loading && !error && (
                 <MediaPlayersList players={filteredPlayers} icons={icons} />
             )}
+            <Footer />
         </MantineProvider>
     );
 }

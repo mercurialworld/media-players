@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { Source } from "../types/MediaPlayer";
-import { AvailableOn, Platform } from "../utils/CheckAvailability";
+import type { Source } from "../../types/MediaPlayer";
+import { AvailableOn, Platform } from "../../utils/CheckAvailability";
 import { faApple, faLinux, faWindows } from "@fortawesome/free-brands-svg-icons";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 

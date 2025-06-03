@@ -1,0 +1,17 @@
+.inner {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: $mantine-breakpoint-sm) {
+        flex-direction: column;
+    }
+}
+
+.filterButtons {
+    @media (max-width: $mantine-breakpoint-sm) {
+        flex-direction: column;
+    }
+}

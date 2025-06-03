@@ -1,9 +1,10 @@
-import { Button, Group, Text } from "@mantine/core";
+import { Button, Flex, Group, SimpleGrid, Text } from "@mantine/core";
 import { useState } from "react";
-import { Platform } from "../utils/CheckAvailability";
+import { Platform } from "../../utils/CheckAvailability";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faApple, faLinux, faWindows } from "@fortawesome/free-brands-svg-icons";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
+import classes from "./PlatformFilters.module.css";
 
 type PlatformFiltersProps = {
     callback: (values: string[]) => void;
@@ -43,11 +44,11 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
     };
 
     return (
-        <div>
-            <Text>
-                <br /> Filter by platform...
-            </Text>
-            <Group justify="center">
+        <div className={classes.inner}>
+            <Flex>
+                <Text>Filter by platform:</Text>
+            </Flex>
+            <SimpleGrid cols={{ base: 2, sm: 4 }}>
                 <Button
                     leftSection={<FontAwesomeIcon icon={faWindows} />}
                     variant={
@@ -98,7 +99,7 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
                 >
                     Web
                 </Button>
-            </Group>
+            </SimpleGrid>
         </div>
     );
 };
