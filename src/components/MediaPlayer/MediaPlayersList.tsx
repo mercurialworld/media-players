@@ -20,7 +20,7 @@ const MediaPlayersList = ({ players, icons }: MediaPlayersListProps) => {
 
     return (
         <SimpleGrid
-            cols={{ base: 1, md: 3 }}
+            cols={{ base: 1, sm: 2, md: 3 }}
             spacing="xl"
             mt={50}
             className={classes.playersList}

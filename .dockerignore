@@ -1,6 +1,7 @@
 README.md
 build
 dist
+repo-assets
 node_modules
 LICENSE
 package-lock.json
