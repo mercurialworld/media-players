@@ -1,5 +1,4 @@
 import * as cdk from "aws-cdk-lib";
-// import { CodeDeployApp, getRepoFromEnv } from "chaeri";
 import { CodeDeployApp } from "chaeri/codedeploy-app.ts";
 import { getRepoFromEnv } from "chaeri/get-repo.ts";
 import { Construct } from "constructs";
