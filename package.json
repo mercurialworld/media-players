@@ -7,7 +7,8 @@
         "dev": "vite",
         "build": "tsc -b && vite build",
         "lint": "eslint .",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "cdk": "deno run --allow-all npm:aws-cdk"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -17,6 +18,10 @@
         "@mantine/core": "^8.0.1",
         "@mantine/hooks": "^8.0.1",
         "@tabler/icons-react": "^3.33.0",
+        "aws-cdk": "^2.1018.0",
+        "aws-cdk-github-oidc": "^2.4.1",
+        "aws-cdk-lib": "^2.200.1",
+        "constructs": "^10.4.2",
         "prettier": "^3.5.3",
         "react": "^19.1.0",
         "react-dom": "^19.1.0"
