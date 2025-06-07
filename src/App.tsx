@@ -78,11 +78,13 @@ function App() {
                     filterCallback={handleFiltersChange}
                 />
             </PlayerCountContext>
-            {loading && <p>Loading...</p>}
-            {error && <p>Error loading players.</p>}
-            {!loading && !error && (
-                <MediaPlayersList players={filteredPlayers} icons={icons} />
-            )}
+            <div className="content">
+                {loading && <p>Loading...</p>}
+                {error && <p>Error loading players.</p>}
+                {!loading && !error && (
+                    <MediaPlayersList players={filteredPlayers} icons={icons} />
+                )}
+            </div>
             <Footer />
         </MantineProvider>
     );

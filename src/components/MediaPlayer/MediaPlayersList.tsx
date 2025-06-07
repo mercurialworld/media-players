@@ -19,14 +19,16 @@ const MediaPlayersList = ({ players, icons }: MediaPlayersListProps) => {
     };
 
     return (
-        <SimpleGrid
-            cols={{ base: 1, sm: 2, md: 3 }}
-            spacing="xl"
-            mt={50}
-            className={classes.playersList}
-        >
-            {players.map((player) => createPlayerCard(player))}
-        </SimpleGrid>
+        <div className={classes.playersListWrapper}>
+            <SimpleGrid
+                cols={{ base: 1, sm: 2, md: 3 }}
+                spacing="xl"
+                mt={50}
+                className={classes.playersList}
+            >
+                {players.map((player) => createPlayerCard(player))}
+            </SimpleGrid>
+        </div>
     );
 };
 

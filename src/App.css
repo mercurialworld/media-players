@@ -22,3 +22,12 @@
 a {
     color: var(--mantine-color-white);
 }
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+}

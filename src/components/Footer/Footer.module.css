@@ -5,7 +5,8 @@
     background-color: var(--mantine-color-dark-8);
     color: var(--mantine-color-dark-3);
 
-    position: sticky;
+    /* position: sticky; */
+    width: 100%;
     bottom: 0;
 
     @media (max-width: $mantine-breakpoint-xs) {
