@@ -1,10 +1,11 @@
 import { Button, Flex, SimpleGrid, Text } from "@mantine/core";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Platform } from "../../utils/CheckAvailability";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faApple, faLinux, faWindows } from "@fortawesome/free-brands-svg-icons";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 import classes from "./PlatformFilters.module.css";
+import { PlayerCountContext } from "../../contexts/PlayerCountContext";
 
 type PlatformFiltersProps = {
     callback: (values: string[]) => void;
@@ -18,6 +19,8 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
         macActive: false,
         webActive: false,
     });
+
+    const playerCount = useContext(PlayerCountContext);
 
     const handleTagClick = (platform: string) => {
         const filters = structuredClone(platformFilters);
@@ -45,9 +48,6 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
 
     return (
         <div className={classes.inner}>
-            <Flex>
-                <Text>Filter by platform:</Text>
-            </Flex>
             <SimpleGrid cols={{ base: 2, sm: 4 }}>
                 <Button
                     leftSection={<FontAwesomeIcon icon={faWindows} />}
@@ -100,6 +100,9 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
                     Web
                 </Button>
             </SimpleGrid>
+            <Flex>
+                <Text>{playerCount} results</Text>
+            </Flex>
         </div>
     );
 };

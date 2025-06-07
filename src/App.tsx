@@ -11,9 +11,11 @@ import { AvailableOn } from "./utils/CheckAvailability";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Info from "./components/Header/Information";
+import { PlayerCountContext } from "./contexts/PlayerCountContext";
 
 function App() {
     const { players, icons, loading, error } = useGetMediaPlayers();
+    const [playerCount, setPlayerCount] = useState(0);
     const [filteredPlayers, setFilteredPlayers] = useState([]);
     const [search, setSearch] = useState("");
 
@@ -47,6 +49,7 @@ function App() {
         }
 
         setFilteredPlayers(filteredItems);
+        setPlayerCount(filteredItems.length);
     };
 
     const handleSearchInputChange = (search: string) => {
@@ -62,16 +65,19 @@ function App() {
     useEffect(() => {
         if (players.length > 0) {
             setFilteredPlayers(players);
+            setPlayerCount(players.length);
         }
     }, [players]);
 
     return (
         <MantineProvider defaultColorScheme="dark" theme={MantineTheme}>
             <Info />
-            <Header
-                searchCallback={handleSearchInputChange}
-                filterCallback={handleFiltersChange}
-            />
+            <PlayerCountContext value={playerCount}>
+                <Header
+                    searchCallback={handleSearchInputChange}
+                    filterCallback={handleFiltersChange}
+                />
+            </PlayerCountContext>
             {loading && <p>Loading...</p>}
             {error && <p>Error loading players.</p>}
             {!loading && !error && (
