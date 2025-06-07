@@ -66,7 +66,7 @@ jobs:
         run: deno install
 
       - name: Synth AWS-CDK stack
-        run: deno cdk synth --ci --no-lookups --strict 
+        run: deno run cdk synth --ci --no-lookups --strict 
       
       - name: Upload synth artifact
         uses: actions/upload-artifact@v4
@@ -149,7 +149,7 @@ jobs:
           path: cdk.out
 
       - name: Deploy stack
-        run: deno cdk deploy --ci --no-lookups --require-approval=never --app=cdk.out --outputs-file=outputs.json
+        run: deno task cdk deploy --ci --no-lookups --require-approval=never --app=cdk.out --outputs-file=outputs.json
 
       - name: Upload outputs artifact
         uses: actions/upload-artifact@v4

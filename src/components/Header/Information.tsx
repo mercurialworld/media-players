@@ -1,4 +1,3 @@
-import { Group, Image, Stack } from "@mantine/core";
 import classes from "./Information.module.css";
 
 const Info = () => {
