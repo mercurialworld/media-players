@@ -1,10 +1,10 @@
 import type { Source } from "../types/MediaPlayer";
 
 export const Platform = {
-    Linux: "LINUX",
-    Mac: "MACOS",
-    Windows: "WINDOWS",
-    Web: "WEB",
+    Linux: "Linux",
+    Mac: "MacOS",
+    Windows: "Windows",
+    Web: "Web",
 };
 
 export function AvailableOn(platform: string, source: Source): boolean | null {

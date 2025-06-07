@@ -17,12 +17,26 @@
 .inner {
     min-height: 56px;
     display: flex;
-    gap: 1em;
+    gap: 2em;
     justify-content: center;
     align-items: center;
 
     @media (max-width: $mantine-breakpoint-sm) {
         margin: 0 auto;
+        gap: 1em;
         flex-direction: column;
     }
+}
+
+.filterRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+
+    color: var(--mantine-color-dark-2);
+}
+
+.resultsRow {
+    color: var(--mantine-color-dark-2);
 }

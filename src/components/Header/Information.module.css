@@ -9,6 +9,11 @@
     }
 }
 
+.logoIcon {
+    width: 0.9em;
+    height: auto;
+}
+
 .info h1 {
     font-size: 3.5em;
     font-family: "Nunito", sans-serif;

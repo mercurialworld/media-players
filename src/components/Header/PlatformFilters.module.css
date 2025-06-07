@@ -1,19 +1,8 @@
 .inner {
     display: flex;
     flex-direction: row;
-    gap: 1em;
+    gap: 0.75em;
     justify-content: center;
     align-items: center;
     color: var(--mantine-color-dark-2);
-
-    @media (max-width: $mantine-breakpoint-sm) {
-        flex-direction: column;
-    }
-}
-
-.filterLabel {
-    @media (max-width: $mantine-breakpoint-sm) {
-        content: "";
-        display: none;
-    }
 }
