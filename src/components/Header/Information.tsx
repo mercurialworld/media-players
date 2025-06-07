@@ -5,8 +5,8 @@ const Info = () => {
         <div className={classes.info}>
             <h1>Media Players</h1>
             <p>
-                This is a list of all media players that Music Presence can detect.
-                It is always up to date.
+                This is an unofficial list of all media players that Music Presence
+                can detect. It is always kept up to date from official sources.
             </p>
             <p>
                 Note that some media players listed might need additional setup.
