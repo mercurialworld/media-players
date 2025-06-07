@@ -18,11 +18,3 @@ To preview the production build, run
 deno run build
 deno run preview
 ```
-
-# Preview
-
-![A screenshot of the web page when first loading into it.](repo-assets/preview1.png)
-
-![A screenshot of the web page filtering media players that are available on every platform and the web.](repo-assets/preview2.png)
-
-![A screenshot of the web page filtering media players that include "apple" in the name and are available on MacOS.](repo-assets/preview3.png)
