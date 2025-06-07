@@ -31,8 +31,8 @@ const Footer = () => {
                             target="_blank"
                         >
                             mercurialworld
-                        </a>{" "}
-                        with data from{" "}
+                        </a>
+                        , data from{" "}
                         <a
                             className={classes.footerLink}
                             href="https://github.com/music-presence/media-players"

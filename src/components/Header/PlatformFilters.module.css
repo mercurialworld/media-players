@@ -11,8 +11,9 @@
     }
 }
 
-.filterButtons {
+.filterLabel {
     @media (max-width: $mantine-breakpoint-sm) {
-        flex-direction: column;
+        content: "";
+        display: none;
     }
 }

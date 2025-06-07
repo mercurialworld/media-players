@@ -27,6 +27,7 @@
 .lead {
     line-height: 1;
     font-size: 1.6em;
+    font-family: "Nunito", sans-serif;
     color: var(--mantine-color-white);
 }
 
@@ -35,16 +36,16 @@
     gap: 1em;
     justify-content: center;
 
-    @media (max-width: $mantine-breakpoint-xs) {
+    /* @media (max-width: $mantine-breakpoint-xs) {
         flex-direction: column;
-    }
+    } */
 }
 
 .image {
     max-width: 128px;
 
-    @mixin smaller-than 755px {
-        max-width: 50%;
+    @media (max-width: $mantine-breakpoint-xs) {
+        max-width: 80%;
     }
 }
 

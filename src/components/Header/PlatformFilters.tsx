@@ -1,4 +1,10 @@
-import { Button, Flex, SimpleGrid, Text } from "@mantine/core";
+import {
+    ActionIcon,
+    ActionIconGroup,
+    Flex,
+    Text,
+    VisuallyHidden,
+} from "@mantine/core";
 import { useContext, useState } from "react";
 import { Platform } from "../../utils/CheckAvailability";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -48,9 +54,12 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
 
     return (
         <div className={classes.inner}>
-            <SimpleGrid cols={{ base: 2, sm: 4 }}>
-                <Button
-                    leftSection={<FontAwesomeIcon icon={faWindows} />}
+            {" "}
+            <Flex>
+                <Text>Filter by platform:</Text>
+            </Flex>
+            <ActionIconGroup>
+                <ActionIcon
                     variant={
                         buttonsState.winActive ? "filterpressed" : "filterunpressed"
                     }
@@ -58,11 +67,12 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
                         handleTagClick(Platform.Windows);
                         handleButtonStateChange("winActive");
                     }}
+                    size={"xl"}
                 >
-                    Windows
-                </Button>
-                <Button
-                    leftSection={<FontAwesomeIcon icon={faApple} />}
+                    <VisuallyHidden>Windows</VisuallyHidden>
+                    <FontAwesomeIcon icon={faWindows} />
+                </ActionIcon>
+                <ActionIcon
                     variant={
                         buttonsState.macActive ? "filterpressed" : "filterunpressed"
                     }
@@ -70,11 +80,12 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
                         handleTagClick(Platform.Mac);
                         handleButtonStateChange("macActive");
                     }}
+                    size={"xl"}
                 >
-                    MacOS
-                </Button>
-                <Button
-                    leftSection={<FontAwesomeIcon icon={faLinux} />}
+                    <VisuallyHidden>MacOS</VisuallyHidden>
+                    <FontAwesomeIcon icon={faApple} />
+                </ActionIcon>
+                <ActionIcon
                     variant={
                         buttonsState.linuxActive
                             ? "filterpressed"
@@ -84,11 +95,12 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
                         handleTagClick(Platform.Linux);
                         handleButtonStateChange("linuxActive");
                     }}
+                    size={"xl"}
                 >
-                    Linux
-                </Button>
-                <Button
-                    leftSection={<FontAwesomeIcon icon={faGlobe} />}
+                    <VisuallyHidden>Linux</VisuallyHidden>
+                    <FontAwesomeIcon icon={faLinux} />
+                </ActionIcon>
+                <ActionIcon
                     variant={
                         buttonsState.webActive ? "filterpressed" : "filterunpressed"
                     }
@@ -96,10 +108,12 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
                         handleTagClick(Platform.Web);
                         handleButtonStateChange("webActive");
                     }}
+                    size={"xl"}
                 >
-                    Web
-                </Button>
-            </SimpleGrid>
+                    <VisuallyHidden>Web</VisuallyHidden>
+                    <FontAwesomeIcon icon={faGlobe} />
+                </ActionIcon>
+            </ActionIconGroup>
             <Flex>
                 <Text>{playerCount} results</Text>
             </Flex>

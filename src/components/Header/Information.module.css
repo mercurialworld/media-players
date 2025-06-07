@@ -1,5 +1,6 @@
 .info {
     margin: 0 auto;
+    background-color: var(--mantine-color-body);
     padding: 1rem;
     text-align: center;
 
@@ -9,6 +10,7 @@
 }
 
 .info h1 {
-    font-size: 3em;
+    font-size: 3.5em;
+    font-family: "Nunito", sans-serif;
     color: var(--mantine-color-white);
 }
