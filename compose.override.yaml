@@ -1,0 +1,4 @@
+# dev overrides
+services:
+  site:
+    build: .

@@ -1,0 +1,205 @@
+name: Deploy
+
+on:
+  push:
+    branches: "main"
+  workflow_dispatch:
+
+env:
+  CONTAINER_REGISTRY: ghcr.io
+  DENO_VERSION: vx.x.x
+
+jobs:
+  build-docker-image:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ fromJson(steps.meta.outputs.json).tags[0] }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.CONTAINER_REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.CONTAINER_REGISTRY }}/${{ github.repository }}
+      
+      - name: Build Docker image
+        id: build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          outputs: type=docker,dest=/tmp/image.tar
+
+      - name: Upload image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: /tmp/image.tar
+          retention-days: 7
+
+  build-aws-cdk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: ${{ env.DENO_VERSION }}
+      
+      - name: Install Deno packages
+        shell: bash
+        run: deno install
+
+      - name: Synth AWS-CDK stack
+        run: deno cdk synth --ci --no-lookups --strict 
+      
+      - name: Upload synth artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: aws-cdk-synth
+          path: cdk.out
+
+
+  push-image:
+    needs:
+      - build-docker-image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    environment:
+      name: docker
+      url: https://${{ needs.build-docker-image.outputs.tag }}
+    outputs:
+      digest: ${{ steps.digest.outputs.value }}
+    steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.CONTAINER_REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Download image artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+          path: /tmp
+
+      - name: Load image
+        run: docker load --input /tmp/image.tar
+
+      - name: Push image
+        run: docker image push --all-tags ${{ env.CONTAINER_REGISTRY }}/${{ github.repository }}
+
+      - name: Get image digest
+        id: digest
+        run: echo "value=$(docker inspect --format='{{index .RepoDigests 0}}' ${{ needs.build-docker-image.outputs.tag }})" >> "$GITHUB_OUTPUT"
+
+  deploy-aws-cdk:
+    needs:
+      - build-docker-image
+      - build-aws-cdk
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    environment:
+      name: aws-cdk
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: ${{ env.DENO_VERSION }}
+      
+      - name: Install Deno packages
+        shell: bash
+        run: deno install
+
+      - name: Setup AWS
+        uses: mercurialworld/chaeri-actions/setup-aws@v1
+        with:
+          role-to-assume: repo
+
+      - name: Download synth artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: aws-cdk-synth
+          path: cdk.out
+
+      - name: Deploy stack
+        run: deno cdk deploy --ci --no-lookups --require-approval=never --app=cdk.out --outputs-file=outputs.json
+
+      - name: Upload outputs artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: aws-cdk-outputs
+          path: outputs.json
+
+  deploy-codedeploy:
+    needs:
+      - push-image
+      - deploy-aws-cdk
+    permissions:
+      id-token: write
+      contents: read
+    environment:
+      name: codedeploy
+      url: ${{ steps.deploy.outputs.deployment-url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Download outputs artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: aws-cdk-outputs
+      
+      - name: Create environment/config files
+        working-directory: codedeploy
+        run: |
+          cat << EOF > .env
+          IMAGE="${{ needs.push-image.outputs.digest }}"
+          EOF
+
+      - name: Parse outputs
+        id: parse
+        uses: mercurialworld/chaeri-actions/parse-cdk@v1
+        with:
+          file: outputs.json
+      
+      - name: Setup AWS
+        uses: mercurialworld/chaeri-actions/setup-aws@v1
+        with:
+          role-to-assume: ${{ steps.parse.outputs.ActionsCodeDeployRoleARN }}
+
+      - name: Deploy
+        id: deploy
+        uses: mercurialworld/chaeri-actions/deploy-codedeploy@v1
+        with:
+          path: codedeploy
+          stack: ${{ steps.parse.outputs.stack-name }}
+          application: ${{ steps.parse.outputs.ApplicationName }}
+          deployment-group: ${{ steps.parse.outputs.DeploymentGroupName }}

@@ -1,0 +1,14 @@
+version: 0.0
+os: linux 
+files:
+  - source: /
+    destination: /var/lib/codedeploy-apps/media-players
+file_exists_behavior: OVERWRITE
+hooks:
+  ApplicationStart:
+    - location: hooks/ApplicationStart.sh
+      timeout: 180
+  ApplicationStop:
+    - location: hooks/ApplicationStop.sh
+      timeout: 60
+  

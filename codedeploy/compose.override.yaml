@@ -1,0 +1,9 @@
+# prod overrides
+services:
+  site:
+    restart: unless-stopped
+    image: "${IMAGE}"
+
+secrets:
+  env:
+    file: .env
