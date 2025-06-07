@@ -3,6 +3,7 @@ import {
     ActionIconGroup,
     Flex,
     Text,
+    Tooltip,
     VisuallyHidden,
 } from "@mantine/core";
 import { useContext, useState } from "react";
@@ -59,60 +60,77 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
                 <Text>Filter by platform:</Text>
             </Flex>
             <ActionIconGroup>
-                <ActionIcon
-                    variant={
-                        buttonsState.winActive ? "filterpressed" : "filterunpressed"
-                    }
-                    onClick={() => {
-                        handleTagClick(Platform.Windows);
-                        handleButtonStateChange("winActive");
-                    }}
-                    size={"xl"}
-                >
-                    <VisuallyHidden>Windows</VisuallyHidden>
-                    <FontAwesomeIcon icon={faWindows} />
-                </ActionIcon>
-                <ActionIcon
-                    variant={
-                        buttonsState.macActive ? "filterpressed" : "filterunpressed"
-                    }
-                    onClick={() => {
-                        handleTagClick(Platform.Mac);
-                        handleButtonStateChange("macActive");
-                    }}
-                    size={"xl"}
-                >
-                    <VisuallyHidden>MacOS</VisuallyHidden>
-                    <FontAwesomeIcon icon={faApple} />
-                </ActionIcon>
-                <ActionIcon
-                    variant={
-                        buttonsState.linuxActive
-                            ? "filterpressed"
-                            : "filterunpressed"
-                    }
-                    onClick={() => {
-                        handleTagClick(Platform.Linux);
-                        handleButtonStateChange("linuxActive");
-                    }}
-                    size={"xl"}
-                >
-                    <VisuallyHidden>Linux</VisuallyHidden>
-                    <FontAwesomeIcon icon={faLinux} />
-                </ActionIcon>
-                <ActionIcon
-                    variant={
-                        buttonsState.webActive ? "filterpressed" : "filterunpressed"
-                    }
-                    onClick={() => {
-                        handleTagClick(Platform.Web);
-                        handleButtonStateChange("webActive");
-                    }}
-                    size={"xl"}
-                >
-                    <VisuallyHidden>Web</VisuallyHidden>
-                    <FontAwesomeIcon icon={faGlobe} />
-                </ActionIcon>
+                <Tooltip label="Windows">
+                    <ActionIcon
+                        variant={
+                            buttonsState.winActive
+                                ? "filterpressed"
+                                : "filterunpressed"
+                        }
+                        onClick={() => {
+                            handleTagClick(Platform.Windows);
+                            handleButtonStateChange("winActive");
+                        }}
+                        size={"xl"}
+                    >
+                        <VisuallyHidden>Windows</VisuallyHidden>
+                        <FontAwesomeIcon icon={faWindows} />
+                    </ActionIcon>
+                </Tooltip>
+
+                <Tooltip label="MacOS">
+                    <ActionIcon
+                        variant={
+                            buttonsState.macActive
+                                ? "filterpressed"
+                                : "filterunpressed"
+                        }
+                        onClick={() => {
+                            handleTagClick(Platform.Mac);
+                            handleButtonStateChange("macActive");
+                        }}
+                        size={"xl"}
+                    >
+                        <VisuallyHidden>MacOS</VisuallyHidden>
+                        <FontAwesomeIcon icon={faApple} />
+                    </ActionIcon>
+                </Tooltip>
+
+                <Tooltip label="Linux">
+                    <ActionIcon
+                        variant={
+                            buttonsState.linuxActive
+                                ? "filterpressed"
+                                : "filterunpressed"
+                        }
+                        onClick={() => {
+                            handleTagClick(Platform.Linux);
+                            handleButtonStateChange("linuxActive");
+                        }}
+                        size={"xl"}
+                    >
+                        <VisuallyHidden>Linux</VisuallyHidden>
+                        <FontAwesomeIcon icon={faLinux} />
+                    </ActionIcon>
+                </Tooltip>
+
+                <Tooltip label="Web">
+                    <ActionIcon
+                        variant={
+                            buttonsState.webActive
+                                ? "filterpressed"
+                                : "filterunpressed"
+                        }
+                        onClick={() => {
+                            handleTagClick(Platform.Web);
+                            handleButtonStateChange("webActive");
+                        }}
+                        size={"xl"}
+                    >
+                        <VisuallyHidden>Web</VisuallyHidden>
+                        <FontAwesomeIcon icon={faGlobe} />
+                    </ActionIcon>
+                </Tooltip>
             </ActionIconGroup>
             <Flex>
                 <Text>{playerCount} results</Text>
