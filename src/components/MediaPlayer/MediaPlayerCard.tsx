@@ -19,7 +19,11 @@ const MediaPlayerCard = ({ player, icon }: MediaPlayerProps) => {
         <Card withBorder p="xl" radius="md" className={classes.card}>
             <div className={classes.inner} color="#000">
                 <div className={classes.icon}>
-                    <Image src={icon} className={classes.image}></Image>
+                    <Image
+                        src={icon}
+                        className={classes.image}
+                        alt={`The logo for ${player.name}.`}
+                    ></Image>
                 </div>
                 <div className={classes.detail}>
                     <Title order={1} className={classes.lead}>

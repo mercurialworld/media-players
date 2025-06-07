@@ -3,7 +3,18 @@ import classes from "./Information.module.css";
 const Info = () => {
     return (
         <div className={classes.info}>
-            <h1>Media Players</h1>
+            <div>
+                <h1>
+                    <img
+                        className={classes.logoIcon}
+                        src="https://raw.githubusercontent.com/music-presence/icons/refs/heads/master/dist/tray-dark.png"
+                        alt="The Music Presence logo."
+                    />
+                    <span />
+                    {"   "}
+                    Media Players
+                </h1>
+            </div>
             <p>
                 This is a list of all media players that Music Presence can detect.
                 It is always kept up to date from official sources.

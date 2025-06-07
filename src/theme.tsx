@@ -33,7 +33,7 @@ export const MantineTheme = createTheme({
             return {
                 ...defaultResolvedColors,
                 background: "var(--mantine-color-dark-4)",
-                hover: "var(--mantine-color-dark-3)",
+                hover: "var(--mantine-color-dark-5)",
             };
         }
 

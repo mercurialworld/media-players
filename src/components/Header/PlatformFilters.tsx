@@ -1,20 +1,25 @@
 import {
     ActionIcon,
     ActionIconGroup,
-    Flex,
     Text,
+    Tooltip,
     VisuallyHidden,
 } from "@mantine/core";
-import { useContext, useState } from "react";
-import { Platform } from "../../utils/CheckAvailability";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faApple, faLinux, faWindows } from "@fortawesome/free-brands-svg-icons";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 import classes from "./PlatformFilters.module.css";
-import { PlayerCountContext } from "../../contexts/PlayerCountContext";
 
 type PlatformFiltersProps = {
     callback: (values: string[]) => void;
+};
+
+type PlatformButtonProps = {
+    platform: string;
+    faIcon: any;
+    activeState: boolean;
+    activeStateName: string;
 };
 
 const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
@@ -26,7 +31,55 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
         webActive: false,
     });
 
-    const playerCount = useContext(PlayerCountContext);
+    const platforms: PlatformButtonProps[] = [
+        {
+            platform: "Windows",
+            faIcon: faWindows,
+            activeState: buttonsState.winActive,
+            activeStateName: "winActive",
+        },
+        {
+            platform: "MacOS",
+            faIcon: faApple,
+            activeState: buttonsState.macActive,
+            activeStateName: "macActive",
+        },
+        {
+            platform: "Linux",
+            faIcon: faLinux,
+            activeState: buttonsState.linuxActive,
+            activeStateName: "linuxActive",
+        },
+        {
+            platform: "Web",
+            faIcon: faGlobe,
+            activeState: buttonsState.webActive,
+            activeStateName: "webActive",
+        },
+    ];
+
+    const PlatformFilterButton = ({
+        platform,
+        faIcon,
+        activeState,
+        activeStateName,
+    }: PlatformButtonProps) => {
+        return (
+            <Tooltip label={platform}>
+                <ActionIcon
+                    variant={activeState ? "filterpressed" : "filterunpressed"}
+                    onClick={() => {
+                        handleTagClick(platform);
+                        handleButtonStateChange(activeStateName);
+                    }}
+                    size={"xl"}
+                >
+                    <VisuallyHidden>{platform}</VisuallyHidden>
+                    <FontAwesomeIcon icon={faIcon} />
+                </ActionIcon>
+            </Tooltip>
+        );
+    };
 
     const handleTagClick = (platform: string) => {
         const filters = structuredClone(platformFilters);
@@ -46,7 +99,7 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
     const handleButtonStateChange = (key: string) => {
         const buttonStates = structuredClone(buttonsState);
 
-        // @ts-expect-error
+        // @ts-expect-error (getting property that does exist)
         buttonStates[key] = !buttonStates[key];
 
         setButtonsState(buttonStates);
@@ -54,69 +107,12 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
 
     return (
         <div className={classes.inner}>
-            {" "}
-            <Flex>
-                <Text>Filter by platform:</Text>
-            </Flex>
+            <Text size="sm" visibleFrom="md">
+                Platform:
+            </Text>
             <ActionIconGroup>
-                <ActionIcon
-                    variant={
-                        buttonsState.winActive ? "filterpressed" : "filterunpressed"
-                    }
-                    onClick={() => {
-                        handleTagClick(Platform.Windows);
-                        handleButtonStateChange("winActive");
-                    }}
-                    size={"xl"}
-                >
-                    <VisuallyHidden>Windows</VisuallyHidden>
-                    <FontAwesomeIcon icon={faWindows} />
-                </ActionIcon>
-                <ActionIcon
-                    variant={
-                        buttonsState.macActive ? "filterpressed" : "filterunpressed"
-                    }
-                    onClick={() => {
-                        handleTagClick(Platform.Mac);
-                        handleButtonStateChange("macActive");
-                    }}
-                    size={"xl"}
-                >
-                    <VisuallyHidden>MacOS</VisuallyHidden>
-                    <FontAwesomeIcon icon={faApple} />
-                </ActionIcon>
-                <ActionIcon
-                    variant={
-                        buttonsState.linuxActive
-                            ? "filterpressed"
-                            : "filterunpressed"
-                    }
-                    onClick={() => {
-                        handleTagClick(Platform.Linux);
-                        handleButtonStateChange("linuxActive");
-                    }}
-                    size={"xl"}
-                >
-                    <VisuallyHidden>Linux</VisuallyHidden>
-                    <FontAwesomeIcon icon={faLinux} />
-                </ActionIcon>
-                <ActionIcon
-                    variant={
-                        buttonsState.webActive ? "filterpressed" : "filterunpressed"
-                    }
-                    onClick={() => {
-                        handleTagClick(Platform.Web);
-                        handleButtonStateChange("webActive");
-                    }}
-                    size={"xl"}
-                >
-                    <VisuallyHidden>Web</VisuallyHidden>
-                    <FontAwesomeIcon icon={faGlobe} />
-                </ActionIcon>
+                {platforms.map((platform) => PlatformFilterButton(platform))}
             </ActionIconGroup>
-            <Flex>
-                <Text>{playerCount} results</Text>
-            </Flex>
         </div>
     );
 };
