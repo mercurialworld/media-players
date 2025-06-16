@@ -65,13 +65,14 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
         activeStateName,
     }: PlatformButtonProps) => {
         return (
-            <Tooltip label={platform}>
+            <Tooltip label={platform} key={`${platform}-tooltip`}>
                 <ActionIcon
                     variant={activeState ? "filterpressed" : "filterunpressed"}
                     onClick={() => {
                         handleTagClick(platform);
                         handleButtonStateChange(activeStateName);
                     }}
+                    key={platform}
                     size={"xl"}
                 >
                     <VisuallyHidden>{platform}</VisuallyHidden>

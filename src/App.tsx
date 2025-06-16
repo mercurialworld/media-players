@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import type { MediaPlayer } from "./types/MediaPlayer";
 import { MantineTheme } from "./theme";
 import MediaPlayersList from "./components/MediaPlayer/MediaPlayersList";
-import { useGetMediaPlayers } from "./hooks/useGetMediaPlayers";
+import { getMediaPlayers } from "./hooks/GetMediaPlayers";
 import { AvailableOn } from "./utils/CheckAvailability";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
@@ -14,7 +14,14 @@ import Info from "./components/Header/Information";
 import { PlayerCountContext } from "./contexts/PlayerCountContext";
 
 function App() {
-    const { players, icons, loading, error } = useGetMediaPlayers();
+    // players and icons
+    const [players, setPlayers] = useState([]);
+    const [icons, setIcons] = useState([]);
+
+    // loading/error states
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
     const [playerCount, setPlayerCount] = useState(0);
     const [filteredPlayers, setFilteredPlayers] = useState([]);
     const [search, setSearch] = useState("");
@@ -63,10 +70,30 @@ function App() {
     };
 
     useEffect(() => {
+        // KLJDFGFDAJGLIOKJNEIRKOLJAYHNPK$I%J<MYR$P%EK#OJM&YN$PEK:%IOJM
+        let ignore = false;
+
+        getMediaPlayers
+            .then((data: any) => {
+                if (!ignore) {
+                    setPlayers(data.players);
+                    setIcons(data.icons);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                setError(err);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
         if (players.length > 0) {
             setFilteredPlayers(players);
             setPlayerCount(players.length);
         }
+        return () => {
+            ignore = true;
+        };
     }, [players]);
 
     return (
