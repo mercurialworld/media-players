@@ -1,9 +1,6 @@
 import { TextInput } from "@mantine/core";
 import { useState } from "react";
-
-type SearchBarProps = {
-    callback: (value: string) => void;
-};
+import type { SearchBarProps } from "./types";
 
 const SearchBar = ({ callback }: SearchBarProps) => {
     const [value, setValue] = useState("");

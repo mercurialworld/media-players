@@ -4,13 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Tooltip } from "@mantine/core";
 
-import type { Source } from "../../../types/MediaPlayer";
 import { AvailableOn, Platform } from "../../../utils/CheckAvailability";
+import type { SourceProps } from "./types";
 
 // there will only be three operating systems and the web this is fine :^)
-type SourceProps = {
-    source: Source;
-};
+
 
 export const LinuxAvailability = ({ source }: SourceProps) => {
     return AvailableOn(Platform.Linux, source) ? (

@@ -11,17 +11,7 @@ import {
 import { useState } from "react";
 
 import classes from "./PlatformFilters.module.css";
-
-type PlatformFiltersProps = {
-    callback: (values: string[]) => void;
-};
-
-type PlatformButtonProps = {
-    platform: string;
-    faIcon: any;
-    activeState: boolean;
-    activeStateName: string;
-};
+import type { PlatformButtonProps, PlatformFiltersProps } from "./types";
 
 const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
     const [platformFilters, setPlatformFilters] = useState<string[]>([]);
