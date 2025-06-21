@@ -1,3 +1,7 @@
+import { faApple, faLinux, faWindows } from "@fortawesome/free-brands-svg-icons";
+import { faGlobe } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import {
     ActionIcon,
     ActionIconGroup,
@@ -6,9 +10,7 @@ import {
     VisuallyHidden,
 } from "@mantine/core";
 import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faApple, faLinux, faWindows } from "@fortawesome/free-brands-svg-icons";
-import { faGlobe } from "@fortawesome/free-solid-svg-icons";
+
 import classes from "./PlatformFilters.module.css";
 
 type PlatformFiltersProps = {

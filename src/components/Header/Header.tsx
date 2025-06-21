@@ -1,9 +1,10 @@
-import classes from "./Header.module.css";
-import SearchBar from "./SearchBar";
-import PlatformFilters from "./PlatformFilters";
 import { Text } from "@mantine/core";
-import { PlayerCountContext } from "../../contexts/PlayerCountContext";
 import { useContext } from "react";
+
+import { PlayerCountContext } from "../../contexts/PlayerCountContext";
+import classes from "./Header.module.css";
+import PlatformFilters from "./PlatformFilters";
+import SearchBar from "./SearchBar";
 
 type HeaderProps = {
     searchCallback: (value: string) => void;

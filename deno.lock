@@ -25,6 +25,7 @@
     "npm:constructs@*": "10.4.2",
     "npm:constructs@^10.4.2": "10.4.2",
     "npm:dayjs@^1.11.13": "1.11.13",
+    "npm:eslint-config-prettier@^10.1.5": "10.1.5_eslint@9.29.0",
     "npm:eslint-plugin-react-hooks@^5.2.0": "5.2.0_eslint@9.29.0",
     "npm:eslint-plugin-react-refresh@~0.4.19": "0.4.20_eslint@9.29.0",
     "npm:eslint@^9.29.0": "9.29.0",
@@ -1110,6 +1111,13 @@
     "escape-string-regexp@4.0.0": {
       "integrity": "sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA=="
     },
+    "eslint-config-prettier@10.1.5_eslint@9.29.0": {
+      "integrity": "sha512-zc1UmCpNltmVY34vuLRV61r1K27sWuX39E+uyUnY8xS2Bex88VV9cugG+UZbRSRGtGyFboj+D8JODyme1plMpw==",
+      "dependencies": [
+        "eslint"
+      ],
+      "bin": true
+    },
     "eslint-plugin-react-hooks@5.2.0_eslint@9.29.0": {
       "integrity": "sha512-+f15FfK64YQwZdJNELETdn5ibXEUQmW1DZL6KXhNnc2heoy/sg9VJJeT7n8TlMWouzWqSWavFkIhHyIbIAEapg==",
       "dependencies": [
@@ -1994,6 +2002,7 @@
         "npm:clsx@^2.1.1",
         "npm:constructs@^10.4.2",
         "npm:dayjs@^1.11.13",
+        "npm:eslint-config-prettier@^10.1.5",
         "npm:eslint-plugin-react-hooks@^5.2.0",
         "npm:eslint-plugin-react-refresh@~0.4.19",
         "npm:eslint@^9.29.0",

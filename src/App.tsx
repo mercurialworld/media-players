@@ -1,17 +1,18 @@
-import "./App.css";
 import "@mantine/core/styles.css";
+import "./App.css";
 
 import { MantineProvider } from "@mantine/core";
-import { useState, useEffect } from "react";
-import type { MediaPlayer } from "./types/MediaPlayer";
-import { MantineTheme } from "./theme";
-import MediaPlayersList from "./components/MediaPlayer/MediaPlayersList";
-import { getMediaPlayers } from "./hooks/GetMediaPlayers";
-import { AvailableOn } from "./utils/CheckAvailability";
-import Header from "./components/Header/Header";
+import { useEffect, useState } from "react";
+
 import Footer from "./components/Footer/Footer";
+import Header from "./components/Header/Header";
 import Info from "./components/Header/Information";
+import MediaPlayersList from "./components/MediaPlayer/Cards/MediaPlayersList";
 import { PlayerCountContext } from "./contexts/PlayerCountContext";
+import { getMediaPlayers } from "./hooks/GetMediaPlayers";
+import { MantineTheme } from "./theme";
+import type { MediaPlayer } from "./types/MediaPlayer";
+import { AvailableOn } from "./utils/CheckAvailability";
 
 function App() {
     // players and icons
