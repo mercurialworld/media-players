@@ -6,8 +6,7 @@ import classes from "./MediaPlayerCard.module.css";
 import {
     LinuxAvailability,
     MacAvailability,
-    WebAvailability,
-    WindowsAvailability,
+    WindowsAvailability
 } from "./MediaPlayerPlatforms";
 
 type MediaPlayerProps = {
@@ -44,7 +43,7 @@ const MediaPlayerCard = ({ player, icon }: MediaPlayerProps) => {
                         <WindowsAvailability source={player.sources} />
                         <MacAvailability source={player.sources} />
                         <LinuxAvailability source={player.sources} />
-                        <WebAvailability source={player.sources} />
+                        {/* <WebAvailability source={player.sources} /> */}
                     </div>
                 </div>
             </div>

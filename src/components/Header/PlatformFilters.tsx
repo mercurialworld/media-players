@@ -1,5 +1,4 @@
 import { faApple, faLinux, faWindows } from "@fortawesome/free-brands-svg-icons";
-import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {
@@ -52,12 +51,12 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
             activeState: buttonsState.linuxActive,
             activeStateName: "linuxActive",
         },
-        {
-            platform: "Web",
-            faIcon: faGlobe,
-            activeState: buttonsState.webActive,
-            activeStateName: "webActive",
-        },
+        // {
+        //     platform: "Web",
+        //     faIcon: faGlobe,
+        //     activeState: buttonsState.webActive,
+        //     activeStateName: "webActive",
+        // },
     ];
 
     const PlatformFilterButton = ({
