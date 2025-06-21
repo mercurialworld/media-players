@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Info from "./components/Header/Information";
-import MediaPlayersList from "./components/MediaPlayer/Cards/MediaPlayersList";
+import MediaPlayersTable from "./components/MediaPlayer/Table/MediaPlayersTable";
 import { PlayerCountContext } from "./contexts/PlayerCountContext";
 import { getMediaPlayers } from "./hooks/GetMediaPlayers";
 import { MantineTheme } from "./theme";
@@ -110,7 +110,7 @@ function App() {
                 {loading && <p>Loading...</p>}
                 {error && <p>Error loading players.</p>}
                 {!loading && !error && (
-                    <MediaPlayersList players={filteredPlayers} icons={icons} />
+                    <MediaPlayersTable players={filteredPlayers} icons={icons} />
                 )}
             </div>
             <Footer />
