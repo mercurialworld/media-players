@@ -25,8 +25,6 @@ function useGetMediaPlayers(url: string) {
                                 player.id.length - 15,
                             );
 
-                            console.log(`actual player ID is ${actualPlayerID}`);
-
                             // and then transplant the info from the non-placeholder
                             var nonPlaceholderPlayer: MediaPlayer = players.find(
                                 (player: MediaPlayer) => player.id == actualPlayerID,

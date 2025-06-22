@@ -1,46 +1,25 @@
 import { Table } from "@mantine/core";
 
 import type { MediaPlayer } from "../../../types/MediaPlayer";
-import { AvailableOn, Platform } from "../../../utils/CheckAvailability";
-import type { MediaPlayersListProps } from "../common";
-import classes from "./MediaPlayerTable.module.css";
+import { GetIconURL, type MediaPlayersListProps } from "../common";
 import MediaPlayersTableRow from "./MediaPlayerTableRow";
-import type { MediaPlayerRow } from "./types";
-
-const defaultIconURL =
-    "https://raw.githubusercontent.com/music-presence/icons/refs/heads/master/dist/tray-dark.png";
-
-const createRow = (player: MediaPlayer, icons: string[]): MediaPlayerRow => {
-    let iconURL =
-        // @ts-expect-error (getting property with name "<player id>")
-        icons[player.id]?.[2]?.url ?? defaultIconURL; // tray icon
-
-    return {
-        id: player.id,
-        icon: iconURL,
-        name: player.name,
-        website: player.url,
-        windows: AvailableOn(Platform.WINDOWS, player.sources) ?? false,
-        mac: AvailableOn(Platform.MAC, player.sources) ?? false,
-        linux: AvailableOn(Platform.LINUX, player.sources) ?? false,
-        web: AvailableOn(Platform.WEB, player.sources) ?? false,
-    };
-};
 
 const MediaPlayersTable = ({ players, icons }: MediaPlayersListProps) => {
     const rows = players.map((player: MediaPlayer) => {
-        let row = createRow(player, icons);
+        let iconURL = GetIconURL(icons, player.id);
 
-        return <MediaPlayersTableRow row={row} />;
+        return (
+            <MediaPlayersTableRow
+                key={`${player.id}-table-row`}
+                player={player}
+                icon={iconURL}
+            />
+        );
     });
 
     return (
         <Table.ScrollContainer minWidth={500}>
-            <Table
-                verticalSpacing={"md"}
-                className={classes.mediaPlayerTable}
-                highlightOnHover
-            >
+            <Table verticalSpacing={"md"} highlightOnHover>
                 <Table.Thead>
                     <Table.Tr>
                         <Table.Th>Name</Table.Th>

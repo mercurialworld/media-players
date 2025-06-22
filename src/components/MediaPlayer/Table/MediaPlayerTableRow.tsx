@@ -1,26 +1,37 @@
 import { Button, Image, Table } from "@mantine/core";
-import { IconCheck, IconExternalLink } from "@tabler/icons-react";
+import { IconExternalLink } from "@tabler/icons-react";
+import {
+    LinuxAvailability,
+    MacAvailability,
+    WindowsAvailability,
+} from "../MediaPlayerPlatforms";
 import classes from "./MediaPlayerTable.module.css";
 import type { RowProps } from "./types";
 
-const MediaPlayersTableRow = ({ row }: RowProps) => {
+const MediaPlayersTableRow = ({ player, icon }: RowProps) => {
     return (
-        <Table.Tr key={`${row.id}-table-row`}>
+        <Table.Tr>
             <Table.Td>
                 <div className={classes.name}>
                     <Image
-                        src={row.icon}
+                        src={icon}
                         className={classes.image}
-                        alt={`The logo for ${row.name}.`}
+                        alt={`The logo for ${player.name}.`}
                     />
-                    <span>{row.name}</span>
+                    <span>{player.name}</span>
                 </div>
             </Table.Td>
-            <Table.Td>{row.windows ? <IconCheck size={25} /> : null}</Table.Td>
-            <Table.Td>{row.mac ? <IconCheck size={25} /> : null}</Table.Td>
-            <Table.Td>{row.linux ? <IconCheck size={25} /> : null}</Table.Td>
+            <Table.Td>
+                <WindowsAvailability source={player.sources} size={"xl"} />
+            </Table.Td>
+            <Table.Td>
+                <MacAvailability source={player.sources} size={"xl"} />
+            </Table.Td>
+            <Table.Td>
+                <LinuxAvailability source={player.sources} size={"xl"} />
+            </Table.Td>
             {/* <Table.Td> 
-                {row.web ? <IconCheck size={25}/> : null}
+                <WebAvailability source={player.sources} size={"xl"} />
             </Table.Td> */}
             <Table.Td>
                 <div className={classes.site}>
@@ -29,9 +40,9 @@ const MediaPlayersTableRow = ({ row }: RowProps) => {
                         size="compact-sm"
                         variant="weblink"
                         component="a"
-                        href={row.website}
+                        href={player.url}
                     >
-                        {row.website.substring(8, row.website.length)}
+                        {player.url.substring(8, player.url.length)}
                     </Button>
                 </div>
             </Table.Td>

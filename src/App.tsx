@@ -53,15 +53,17 @@ function App() {
                 type: "init",
                 players: players,
             });
-        } else {
+        } else if (error) {
             loadStateDispatch({
                 type: LoadStateType.ERROR,
                 error: error,
             });
+        } else {
+            loadStateDispatch({
+                type: LoadStateType.LOADING,
+            });
         }
     }, [players]);
-
-    // handling filters/searches
 
     return (
         <MantineProvider defaultColorScheme="dark" theme={MantineTheme}>
@@ -71,13 +73,7 @@ function App() {
                     <PlayerListDispatchContext value={playersListDispatch}>
                         <Header />
                         <div className="content">
-                            {loadState.loading && <p>Loading...</p>}
-                            {loadState.error && (
-                                <p>Error loading players: {loadState.errorString}</p>
-                            )}
-                            {!loadState.loading && !loadState.error && (
-                                <MediaPlayerDisplay />
-                            )}
+                            <MediaPlayerDisplay />
                         </div>
                         <Footer />
                     </PlayerListDispatchContext>

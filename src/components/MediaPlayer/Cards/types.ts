@@ -1,8 +1,4 @@
-import type { MediaPlayer, Source } from "../../../types/MediaPlayer";
-
-export type SourceProps = {
-    source: Source;
-};
+import type { MediaPlayer } from "../../../types/MediaPlayer";
 
 export type MediaPlayerProps = {
     player: MediaPlayer;
