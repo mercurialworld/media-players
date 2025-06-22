@@ -37,9 +37,9 @@ const Header = () => {
             <div className={classes.inner}>
                 <div className={classes.filterRow}>
                     <SearchBar callback={SearchDispatch} />{" "}
-                    <PlatformFilters callback={FilterDispatch} />
                 </div>
                 <div className={classes.resultsRow}>
+                    <PlatformFilters callback={FilterDispatch} />
                     <Text size="sm">
                         {playerListState.filteredPlayers.length} results
                     </Text>

@@ -38,5 +38,11 @@
 }
 
 .resultsRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+
     color: var(--mantine-color-dark-2);
 }

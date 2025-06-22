@@ -100,9 +100,7 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
 
     return (
         <div className={classes.inner}>
-            <Text size="sm" visibleFrom="md">
-                Platform:
-            </Text>
+            <Text size="sm">Platform:</Text>
             <ActionIconGroup>
                 {platforms.map((platform) => PlatformFilterButton(platform))}
             </ActionIconGroup>

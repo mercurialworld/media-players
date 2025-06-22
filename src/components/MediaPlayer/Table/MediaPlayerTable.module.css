@@ -1,8 +1,11 @@
 .name {
     display: flex;
     flex-direction: row;
-    gap: 0.5em;
+    gap: 1em;
     align-items: center;
+
+    font-family: "Nunito", sans-serif;
+    font-size: 1.25em;
     text-align: left;
     font-weight: bold;
 }
