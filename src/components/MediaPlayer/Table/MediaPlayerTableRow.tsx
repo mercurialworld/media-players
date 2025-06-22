@@ -1,14 +1,14 @@
 import { Button, Image, Table } from "@mantine/core";
 import { IconExternalLink } from "@tabler/icons-react";
+import type { MediaPlayerProps } from "../../../types/MediaPlayerDisplay";
 import {
     LinuxAvailability,
     MacAvailability,
     WindowsAvailability,
 } from "../MediaPlayerPlatforms";
 import classes from "./MediaPlayerTable.module.css";
-import type { RowProps } from "./types";
 
-const MediaPlayersTableRow = ({ player, icon }: RowProps) => {
+const MediaPlayersTableRow = ({ player, icon }: MediaPlayerProps) => {
     return (
         <Table.Tr>
             <Table.Td>

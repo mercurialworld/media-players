@@ -1,13 +1,13 @@
 import { Button, Card, Image, Title } from "@mantine/core";
 import { IconExternalLink } from "@tabler/icons-react";
 
+import type { MediaPlayerProps } from "../../../types/MediaPlayerDisplay";
 import {
     LinuxAvailability,
     MacAvailability,
     WindowsAvailability,
 } from "../MediaPlayerPlatforms";
 import classes from "./MediaPlayerCard.module.css";
-import type { MediaPlayerProps } from "./types";
 
 const MediaPlayerCard = ({ player, icon }: MediaPlayerProps) => {
     return (

@@ -1,4 +1,4 @@
-import type { Platform } from "../../utils/CheckAvailability";
+import type { Platform } from "../utils/CheckAvailability";
 
 export type PlatformFiltersProps = {
     callback: (values: Platform[]) => void;

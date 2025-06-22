@@ -41,7 +41,7 @@ const Header = () => {
                 <div className={classes.resultsRow}>
                     <PlatformFilters callback={FilterDispatch} />
                     <Text size="sm">
-                        {playerListState.filteredPlayers.length} results
+                        {playerListState.filteredPlayers.length} players
                     </Text>
                 </div>
             </div>

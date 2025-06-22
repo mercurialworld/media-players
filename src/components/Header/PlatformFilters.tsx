@@ -11,9 +11,9 @@ import {
 import { useContext, useState } from "react";
 
 import { PlayerListContext } from "../../contexts/PlayerListContext";
+import type { PlatformButtonProps, PlatformFiltersProps } from "../../types/Header";
 import { Platform } from "../../utils/CheckAvailability";
 import classes from "./PlatformFilters.module.css";
-import type { PlatformButtonProps, PlatformFiltersProps } from "./types";
 
 const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
     const playerListState = useContext(PlayerListContext);
