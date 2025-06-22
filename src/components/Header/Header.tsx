@@ -1,23 +1,48 @@
 import { Text } from "@mantine/core";
 import { useContext } from "react";
 
-import { PlayerCountContext } from "../../contexts/PlayerCountContext";
+import { LoadStateContext } from "../../contexts/LoadStateContext";
+import {
+    PlayerListContext,
+    PlayerListDispatchContext,
+} from "../../contexts/PlayerListContext";
+import type { Platform } from "../../utils/CheckAvailability";
 import classes from "./Header.module.css";
 import PlatformFilters from "./PlatformFilters";
 import SearchBar from "./SearchBar";
-import type { HeaderProps } from "./types";
 
-const Header = ({ searchCallback, filterCallback }: HeaderProps) => {
-    const playerCount = useContext(PlayerCountContext);
+const Header = () => {
+    const loadState = useContext(LoadStateContext);
+    const playerListState = useContext(PlayerListContext);
+    const playerListDispatch = useContext(PlayerListDispatchContext);
+
+    const SearchDispatch = (query: string) => {
+        playerListDispatch({
+            type: "search",
+            players: loadState.players,
+            query: query,
+        });
+    };
+
+    const FilterDispatch = (platforms: Platform[]) => {
+        playerListDispatch({
+            type: "filter",
+            players: loadState.players,
+            platforms: platforms,
+        });
+    };
+
     return (
         <header className={classes.header}>
             <div className={classes.inner}>
                 <div className={classes.filterRow}>
-                    <SearchBar callback={searchCallback} />{" "}
-                    <PlatformFilters callback={filterCallback} />
+                    <SearchBar callback={SearchDispatch} />{" "}
+                    <PlatformFilters callback={FilterDispatch} />
                 </div>
                 <div className={classes.resultsRow}>
-                    <Text size="sm">{playerCount} results</Text>
+                    <Text size="sm">
+                        {playerListState.filteredPlayers.length} results
+                    </Text>
                 </div>
             </div>
         </header>

@@ -1,20 +1,16 @@
+import type { Platform } from "../../utils/CheckAvailability";
+
 export type PlatformFiltersProps = {
-    callback: (values: string[]) => void;
+    callback: (values: Platform[]) => void;
 };
 
 export type PlatformButtonProps = {
-    platform: string;
+    platform: Platform;
     faIcon: any;
     activeState: boolean;
     activeStateName: string;
 };
 
-export type HeaderProps = {
-    searchCallback: (value: string) => void;
-    filterCallback: (values: string[]) => void;
-};
-
 export type SearchBarProps = {
     callback: (value: string) => void;
 };
-

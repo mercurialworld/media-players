@@ -8,13 +8,16 @@ import {
     Tooltip,
     VisuallyHidden,
 } from "@mantine/core";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
+import { PlayerListContext } from "../../contexts/PlayerListContext";
+import { Platform } from "../../utils/CheckAvailability";
 import classes from "./PlatformFilters.module.css";
 import type { PlatformButtonProps, PlatformFiltersProps } from "./types";
 
 const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
-    const [platformFilters, setPlatformFilters] = useState<string[]>([]);
+    const playerListState = useContext(PlayerListContext);
+
     const [buttonsState, setButtonsState] = useState({
         linuxActive: false,
         winActive: false,
@@ -24,25 +27,25 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
 
     const platforms: PlatformButtonProps[] = [
         {
-            platform: "Windows",
+            platform: Platform.WINDOWS,
             faIcon: faWindows,
             activeState: buttonsState.winActive,
             activeStateName: "winActive",
         },
         {
-            platform: "MacOS",
+            platform: Platform.MAC,
             faIcon: faApple,
             activeState: buttonsState.macActive,
             activeStateName: "macActive",
         },
         {
-            platform: "Linux",
+            platform: Platform.LINUX,
             faIcon: faLinux,
             activeState: buttonsState.linuxActive,
             activeStateName: "linuxActive",
         },
         // {
-        //     platform: "Web",
+        //     platform: Platform.WEB,
         //     faIcon: faGlobe,
         //     activeState: buttonsState.webActive,
         //     activeStateName: "webActive",
@@ -73,8 +76,8 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
         );
     };
 
-    const handleTagClick = (platform: string) => {
-        const filters = structuredClone(platformFilters);
+    const handleTagClick = (platform: Platform) => {
+        const filters = structuredClone(playerListState.platformFilters);
 
         const idx = filters.indexOf(platform);
         if (idx > -1) {
@@ -82,8 +85,6 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
         } else {
             filters.push(platform);
         }
-
-        setPlatformFilters(filters);
 
         callback && callback(filters);
     };

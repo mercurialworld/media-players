@@ -7,7 +7,7 @@ import { useEffect, useReducer } from "react";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Info from "./components/Header/Information";
-import MediaPlayersTable from "./components/MediaPlayer/Table/MediaPlayersTable";
+import MediaPlayerDisplay from "./components/MediaPlayer/MediaPlayerDisplay";
 import { LoadStateContext } from "./contexts/LoadStateContext";
 import {
     PlayerListContext,
@@ -27,11 +27,11 @@ import { MantineTheme } from "./theme";
 
 function App() {
     // reducers
-    const [loadStateTasks, loadStateDispatch] = useReducer(
+    const [loadState, loadStateDispatch] = useReducer(
         LoadStateReducer,
         InitialLoadState,
     );
-    const [listTasks, listTasksDispatch] = useReducer(
+    const [playersList, playersListDispatch] = useReducer(
         PlayerListManipReducer,
         InitialListState,
     );
@@ -49,7 +49,7 @@ function App() {
                 icons: icons,
             });
 
-            listTasksDispatch({
+            playersListDispatch({
                 type: "init",
                 players: players,
             });
@@ -66,26 +66,17 @@ function App() {
     return (
         <MantineProvider defaultColorScheme="dark" theme={MantineTheme}>
             <Info />
-            <LoadStateContext value={loadStateTasks}>
-                <PlayerListContext value={listTasks}>
-                    <PlayerListDispatchContext value={listTasksDispatch}>
-                        <Header
-                            searchCallback={handleSearchInputChange}
-                            filterCallback={handleFiltersChange}
-                        />
+            <LoadStateContext value={loadState}>
+                <PlayerListContext value={playersList}>
+                    <PlayerListDispatchContext value={playersListDispatch}>
+                        <Header />
                         <div className="content">
-                            {loadStateTasks.loading && <p>Loading...</p>}
-                            {loadStateTasks.error && (
-                                <p>
-                                    Error loading players:{" "}
-                                    {loadStateTasks.errorString}
-                                </p>
+                            {loadState.loading && <p>Loading...</p>}
+                            {loadState.error && (
+                                <p>Error loading players: {loadState.errorString}</p>
                             )}
-                            {!loadStateTasks.loading && !loadStateTasks.error && (
-                                <MediaPlayersTable
-                                    players={filteredPlayers}
-                                    icons={icons}
-                                />
+                            {!loadState.loading && !loadState.error && (
+                                <MediaPlayerDisplay />
                             )}
                         </div>
                         <Footer />

@@ -1,11 +1,9 @@
-import { createContext, type ActionDispatch } from "react";
+import { createContext } from "react";
 import {
     InitialListState,
     type ListState,
-    type PlayerListManipActions,
 } from "../reducers/PlayerListManipReducer";
 
 export const PlayerListContext = createContext<ListState>(InitialListState);
-export const PlayerListDispatchContext = createContext<ActionDispatch<
-    [action: PlayerListManipActions]
-> | null>(null);
+// [TODO] better typing on this
+export const PlayerListDispatchContext = createContext<any>({});
