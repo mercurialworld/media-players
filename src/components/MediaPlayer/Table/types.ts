@@ -8,3 +8,7 @@ export interface MediaPlayerRow {
     linux: boolean,
     web: boolean
 }
+
+export type RowProps = {
+    row: MediaPlayerRow
+}

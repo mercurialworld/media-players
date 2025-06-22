@@ -95,7 +95,7 @@ function App() {
         return () => {
             ignore = true;
         };
-    }, [players]);
+    }, []);
 
     return (
         <MantineProvider defaultColorScheme="dark" theme={MantineTheme}>
