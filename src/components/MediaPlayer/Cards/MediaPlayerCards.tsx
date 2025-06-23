@@ -1,7 +1,8 @@
 import { SimpleGrid } from "@mantine/core";
 
 import type { MediaPlayer } from "../../../types/MediaPlayer";
-import { GetIconURL, type MediaPlayersListProps } from "../common";
+import type { MediaPlayersListProps } from "../../../types/MediaPlayerDisplay";
+import { GetIconURL } from "../common";
 import MediaPlayerCard from "./MediaPlayerCard";
 
 const MediaPlayerCards = ({ players, icons }: MediaPlayersListProps) => {
