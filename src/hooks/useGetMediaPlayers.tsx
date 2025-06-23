@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import type { MediaPlayer } from "../types/MediaPlayer";
+
+import type { MediaPlayer } from "@project-types/MediaPlayer";
 
 function useGetMediaPlayers(url: string) {
     const [players, setPlayers] = useState<MediaPlayer[]>([]);

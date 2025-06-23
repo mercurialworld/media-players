@@ -1,4 +1,4 @@
-import classes from "./Information.module.css";
+import classes from "@styles/Information.module.css";
 
 const Info = () => {
     return (

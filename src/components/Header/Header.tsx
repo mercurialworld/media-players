@@ -1,21 +1,22 @@
 import { Text } from "@mantine/core";
 import { useContext } from "react";
 
-import { LoadStateContext } from "../../contexts/LoadStateContext";
+import DisplayToggle from "@components/Header/DisplayToggle";
+import SearchBar from "@components/Header/SearchBar";
+import PlatformFilters from "@components/PlatformFilters/PlatformFilters";
+import { LoadStateContext } from "@contexts/LoadStateContext";
 import {
     PlayerDisplayContext,
     PlayerDisplayDispatchContext,
-} from "../../contexts/PlayerDisplayContext";
+} from "@contexts/PlayerDisplayContext";
 import {
     PlayerListContext,
     PlayerListDispatchContext,
-} from "../../contexts/PlayerListContext";
-import { DisplayType } from "../../reducers/PlayerDisplayReducer";
-import type { Platform } from "../../utils/CheckAvailability";
-import PlatformFilters from "../PlatformFilters/PlatformFilters";
-import DisplayToggle from "./DisplayToggle";
-import classes from "./Header.module.css";
-import SearchBar from "./SearchBar";
+} from "@contexts/PlayerListContext";
+import { DisplayType } from "@reducers/PlayerDisplayReducer";
+import type { Platform } from "@utils/CheckAvailability";
+
+import classes from "@stylesHeader.module.css";
 
 const Header = () => {
     // Initial list

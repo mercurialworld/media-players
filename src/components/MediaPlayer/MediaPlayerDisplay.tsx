@@ -1,12 +1,13 @@
 import { useContext } from "react";
-import { LoadStateContext } from "../../contexts/LoadStateContext";
-import { PlayerDisplayContext } from "../../contexts/PlayerDisplayContext";
-import { PlayerListContext } from "../../contexts/PlayerListContext";
-import { DisplayType } from "../../reducers/PlayerDisplayReducer";
-import type { MediaPlayersListProps } from "../../types/MediaPlayerDisplay";
-import MediaPlayerCards from "./Cards/MediaPlayerCards";
-import classes from "./MediaPlayerDisplay.module.css";
-import MediaPlayerTable from "./Table/MediaPlayerTable";
+
+import MediaPlayerCards from "@components/MediaPlayer/Cards/MediaPlayerCards";
+import classes from "@components/MediaPlayer/MediaPlayerDisplay.module.css";
+import MediaPlayerTable from "@components/MediaPlayer/Table/MediaPlayerTable";
+import { LoadStateContext } from "@contexts/LoadStateContext";
+import { PlayerDisplayContext } from "@contexts/PlayerDisplayContext";
+import { PlayerListContext } from "@contexts/PlayerListContext";
+import type { MediaPlayersListProps } from "@project-types/MediaPlayerDisplay";
+import { DisplayType } from "@reducers/PlayerDisplayReducer";
 
 const ShowMediaPlayers = (type: DisplayType, components: MediaPlayersListProps) => {
     return type === DisplayType.CARDS ? (

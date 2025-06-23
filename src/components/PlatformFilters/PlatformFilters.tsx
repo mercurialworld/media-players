@@ -1,5 +1,6 @@
 import { faApple, faLinux, faWindows } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconFilter2, IconFilter2Cancel } from "@tabler/icons-react";
 
 import {
     ActionIcon,
@@ -12,13 +13,15 @@ import {
 } from "@mantine/core";
 import { useContext } from "react";
 
-import { IconFilter2, IconFilter2Cancel } from "@tabler/icons-react";
-import { PlayerDisplayContext } from "../../contexts/PlayerDisplayContext";
-import { PlayerListContext } from "../../contexts/PlayerListContext";
-import { DisplayType } from "../../reducers/PlayerDisplayReducer";
-import type { PlatformButtonProps, PlatformFiltersProps } from "../../types/Header";
-import { Platform } from "../../utils/CheckAvailability";
-import classes from "./PlatformFilters.module.css";
+import { PlayerDisplayContext } from "@contexts/PlayerDisplayContext";
+import { PlayerListContext } from "@contexts/PlayerListContext";
+import type {
+    PlatformButtonProps,
+    PlatformFiltersProps,
+} from "@project-types/Header";
+import { DisplayType } from "@reducers/PlayerDisplayReducer";
+import classes from "@styles/PlatformFilters.module.css";
+import { Platform } from "@utils/CheckAvailability";
 
 const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
     const playerListState = useContext(PlayerListContext);

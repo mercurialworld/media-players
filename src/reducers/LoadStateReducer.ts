@@ -1,4 +1,4 @@
-import type { MediaPlayer } from "../types/MediaPlayer";
+import type { MediaPlayer } from "@project-types/MediaPlayer";
 
 export enum LoadStateType {
     LOADING,

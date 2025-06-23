@@ -6,6 +6,10 @@ import {
 } from "@mantine/core";
 
 export const MantineTheme = createTheme({
+    fontFamily: "Roboto, sans-serif",
+    headings: {
+        fontFamily: "Nunito, sans-serif",
+    },
     variantColorResolver: (input) => {
         const defaultResolvedColors = defaultVariantColorsResolver(input);
         const parsedColor = parseThemeColor({

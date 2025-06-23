@@ -1,6 +1,6 @@
 import { Anchor, Container, Group } from "@mantine/core";
 
-import classes from "./Footer.module.css";
+import classes from "@styles/Footer.module.css";
 
 const Footer = () => {
     const links = [

@@ -1,5 +1,5 @@
-import type { MediaPlayer } from "../types/MediaPlayer";
-import { AvailableOn, Platform } from "../utils/CheckAvailability";
+import type { MediaPlayer } from "@project-types/MediaPlayer";
+import { AvailableOn, Platform } from "@utils/CheckAvailability";
 
 export enum SortOptions {
     ASCENDING,

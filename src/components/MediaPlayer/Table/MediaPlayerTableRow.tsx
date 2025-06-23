@@ -1,12 +1,14 @@
-import { Button, Image, Table } from "@mantine/core";
 import { IconExternalLink } from "@tabler/icons-react";
-import type { MediaPlayerProps } from "../../../types/MediaPlayerDisplay";
+
+import { Button, Image, Table, Title } from "@mantine/core";
+
 import {
     LinuxAvailability,
     MacAvailability,
     WindowsAvailability,
-} from "../MediaPlayerPlatforms";
-import classes from "./MediaPlayerTable.module.css";
+} from "@components/MediaPlayer/MediaPlayerPlatforms";
+import type { MediaPlayerProps } from "@project-types/MediaPlayerDisplay";
+import classes from "@styles/MediaPlayerTable.module.css";
 
 const MediaPlayersTableRow = ({ player, icon }: MediaPlayerProps) => {
     return (
@@ -18,7 +20,7 @@ const MediaPlayersTableRow = ({ player, icon }: MediaPlayerProps) => {
                         className={classes.image}
                         alt={`The logo for ${player.name}.`}
                     />
-                    <span>{player.name}</span>
+                    <Title order={4}>{player.name}</Title>
                 </div>
             </Table.Td>
             <Table.Td>

@@ -21,7 +21,19 @@
         "noUnusedParameters": true,
         "erasableSyntaxOnly": false,
         "noFallthroughCasesInSwitch": true,
-        "noUncheckedSideEffectImports": true
+        "noUncheckedSideEffectImports": true,
+
+        /* Paths */
+        "baseUrl": "./",
+        "paths": {
+            "@project-types/*": ["src/types/*"],
+            "@components/*": ["src/components/*"],
+            "@styles/*": ["src/styles/*"],
+            "@hooks/*": ["src/hooks/*"],
+            "@reducers/*": ["src/reducers/*"],
+            "@contexts/*": ["src/contexts/*"],
+            "@utils/*": ["src/utils/*"]
+        }
     },
     "include": ["src"]
 }
