@@ -19,3 +19,14 @@
     font-family: "Nunito", sans-serif;
     color: var(--important-text-color);
 }
+
+.settings {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
