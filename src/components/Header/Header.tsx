@@ -16,7 +16,7 @@ import {
 import { DisplayType } from "@reducers/PlayerDisplayReducer";
 import type { Platform } from "@utils/CheckAvailability";
 
-import classes from "@stylesHeader.module.css";
+import classes from "@styles/Header.module.css";
 
 const Header = () => {
     // Initial list

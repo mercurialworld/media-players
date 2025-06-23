@@ -1,4 +1,4 @@
-import type { Source } from "../types/MediaPlayer";
+import type { Source } from "@project-types/MediaPlayer";
 
 export enum Platform {
     LINUX = "Linux",
