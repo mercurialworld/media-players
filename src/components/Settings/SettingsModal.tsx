@@ -15,6 +15,7 @@ const SettingsModal = ({
     transitionProps,
     settings,
 }: SettingsModalProps) => {
+    // [TODO] there's no way around it, manually control the components yourself
     return (
         <Modal
             opened={opened}

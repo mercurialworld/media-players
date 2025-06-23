@@ -1,3 +1,4 @@
+import { ColourSchemeToggle } from "@components/Settings/Setting/ColourSchemeToggle";
 import SettingsModal from "@components/Settings/SettingsModal";
 import { ActionIcon, Switch, Title } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
@@ -14,7 +15,7 @@ const Settings = () => {
             sectionSettings: [
                 {
                     settingTitle: "Colour scheme",
-                    setter: <Switch />,
+                    setter: <ColourSchemeToggle />,
                 },
             ],
         },
