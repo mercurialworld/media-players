@@ -1,7 +1,7 @@
 import { Button, Table } from "@mantine/core";
-
 import { IconSortAscending, IconSortDescending } from "@tabler/icons-react";
 import { useContext } from "react";
+
 import { LoadStateContext } from "../../../contexts/LoadStateContext";
 import {
     PlayerListContext,
@@ -60,6 +60,8 @@ const MediaPlayersTable = ({ players, icons }: MediaPlayersListProps) => {
                     <Table.Tr>
                         <Table.Th>
                             <Button
+                                justify="space-between"
+                                fullWidth
                                 rightSection={
                                     playerListState.sortDirection ===
                                     SortOptions.ASCENDING ? (
@@ -78,7 +80,16 @@ const MediaPlayersTable = ({ players, icons }: MediaPlayersListProps) => {
                             </Button>
                         </Table.Th>
                         <PlatformFilters callback={FilterDispatch} />
-                        <Table.Th>Website</Table.Th>
+                        <Table.Th>
+                            <Button
+                                fullWidth
+                                justify="space-between"
+                                variant="weblink"
+                                size="compact-sm"
+                            >
+                                Website
+                            </Button>
+                        </Table.Th>
                     </Table.Tr>
                 </Table.Thead>
                 <Table.Tbody>{rows}</Table.Tbody>
