@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Tooltip } from "@mantine/core";
 
+import type { SourceProps } from "../../types/MediaPlayerDisplay";
 import { AvailableOn, Platform } from "../../utils/CheckAvailability";
-import type { SourceProps } from "./common";
 
 // there will only be three operating systems and the web this is fine :^)
 

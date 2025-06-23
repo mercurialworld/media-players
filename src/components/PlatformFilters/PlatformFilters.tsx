@@ -4,51 +4,46 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     ActionIcon,
     ActionIconGroup,
+    Button,
+    Table,
     Text,
     Tooltip,
     VisuallyHidden,
 } from "@mantine/core";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
+import { IconFilter2, IconFilter2Cancel } from "@tabler/icons-react";
+import { PlayerDisplayContext } from "../../contexts/PlayerDisplayContext";
 import { PlayerListContext } from "../../contexts/PlayerListContext";
+import { DisplayType } from "../../reducers/PlayerDisplayReducer";
 import type { PlatformButtonProps, PlatformFiltersProps } from "../../types/Header";
 import { Platform } from "../../utils/CheckAvailability";
 import classes from "./PlatformFilters.module.css";
 
 const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
     const playerListState = useContext(PlayerListContext);
-
-    const [buttonsState, setButtonsState] = useState({
-        linuxActive: false,
-        winActive: false,
-        macActive: false,
-        webActive: false,
-    });
+    const playerDisplayState = useContext(PlayerDisplayContext);
 
     const platforms: PlatformButtonProps[] = [
         {
             platform: Platform.WINDOWS,
             faIcon: faWindows,
-            activeState: buttonsState.winActive,
-            activeStateName: "winActive",
+            activeState: playerListState.platforms.Windows,
         },
         {
             platform: Platform.MAC,
             faIcon: faApple,
-            activeState: buttonsState.macActive,
-            activeStateName: "macActive",
+            activeState: playerListState.platforms.MacOS,
         },
         {
             platform: Platform.LINUX,
             faIcon: faLinux,
-            activeState: buttonsState.linuxActive,
-            activeStateName: "linuxActive",
+            activeState: playerListState.platforms.Linux,
         },
         // {
         //     platform: Platform.WEB,
         //     faIcon: faGlobe,
-        //     activeState: buttonsState.webActive,
-        //     activeStateName: "webActive",
+        //     activeState: playerListState.platforms.Web,
         // },
     ];
 
@@ -56,7 +51,6 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
         platform,
         faIcon,
         activeState,
-        activeStateName,
     }: PlatformButtonProps) => {
         return (
             <Tooltip label={platform} key={`${platform}-tooltip`}>
@@ -64,7 +58,6 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
                     variant={activeState ? "filterpressed" : "filterunpressed"}
                     onClick={() => {
                         handleTagClick(platform);
-                        handleButtonStateChange(activeStateName);
                     }}
                     key={platform}
                     size={"xl"}
@@ -76,35 +69,41 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
         );
     };
 
+    const PlatformFilterHeaderButton = ({
+        platform,
+        activeState,
+    }: PlatformButtonProps) => {
+        return (
+            <Table.Th>
+                <Button
+                    rightSection={
+                        activeState ? <IconFilter2 /> : <IconFilter2Cancel />
+                    }
+                    variant="weblink"
+                    onClick={() => {
+                        handleTagClick(platform);
+                    }}
+                    key={platform}
+                >
+                    {platform}
+                </Button>
+            </Table.Th>
+        );
+    };
+
     const handleTagClick = (platform: Platform) => {
-        const filters = structuredClone(playerListState.platformFilters);
-
-        const idx = filters.indexOf(platform);
-        if (idx > -1) {
-            filters.splice(idx, 1);
-        } else {
-            filters.push(platform);
-        }
-
-        callback && callback(filters);
+        callback && callback(platform);
     };
 
-    const handleButtonStateChange = (key: string) => {
-        const buttonStates = structuredClone(buttonsState);
-
-        // @ts-expect-error (getting property that does exist)
-        buttonStates[key] = !buttonStates[key];
-
-        setButtonsState(buttonStates);
-    };
-
-    return (
+    return playerDisplayState.display === DisplayType.CARDS ? (
         <div className={classes.inner}>
             <Text size="sm">Platform:</Text>
             <ActionIconGroup>
                 {platforms.map((platform) => PlatformFilterButton(platform))}
             </ActionIconGroup>
         </div>
+    ) : (
+        <>{platforms.map((platform) => PlatformFilterHeaderButton(platform))}</>
     );
 };
 

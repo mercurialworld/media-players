@@ -2,7 +2,7 @@ export interface MediaPlayer {
     id: string;
     name: string;
     url: string;
-    represents: string[];
+    represents?: string[];
     sources: Source;
     attributes: Attributes;
     content: string[];

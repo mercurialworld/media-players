@@ -6,41 +6,72 @@ export enum SortOptions {
     DESCENDING,
 }
 
+export interface FilterState {
+    Windows: boolean;
+    MacOS: boolean;
+    Linux: boolean;
+    Web: boolean;
+}
+
 export interface ListState {
     // A list of media players to display on the website.
     filteredPlayers: MediaPlayer[];
     // A list of platforms to show players for, if any.
-    platformFilters: Platform[];
+    platforms: FilterState;
     // A query to filter against, if any.
     query: string;
+    // The sort direction.
+    sortDirection: SortOptions;
 }
 
 // set initial list of filtered players
 type Initialize = { type: "init"; players: MediaPlayer[] };
+// toggle ascending/descending
+type ToggleSort = { type: "toggleSort" };
 // sort ascending/descending
-type Sort = { type: "sort"; direction: SortOptions };
+type Sort = { type: "sort" };
 // search by query
 type Search = { type: "search"; players: MediaPlayer[]; query: string };
-// filter by platform
-type PlatformFilter = {
-    type: "filter";
+// add filter
+type AddFilter = {
+    type: "addFilter";
     players: MediaPlayer[];
-    platforms: Platform[];
+    platform: Platform;
+};
+// remove filter
+type RemoveFilter = {
+    type: "removeFilter";
+    players: MediaPlayer[];
+    platform: Platform;
 };
 
-export type PlayerListManipActions = Initialize | Sort | Search | PlatformFilter;
+export type PlayerListManipActions =
+    | Initialize
+    | ToggleSort
+    | Sort
+    | Search
+    | AddFilter
+    | RemoveFilter;
+
+export const InitialFilterState: FilterState = {
+    Windows: false,
+    MacOS: false,
+    Linux: false,
+    Web: false,
+};
 
 export const InitialListState: ListState = {
     filteredPlayers: [],
-    platformFilters: [],
+    platforms: InitialFilterState,
     query: "",
+    sortDirection: SortOptions.ASCENDING,
 };
 
 /* Sorts a list of media players by their name. */
 function SortByName(a: MediaPlayer, b: MediaPlayer): number {
-    if (a.name > b.name) {
+    if (a.name.toLowerCase() > b.name.toLowerCase()) {
         return 1;
-    } else if (a.name < b.name) {
+    } else if (a.name.toLowerCase() < b.name.toLowerCase()) {
         return -1;
     } else {
         return 0;
@@ -56,7 +87,7 @@ function FilterByQuery(players: MediaPlayer[], query: string = ""): MediaPlayer[
             // there's a match in the players it represents
             player.represents
                 // [TODO] remove once schema is updated
-                .filter((playerName) => !playerName.endsWith("-placeholder"))
+                ?.filter((playerName) => !playerName.endsWith("-placeholder"))
                 .find((playerName) =>
                     playerName.replace("-", " ").includes(query.toLowerCase()),
                 ),
@@ -102,35 +133,88 @@ export function PlayerListManipReducer(
         case "init":
             return {
                 ...state,
-                filteredPlayers: action.players,
+                filteredPlayers: FilterByPlatform(action.players),
+                platforms: {
+                    Windows: false,
+                    MacOS: false,
+                    Linux: false,
+                    Web: false,
+                },
+                query: "",
+                sortDirection: SortOptions.ASCENDING,
             };
-        case "sort":
+        case "toggleSort": {
+            let newSortDirection =
+                state.sortDirection === SortOptions.ASCENDING
+                    ? SortOptions.DESCENDING
+                    : SortOptions.ASCENDING;
+            let sortedPlayers = state.filteredPlayers.sort(SortByName);
+
+            return {
+                ...state,
+                sortDirection: newSortDirection,
+                filteredPlayers:
+                    newSortDirection === SortOptions.ASCENDING
+                        ? sortedPlayers
+                        : sortedPlayers.reverse(),
+            };
+        }
+        case "sort": {
             let sortedPlayers = state.filteredPlayers.sort(SortByName);
 
             return {
                 ...state,
                 filteredPlayers:
-                    action.direction === SortOptions.ASCENDING
+                    state.sortDirection === SortOptions.ASCENDING
                         ? sortedPlayers
                         : sortedPlayers.reverse(),
             };
-        case "search":
+        }
+        case "search": {
             return {
                 ...state,
                 query: action.query,
                 filteredPlayers: FilterByPlatform(
                     FilterByQuery(action.players, action.query),
-                    state.platformFilters,
+                    Object.entries(state.platforms)
+                        .filter(([_, val]) => val)
+                        .map(([plat, _]) => plat as Platform),
                 ),
             };
-        case "filter":
+        }
+        case "addFilter": {
+            let newPlatforms = state.platforms;
+            state.platforms[action.platform] = true;
+
+            let newPlatsList = Object.entries(newPlatforms)
+                .filter(([_, val]) => val)
+                .map(([plat, _]) => plat as Platform);
+
             return {
                 ...state,
-                platformFilters: action.platforms,
+                platforms: newPlatforms,
                 filteredPlayers: FilterByPlatform(
                     FilterByQuery(action.players, state.query),
-                    action.platforms,
+                    newPlatsList,
                 ),
             };
+        }
+        case "removeFilter": {
+            let newPlatforms = state.platforms;
+            state.platforms[action.platform] = false;
+
+            let newPlatsList = Object.entries(newPlatforms)
+                .filter(([_, val]) => val)
+                .map(([plat, _]) => plat as Platform);
+
+            return {
+                ...state,
+                platforms: newPlatforms,
+                filteredPlayers: FilterByPlatform(
+                    FilterByQuery(action.players, state.query),
+                    newPlatsList,
+                ),
+            };
+        }
     }
 }

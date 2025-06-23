@@ -10,6 +10,10 @@ import Info from "./components/Header/Information";
 import MediaPlayerDisplay from "./components/MediaPlayer/MediaPlayerDisplay";
 import { LoadStateContext } from "./contexts/LoadStateContext";
 import {
+    PlayerDisplayContext,
+    PlayerDisplayDispatchContext,
+} from "./contexts/PlayerDisplayContext";
+import {
     PlayerListContext,
     PlayerListDispatchContext,
 } from "./contexts/PlayerListContext";
@@ -19,6 +23,10 @@ import {
     LoadStateReducer,
     LoadStateType,
 } from "./reducers/LoadStateReducer";
+import {
+    DisplayStateReducer,
+    InitialDisplayState,
+} from "./reducers/PlayerDisplayReducer";
 import {
     InitialListState,
     PlayerListManipReducer,
@@ -34,6 +42,10 @@ function App() {
     const [playersList, playersListDispatch] = useReducer(
         PlayerListManipReducer,
         InitialListState,
+    );
+    const [displayType, displayTypeDispatch] = useReducer(
+        DisplayStateReducer,
+        InitialDisplayState,
     );
 
     // initial loading
@@ -71,11 +83,17 @@ function App() {
             <LoadStateContext value={loadState}>
                 <PlayerListContext value={playersList}>
                     <PlayerListDispatchContext value={playersListDispatch}>
-                        <Header />
-                        <div className="content">
-                            <MediaPlayerDisplay />
-                        </div>
-                        <Footer />
+                        <PlayerDisplayContext value={displayType}>
+                            <PlayerDisplayDispatchContext
+                                value={displayTypeDispatch}
+                            >
+                                <Header />
+                                <div className="content">
+                                    <MediaPlayerDisplay />
+                                </div>
+                                <Footer />
+                            </PlayerDisplayDispatchContext>
+                        </PlayerDisplayContext>
                     </PlayerListDispatchContext>
                 </PlayerListContext>
             </LoadStateContext>

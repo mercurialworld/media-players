@@ -3,18 +3,29 @@ import { useContext } from "react";
 
 import { LoadStateContext } from "../../contexts/LoadStateContext";
 import {
+    PlayerDisplayContext,
+    PlayerDisplayDispatchContext,
+} from "../../contexts/PlayerDisplayContext";
+import {
     PlayerListContext,
     PlayerListDispatchContext,
 } from "../../contexts/PlayerListContext";
+import { DisplayType } from "../../reducers/PlayerDisplayReducer";
 import type { Platform } from "../../utils/CheckAvailability";
+import PlatformFilters from "../PlatformFilters/PlatformFilters";
+import DisplayToggle from "./DisplayToggle";
 import classes from "./Header.module.css";
-import PlatformFilters from "./PlatformFilters";
 import SearchBar from "./SearchBar";
 
 const Header = () => {
+    // Initial list
     const loadState = useContext(LoadStateContext);
+    // List after filters
     const playerListState = useContext(PlayerListContext);
     const playerListDispatch = useContext(PlayerListDispatchContext);
+    // Display state
+    const playerDisplayState = useContext(PlayerDisplayContext);
+    const playerDisplayDispatch = useContext(PlayerDisplayDispatchContext);
 
     const SearchDispatch = (query: string) => {
         playerListDispatch({
@@ -24,11 +35,24 @@ const Header = () => {
         });
     };
 
-    const FilterDispatch = (platforms: Platform[]) => {
+    const FilterDispatch = (platform: Platform) => {
         playerListDispatch({
-            type: "filter",
+            type: playerListState.platforms[platform] ? "removeFilter" : "addFilter",
             players: loadState.players,
-            platforms: platforms,
+            platform: platform,
+        });
+    };
+
+    const DisplayToggleDispatch = () => {
+        // reset list and filters
+        playerListDispatch({
+            type: "init",
+            players: loadState.players,
+        });
+
+        // switch type
+        playerDisplayDispatch({
+            type: "switch",
         });
     };
 
@@ -36,10 +60,13 @@ const Header = () => {
         <header className={classes.header}>
             <div className={classes.inner}>
                 <div className={classes.filterRow}>
-                    <SearchBar callback={SearchDispatch} />{" "}
+                    <DisplayToggle callback={DisplayToggleDispatch} />
+                    <SearchBar callback={SearchDispatch} />
                 </div>
                 <div className={classes.resultsRow}>
-                    <PlatformFilters callback={FilterDispatch} />
+                    {playerDisplayState.display === DisplayType.CARDS && (
+                        <PlatformFilters callback={FilterDispatch} />
+                    )}
                     <Text size="sm">
                         {playerListState.filteredPlayers.length} players
                     </Text>
