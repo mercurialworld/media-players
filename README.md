@@ -8,7 +8,7 @@
 
 A single web page that populates itself from a call to the Music Presence media players API. Only uses React.
 
-The search bar only filters by the official, human-readable name. The filters check for the existence of sources for each platform.
+The search bar filters by the official, human-readable name, as well as whatever services the player can represent. The filters check for the existence of sources for each platform.
 
 ## How to run
 
