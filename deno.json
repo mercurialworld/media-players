@@ -1,6 +1,6 @@
 {
     "imports": {
-        "aws-cdk-lib": "npm:aws-cdk-lib@2",
+        "aws-cdk-lib": "npm:aws-cdk-lib@^2.202.0",
         "aws-cdk-github-oidc": "npm:aws-cdk-github-oidc@2",
         "constructs": "npm:constructs",
         "chaeri/": "https://raw.githubusercontent.com/mercurialworld/chaeri/refs/heads/main/lib/",

@@ -1,118 +1,102 @@
-import "./App.css";
 import "@mantine/core/styles.css";
+import "./App.css";
 
 import { MantineProvider } from "@mantine/core";
-import { useState, useEffect } from "react";
-import type { MediaPlayer } from "./types/MediaPlayer";
-import { MantineTheme } from "./theme";
-import MediaPlayersList from "./components/MediaPlayer/MediaPlayersList";
-import { getMediaPlayers } from "./hooks/GetMediaPlayers";
-import { AvailableOn } from "./utils/CheckAvailability";
-import Header from "./components/Header/Header";
+import { useEffect, useReducer } from "react";
+
 import Footer from "./components/Footer/Footer";
+import Header from "./components/Header/Header";
 import Info from "./components/Header/Information";
-import { PlayerCountContext } from "./contexts/PlayerCountContext";
+import MediaPlayerDisplay from "./components/MediaPlayer/MediaPlayerDisplay";
+import { LoadStateContext } from "./contexts/LoadStateContext";
+import {
+    PlayerDisplayContext,
+    PlayerDisplayDispatchContext,
+} from "./contexts/PlayerDisplayContext";
+import {
+    PlayerListContext,
+    PlayerListDispatchContext,
+} from "./contexts/PlayerListContext";
+import useGetMediaPlayers from "./hooks/useGetMediaPlayers";
+import {
+    InitialLoadState,
+    LoadStateReducer,
+    LoadStateType,
+} from "./reducers/LoadStateReducer";
+import {
+    DisplayStateReducer,
+    InitialDisplayState,
+} from "./reducers/PlayerDisplayReducer";
+import {
+    InitialListState,
+    PlayerListManipReducer,
+} from "./reducers/PlayerListManipReducer";
+import { MantineTheme } from "./theme";
 
 function App() {
-    // players and icons
-    const [players, setPlayers] = useState([]);
-    const [icons, setIcons] = useState([]);
+    // reducers
+    const [loadState, loadStateDispatch] = useReducer(
+        LoadStateReducer,
+        InitialLoadState,
+    );
+    const [playersList, playersListDispatch] = useReducer(
+        PlayerListManipReducer,
+        InitialListState,
+    );
+    const [displayType, displayTypeDispatch] = useReducer(
+        DisplayStateReducer,
+        InitialDisplayState,
+    );
 
-    // loading/error states
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    const [playerCount, setPlayerCount] = useState(0);
-    const [filteredPlayers, setFilteredPlayers] = useState([]);
-    const [search, setSearch] = useState("");
-
-    const filterPlayers = (platforms: string[] | null = null, search: string) => {
-        var filteredItems = players.filter((player: MediaPlayer) =>
-            player.name.toLowerCase().includes(search.toLowerCase()),
-        );
-
-        if (platforms) {
-            const platformFiltered = filteredItems.filter(function (
-                player: MediaPlayer,
-            ) {
-                // no platforms selected
-                if (platforms.length === 0) {
-                    return true;
-                } else {
-                    // counts if the player is available in all platforms listed
-                    var platformCount = 0;
-
-                    platforms.forEach((platform) => {
-                        if (AvailableOn(platform, player.sources)) {
-                            platformCount++;
-                        }
-                    });
-
-                    return platformCount === platforms.length;
-                }
-            });
-
-            filteredItems = platformFiltered;
-        }
-
-        setFilteredPlayers(filteredItems);
-        setPlayerCount(filteredItems.length);
-    };
-
-    const handleSearchInputChange = (search: string) => {
-        setSearch(search);
-
-        filterPlayers(null, search);
-    };
-
-    const handleFiltersChange = (platforms: string[]) => {
-        filterPlayers(platforms, search);
-    };
+    // initial loading
+    const { players, icons, error } = useGetMediaPlayers(
+        "https://live.musicpresence.app/v3/players.json",
+    );
 
     useEffect(() => {
-        // KLJDFGFDAJGLIOKJNEIRKOLJAYHNPK$I%J<MYR$P%EK#OJM&YN$PEK:%IOJM
-        let ignore = false;
-
-        getMediaPlayers
-            .then((data: any) => {
-                if (!ignore) {
-                    setPlayers(data.players);
-                    setIcons(data.icons);
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-                setError(err);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
         if (players.length > 0) {
-            setFilteredPlayers(players);
-            setPlayerCount(players.length);
+            loadStateDispatch({
+                type: LoadStateType.LOADED,
+                players: players,
+                icons: icons,
+            });
+
+            playersListDispatch({
+                type: "init",
+                players: players,
+            });
+        } else if (error) {
+            loadStateDispatch({
+                type: LoadStateType.ERROR,
+                error: error,
+            });
+        } else {
+            loadStateDispatch({
+                type: LoadStateType.LOADING,
+            });
         }
-        return () => {
-            ignore = true;
-        };
     }, [players]);
 
     return (
         <MantineProvider defaultColorScheme="dark" theme={MantineTheme}>
             <Info />
-            <PlayerCountContext value={playerCount}>
-                <Header
-                    searchCallback={handleSearchInputChange}
-                    filterCallback={handleFiltersChange}
-                />
-            </PlayerCountContext>
-            <div className="content">
-                {loading && <p>Loading...</p>}
-                {error && <p>Error loading players.</p>}
-                {!loading && !error && (
-                    <MediaPlayersList players={filteredPlayers} icons={icons} />
-                )}
-            </div>
-            <Footer />
+            <LoadStateContext value={loadState}>
+                <PlayerListContext value={playersList}>
+                    <PlayerListDispatchContext value={playersListDispatch}>
+                        <PlayerDisplayContext value={displayType}>
+                            <PlayerDisplayDispatchContext
+                                value={displayTypeDispatch}
+                            >
+                                <Header />
+                                <div className="content">
+                                    <MediaPlayerDisplay />
+                                </div>
+                                <Footer />
+                            </PlayerDisplayDispatchContext>
+                        </PlayerDisplayContext>
+                    </PlayerListDispatchContext>
+                </PlayerListContext>
+            </LoadStateContext>
         </MantineProvider>
     );
 }

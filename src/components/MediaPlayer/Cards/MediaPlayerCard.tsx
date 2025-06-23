@@ -1,18 +1,13 @@
 import { Button, Card, Image, Title } from "@mantine/core";
-import classes from "./MediaPlayerCard.module.css";
-import type { MediaPlayer } from "../../types/MediaPlayer";
+import { IconExternalLink } from "@tabler/icons-react";
+
+import type { MediaPlayerProps } from "../../../types/MediaPlayerDisplay";
 import {
     LinuxAvailability,
     MacAvailability,
-    WebAvailability,
     WindowsAvailability,
-} from "./MediaPlayerPlatforms";
-import { IconExternalLink } from "@tabler/icons-react";
-
-type MediaPlayerProps = {
-    player: MediaPlayer;
-    icon: string;
-};
+} from "../MediaPlayerPlatforms";
+import classes from "./MediaPlayerCard.module.css";
 
 const MediaPlayerCard = ({ player, icon }: MediaPlayerProps) => {
     return (
@@ -43,7 +38,7 @@ const MediaPlayerCard = ({ player, icon }: MediaPlayerProps) => {
                         <WindowsAvailability source={player.sources} />
                         <MacAvailability source={player.sources} />
                         <LinuxAvailability source={player.sources} />
-                        <WebAvailability source={player.sources} />
+                        {/* <WebAvailability source={player.sources} /> */}
                     </div>
                 </div>
             </div>

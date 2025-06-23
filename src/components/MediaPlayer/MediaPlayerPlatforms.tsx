@@ -1,43 +1,42 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { Source } from "../../types/MediaPlayer";
-import { AvailableOn, Platform } from "../../utils/CheckAvailability";
 import { faApple, faLinux, faWindows } from "@fortawesome/free-brands-svg-icons";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { Tooltip } from "@mantine/core";
 
+import type { SourceProps } from "../../types/MediaPlayerDisplay";
+import { AvailableOn, Platform } from "../../utils/CheckAvailability";
+
 // there will only be three operating systems and the web this is fine :^)
-type SourceProps = {
-    source: Source;
-};
 
-export const LinuxAvailability = ({ source }: SourceProps) => {
-    return AvailableOn(Platform.Linux, source) ? (
+export const LinuxAvailability = ({ source, size }: SourceProps) => {
+    return AvailableOn(Platform.LINUX, source) ? (
         <Tooltip label="Linux" position="bottom">
-            <FontAwesomeIcon icon={faLinux} />
+            <FontAwesomeIcon icon={faLinux} size={size} />
         </Tooltip>
     ) : null;
 };
 
-export const WindowsAvailability = ({ source }: SourceProps) => {
-    return AvailableOn(Platform.Windows, source) ? (
+export const WindowsAvailability = ({ source, size }: SourceProps) => {
+    return AvailableOn(Platform.WINDOWS, source) ? (
         <Tooltip label="Windows" position="bottom">
-            <FontAwesomeIcon icon={faWindows} />
+            <FontAwesomeIcon icon={faWindows} size={size} />
         </Tooltip>
     ) : null;
 };
 
-export const MacAvailability = ({ source }: SourceProps) => {
-    return AvailableOn(Platform.Mac, source) ? (
+export const MacAvailability = ({ source, size }: SourceProps) => {
+    return AvailableOn(Platform.MAC, source) ? (
         <Tooltip label="MacOS" position="bottom">
-            <FontAwesomeIcon icon={faApple} />
+            <FontAwesomeIcon icon={faApple} size={size} />
         </Tooltip>
     ) : null;
 };
 
-export const WebAvailability = ({ source }: SourceProps) => {
-    return AvailableOn(Platform.Web, source) ? (
+export const WebAvailability = ({ source, size }: SourceProps) => {
+    return AvailableOn(Platform.WEB, source) ? (
         <Tooltip label="Web" position="bottom">
-            <FontAwesomeIcon icon={faGlobe} />
+            <FontAwesomeIcon icon={faGlobe} size={size} />
         </Tooltip>
     ) : null;
 };

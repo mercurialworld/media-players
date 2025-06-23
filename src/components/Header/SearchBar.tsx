@@ -1,16 +1,13 @@
 import { TextInput } from "@mantine/core";
-import { useState } from "react";
-
-type SearchBarProps = {
-    callback: (value: string) => void;
-};
+import { useContext } from "react";
+import { PlayerListContext } from "../../contexts/PlayerListContext";
+import type { SearchBarProps } from "../../types/Header";
 
 const SearchBar = ({ callback }: SearchBarProps) => {
-    const [value, setValue] = useState("");
+    const playerListState = useContext(PlayerListContext);
 
     const handleChange = (e: { target: { value: string } }) => {
         const inputValue = e.target.value;
-        setValue(inputValue);
 
         callback && callback(inputValue);
     };
@@ -18,7 +15,7 @@ const SearchBar = ({ callback }: SearchBarProps) => {
     return (
         <TextInput
             placeholder="Search media player..."
-            value={value}
+            value={playerListState.query}
             onChange={handleChange}
         />
     );

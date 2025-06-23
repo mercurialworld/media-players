@@ -1,26 +1,79 @@
-import classes from "./Header.module.css";
-import SearchBar from "./SearchBar";
-import PlatformFilters from "./PlatformFilters";
 import { Text } from "@mantine/core";
-import { PlayerCountContext } from "../../contexts/PlayerCountContext";
 import { useContext } from "react";
 
-type HeaderProps = {
-    searchCallback: (value: string) => void;
-    filterCallback: (values: string[]) => void;
-};
+import { LoadStateContext } from "../../contexts/LoadStateContext";
+import {
+    PlayerDisplayContext,
+    PlayerDisplayDispatchContext,
+} from "../../contexts/PlayerDisplayContext";
+import {
+    PlayerListContext,
+    PlayerListDispatchContext,
+} from "../../contexts/PlayerListContext";
+import { DisplayType } from "../../reducers/PlayerDisplayReducer";
+import type { Platform } from "../../utils/CheckAvailability";
+import PlatformFilters from "../PlatformFilters/PlatformFilters";
+import DisplayToggle from "./DisplayToggle";
+import classes from "./Header.module.css";
+import SearchBar from "./SearchBar";
 
-const Header = ({ searchCallback, filterCallback }: HeaderProps) => {
-    const playerCount = useContext(PlayerCountContext);
+const Header = () => {
+    // Initial list
+    const loadState = useContext(LoadStateContext);
+    // List after filters
+    const playerListState = useContext(PlayerListContext);
+    const playerListDispatch = useContext(PlayerListDispatchContext);
+    // Display state
+    const playerDisplayState = useContext(PlayerDisplayContext);
+    const playerDisplayDispatch = useContext(PlayerDisplayDispatchContext);
+
+    const SearchDispatch = (query: string) => {
+        playerListDispatch({
+            type: "search",
+            players: loadState.players,
+            query: query,
+        });
+
+        playerListDispatch({
+            type: "sort",
+        });
+    };
+
+    const FilterDispatch = (platform: Platform) => {
+        playerListDispatch({
+            type: playerListState.platforms[platform] ? "removeFilter" : "addFilter",
+            players: loadState.players,
+            platform: platform,
+        });
+    };
+
+    const DisplayToggleDispatch = () => {
+        // reset list and filters
+        playerListDispatch({
+            type: "init",
+            players: loadState.players,
+        });
+
+        // switch type
+        playerDisplayDispatch({
+            type: "switch",
+        });
+    };
+
     return (
         <header className={classes.header}>
             <div className={classes.inner}>
                 <div className={classes.filterRow}>
-                    <SearchBar callback={searchCallback} />{" "}
-                    <PlatformFilters callback={filterCallback} />
+                    <DisplayToggle callback={DisplayToggleDispatch} />
+                    <SearchBar callback={SearchDispatch} />
                 </div>
                 <div className={classes.resultsRow}>
-                    <Text size="sm">{playerCount} results</Text>
+                    {playerDisplayState.display === DisplayType.CARDS && (
+                        <PlatformFilters callback={FilterDispatch} />
+                    )}
+                    <Text size="sm">
+                        {playerListState.filteredPlayers.length} players
+                    </Text>
                 </div>
             </div>
         </header>
