@@ -1,4 +1,4 @@
-import { Anchor, Container, Group } from "@mantine/core";
+import { Anchor, Container, Group, Text } from "@mantine/core";
 
 import classes from "@styles/Footer.module.css";
 
@@ -15,7 +15,12 @@ const Footer = () => {
     ];
 
     const items = links.map((link) => (
-        <Anchor<"a"> c="dimmed" key={link.label} href={link.link} size="sm">
+        <Anchor<"a">
+            c="var(--dimmed-link-text-color)"
+            key={link.label}
+            href={link.link}
+            size="sm"
+        >
             {link.label}
         </Anchor>
     ));
@@ -24,7 +29,7 @@ const Footer = () => {
         <div className={classes.footer}>
             <Container className={classes.inner}>
                 <Group>
-                    <div>
+                    <Text>
                         Made by{" "}
                         <a
                             className={classes.footerLink}
@@ -41,7 +46,7 @@ const Footer = () => {
                             music-presence/media-players
                         </a>
                         .
-                    </div>
+                    </Text>
                 </Group>
                 <Group className={classes.links}>{items}</Group>
             </Container>

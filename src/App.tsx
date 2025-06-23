@@ -78,7 +78,7 @@ function App() {
     }, [players]);
 
     return (
-        <MantineProvider defaultColorScheme="dark" theme={MantineTheme}>
+        <MantineProvider defaultColorScheme="light" theme={MantineTheme}>
             <Info />
             <LoadStateContext value={loadState}>
                 <PlayerListContext value={playersList}>
@@ -91,12 +91,12 @@ function App() {
                                 <div className="content">
                                     <MediaPlayerDisplay />
                                 </div>
-                                <Footer />
                             </PlayerDisplayDispatchContext>
                         </PlayerDisplayContext>
                     </PlayerListDispatchContext>
                 </PlayerListContext>
             </LoadStateContext>
+            <Footer />
         </MantineProvider>
     );
 }

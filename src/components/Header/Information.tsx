@@ -1,17 +1,18 @@
+import { Text } from "@mantine/core";
 import classes from "@styles/Information.module.css";
 
 const Info = () => {
     return (
-        <div className={classes.info}>
+        <Text className={classes.info}>
             <div>
                 <h1>
-                    <img
+                    {/* <img
                         className={classes.logoIcon}
                         src="https://raw.githubusercontent.com/music-presence/icons/refs/heads/master/dist/tray-dark.png"
                         alt="The Music Presence logo."
                     />
                     <span />
-                    {"   "}
+                    {"   "} */}
                     Media Players
                 </h1>
             </div>
@@ -33,7 +34,7 @@ const Info = () => {
                     Submit it!
                 </a>
             </p>
-        </div>
+        </Text>
     );
 };
 

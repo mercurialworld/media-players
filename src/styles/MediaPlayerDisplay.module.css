@@ -1,5 +1,5 @@
 .display {
-    max-width: 1100px;
+    max-width: 1100;
     margin: 0 auto;
     padding: 2rem;
     text-align: center;
@@ -7,4 +7,20 @@
 
 .displayWrapper {
     min-height: 50vh;
+}
+
+.playerLogo {
+    /* 
+     * Man, even light mode is an afterthought in logo design.
+     */
+    @mixin light {
+        -webkit-filter: drop-shadow(2px 0 1px var(--shadow-color))
+            drop-shadow(0px 2px 1px var(--shadow-color))
+            drop-shadow(-2px 0 1px var(--shadow-color))
+            drop-shadow(0px -2px 1px var(--shadow-color));
+        filter: drop-shadow(2px 0 1px var(--shadow-color))
+            drop-shadow(0px 2px 1px var(--shadow-color))
+            drop-shadow(-2px 0 1px var(--shadow-color))
+            drop-shadow(0px -2px 1px var(--shadow-color));
+    }
 }

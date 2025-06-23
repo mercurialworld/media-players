@@ -9,6 +9,7 @@ import {
 import type { MediaPlayerProps } from "@project-types/MediaPlayerDisplay";
 
 import classes from "@styles/MediaPlayerCard.module.css";
+import commonClasses from "@styles/MediaPlayerDisplay.module.css";
 
 const MediaPlayerCard = ({ player, icon }: MediaPlayerProps) => {
     return (
@@ -17,7 +18,7 @@ const MediaPlayerCard = ({ player, icon }: MediaPlayerProps) => {
                 <div className={classes.icon}>
                     <Image
                         src={icon}
-                        className={classes.image}
+                        className={`${classes.image} ${commonClasses.playerLogo}`}
                         alt={`The logo for ${player.name}.`}
                     ></Image>
                 </div>

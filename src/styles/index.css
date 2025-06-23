@@ -6,4 +6,36 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    /* 
+    * Colours for light mode.
+    * Mantine's default grays tend to lean too cool,
+    * and I prefer neutral grays.
+    */
+    @mixin light-root {
+        --gradient-begin-color: #fefefe;
+        --gradient-end-color: #e0e0e0;
+
+        --shadow-color: #525252;
+
+        --dimmed-text-color: #808080;
+        --dimmed-link-text-color: #757575;
+
+        --link-text-color: #363636;
+        --important-text-color: #2f2f2f;
+    }
+
+    /* Colours for dark mode. */
+    @mixin dark-root {
+        --gradient-begin-color: var(--mantine-color-dark-6);
+        --gradient-end-color: var(--mantine-color-dark-9);
+
+        --shadow-color: var(--mantine-color-dark-9);
+
+        --dimmed-text-color: var(--mantine-color-dimmed);
+        --dimmed-link-text-color: darken(var(--mantine-color-dark-2), 10%);
+
+        --link-text-color: #fafafa;
+        --important-text-color: #f0f0f0;
+    }
 }

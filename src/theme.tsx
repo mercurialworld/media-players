@@ -20,6 +20,7 @@ export const MantineTheme = createTheme({
         if (input.variant === "weblink") {
             return {
                 ...defaultResolvedColors,
+                color: "var(--important-text-color)",
                 background: rgba(parsedColor.value, 0),
                 hover: rgba(parsedColor.value, 0),
             };
