@@ -1,4 +1,4 @@
-import { Button, Table } from "@mantine/core";
+import { Button, Table, Tooltip } from "@mantine/core";
 import { IconSortAscending, IconSortDescending } from "@tabler/icons-react";
 import { useContext } from "react";
 
@@ -59,25 +59,34 @@ const MediaPlayersTable = ({ players, icons }: MediaPlayersListProps) => {
                 <Table.Thead>
                     <Table.Tr>
                         <Table.Th>
-                            <Button
-                                justify="space-between"
-                                fullWidth
-                                rightSection={
+                            <Tooltip
+                                label={
                                     playerListState.sortDirection ===
-                                    SortOptions.ASCENDING ? (
-                                        <IconSortAscending />
-                                    ) : (
-                                        <IconSortDescending />
-                                    )
+                                    SortOptions.ASCENDING
+                                        ? "Name (ascending)"
+                                        : "Name (descending)"
                                 }
-                                variant="weblink"
-                                onClick={() => {
-                                    SortDispatch();
-                                }}
-                                key="name"
                             >
-                                Name
-                            </Button>
+                                <Button
+                                    justify="space-between"
+                                    fullWidth
+                                    rightSection={
+                                        playerListState.sortDirection ===
+                                        SortOptions.ASCENDING ? (
+                                            <IconSortAscending />
+                                        ) : (
+                                            <IconSortDescending />
+                                        )
+                                    }
+                                    variant="weblink"
+                                    onClick={() => {
+                                        SortDispatch();
+                                    }}
+                                    key="name"
+                                >
+                                    Name
+                                </Button>
+                            </Tooltip>
                         </Table.Th>
                         <PlatformFilters callback={FilterDispatch} />
                         <Table.Th>

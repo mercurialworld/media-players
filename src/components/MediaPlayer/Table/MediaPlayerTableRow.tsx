@@ -42,7 +42,7 @@ const MediaPlayersTableRow = ({ player, icon }: MediaPlayerProps) => {
                         component="a"
                         href={player.url}
                     >
-                        {player.url.substring(8, player.url.length)}
+                        {player.url.replace("https://", "").replace("www.", "")}
                     </Button>
                 </div>
             </Table.Td>
