@@ -33,6 +33,10 @@ const Header = () => {
             players: loadState.players,
             query: query,
         });
+
+        playerListDispatch({
+            type: "sort",
+        });
     };
 
     const FilterDispatch = (platform: Platform) => {
