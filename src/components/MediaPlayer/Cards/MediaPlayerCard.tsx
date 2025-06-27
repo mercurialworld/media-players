@@ -1,22 +1,25 @@
 import { Button, Card, Image, Title } from "@mantine/core";
 import { IconExternalLink } from "@tabler/icons-react";
 
-import type { MediaPlayerProps } from "../../../types/MediaPlayerDisplay";
 import {
     LinuxAvailability,
     MacAvailability,
+    WebAvailability,
     WindowsAvailability,
-} from "../MediaPlayerPlatforms";
-import classes from "./MediaPlayerCard.module.css";
+} from "@components/MediaPlayer/MediaPlayerPlatforms";
+import type { MediaPlayerProps } from "@project-types/MediaPlayerDisplay";
 
-const MediaPlayerCard = ({ player, icon }: MediaPlayerProps) => {
+import classes from "@styles/MediaPlayerCard.module.css";
+import commonClasses from "@styles/MediaPlayerDisplay.module.css";
+
+const MediaPlayerCard = ({ player, icon, showWeb }: MediaPlayerProps) => {
     return (
         <Card withBorder p="xl" radius="md" className={classes.card}>
             <div className={classes.inner} color="#000">
                 <div className={classes.icon}>
                     <Image
                         src={icon}
-                        className={classes.image}
+                        className={`${classes.image} ${commonClasses.playerLogo}`}
                         alt={`The logo for ${player.name}.`}
                     ></Image>
                 </div>
@@ -38,7 +41,7 @@ const MediaPlayerCard = ({ player, icon }: MediaPlayerProps) => {
                         <WindowsAvailability source={player.sources} />
                         <MacAvailability source={player.sources} />
                         <LinuxAvailability source={player.sources} />
-                        {/* <WebAvailability source={player.sources} /> */}
+                        {showWeb && <WebAvailability source={player.sources} />}
                     </div>
                 </div>
             </div>

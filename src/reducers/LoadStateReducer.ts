@@ -1,4 +1,4 @@
-import type { MediaPlayer } from "../types/MediaPlayer";
+import type { MediaPlayer } from "@project-types/MediaPlayer";
 
 export enum LoadStateType {
     LOADING,
@@ -20,6 +20,7 @@ export interface LoadState {
 }
 
 type Loading = { type: LoadStateType.LOADING };
+// deno-lint-ignore no-explicit-any
 type Error = { type: LoadStateType.ERROR; error: any };
 type Loaded = {
     type: LoadStateType.LOADED;

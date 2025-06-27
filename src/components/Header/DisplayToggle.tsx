@@ -1,8 +1,9 @@
 import { Button } from "@mantine/core";
 import { useContext } from "react";
-import { PlayerDisplayContext } from "../../contexts/PlayerDisplayContext";
-import { DisplayType } from "../../reducers/PlayerDisplayReducer";
-import type { DisplayToggleProps } from "../../types/Header";
+
+import { PlayerDisplayContext } from "@contexts/PlayerDisplayContext";
+import type { DisplayToggleProps } from "@project-types/Header";
+import { DisplayType } from "@reducers/PlayerDisplayReducer";
 
 const DisplayToggle = ({ callback }: DisplayToggleProps) => {
     const playerDisplayState = useContext(PlayerDisplayContext);

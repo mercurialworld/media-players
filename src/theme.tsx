@@ -6,6 +6,10 @@ import {
 } from "@mantine/core";
 
 export const MantineTheme = createTheme({
+    fontFamily: "Roboto, sans-serif",
+    headings: {
+        fontFamily: "Nunito, sans-serif",
+    },
     variantColorResolver: (input) => {
         const defaultResolvedColors = defaultVariantColorsResolver(input);
         const parsedColor = parseThemeColor({
@@ -16,6 +20,7 @@ export const MantineTheme = createTheme({
         if (input.variant === "weblink") {
             return {
                 ...defaultResolvedColors,
+                color: "var(--important-text-color)",
                 background: rgba(parsedColor.value, 0),
                 hover: rgba(parsedColor.value, 0),
             };
