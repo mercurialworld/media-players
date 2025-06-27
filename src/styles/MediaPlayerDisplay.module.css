@@ -14,7 +14,6 @@
      * Man, even light mode is an afterthought in logo design.
      */
     @mixin light {
-<<<<<<< HEAD
         -webkit-filter: drop-shadow(1px 0 0px var(--shadow-color))
             drop-shadow(0px 1px 0px var(--shadow-color))
             drop-shadow(-1px 0 0px var(--shadow-color))
@@ -23,15 +22,5 @@
             drop-shadow(0px 1px 0px var(--shadow-color))
             drop-shadow(-1px 0 0px var(--shadow-color))
             drop-shadow(0px -1px 0px var(--shadow-color));
-=======
-        -webkit-filter: drop-shadow(2px 0 1px var(--shadow-color))
-            drop-shadow(0px 2px 1px var(--shadow-color))
-            drop-shadow(-2px 0 1px var(--shadow-color))
-            drop-shadow(0px -2px 1px var(--shadow-color));
-        filter: drop-shadow(2px 0 1px var(--shadow-color))
-            drop-shadow(0px 2px 1px var(--shadow-color))
-            drop-shadow(-2px 0 1px var(--shadow-color))
-            drop-shadow(0px -2px 1px var(--shadow-color));
->>>>>>> 42da918a27f19c40f9ab42263152c406aad01334
     }
 }
