@@ -94,7 +94,7 @@ function FilterByQuery(players: MediaPlayer[], query: string = ""): MediaPlayer[
     );
 }
 
-/* Filters a list of media players by the platforms its available in. */
+/* Filters a list of media players by the platforms it's available on. */
 function FilterByPlatform(
     players: MediaPlayer[],
     platforms: Platform[] = [],
@@ -124,6 +124,11 @@ function FilterByPlatform(
         }
     });
 }
+
+const CreatePlatformsList = (newPlatforms: FilterState) =>
+    Object.entries(newPlatforms)
+        .filter(([_, val]) => val)
+        .map(([plat, _]) => plat as Platform);
 
 export function PlayerListManipReducer(
     state: ListState,
@@ -183,16 +188,11 @@ export function PlayerListManipReducer(
             };
         }
         case "addFilter": {
-            let newPlatforms = state.platforms;
             state.platforms[action.platform] = true;
-
-            let newPlatsList = Object.entries(newPlatforms)
-                .filter(([_, val]) => val)
-                .map(([plat, _]) => plat as Platform);
+            let newPlatsList = CreatePlatformsList(state.platforms);
 
             return {
                 ...state,
-                platforms: newPlatforms,
                 filteredPlayers: FilterByPlatform(
                     FilterByQuery(action.players, state.query),
                     newPlatsList,
@@ -200,16 +200,11 @@ export function PlayerListManipReducer(
             };
         }
         case "removeFilter": {
-            let newPlatforms = state.platforms;
             state.platforms[action.platform] = false;
-
-            let newPlatsList = Object.entries(newPlatforms)
-                .filter(([_, val]) => val)
-                .map(([plat, _]) => plat as Platform);
+            let newPlatsList = CreatePlatformsList(state.platforms);
 
             return {
                 ...state,
-                platforms: newPlatforms,
                 filteredPlayers: FilterByPlatform(
                     FilterByQuery(action.players, state.query),
                     newPlatsList,
