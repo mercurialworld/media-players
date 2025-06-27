@@ -3,7 +3,7 @@ import { useContext } from "react";
 
 import DisplayToggle from "@components/Header/DisplayToggle";
 import SearchBar from "@components/Header/SearchBar";
-import PlatformFilters from "@components/PlatformFilters/PlatformFilters";
+import PlatformFilters from "@components/FilterSettings/PlatformFilters";
 import { LoadStateContext } from "@contexts/LoadStateContext";
 import {
     PlayerDisplayContext,
