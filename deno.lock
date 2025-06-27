@@ -1,6 +1,7 @@
 {
   "version": "5",
   "specifiers": {
+    "npm:@deno/vite-plugin@^1.0.5": "1.0.5_vite@6.3.5__picomatch@4.0.2",
     "npm:@eslint/js@^9.29.0": "9.29.0",
     "npm:@fortawesome/fontawesome-svg-core@^6.7.2": "6.7.2",
     "npm:@fortawesome/free-brands-svg-icons@^6.7.2": "6.7.2",
@@ -38,6 +39,7 @@
     "npm:react@^19.1.0": "19.1.0",
     "npm:typescript-eslint@^8.34.1": "8.34.1_eslint@9.29.0_typescript@5.8.3_@typescript-eslint+parser@8.34.1__eslint@9.29.0__typescript@5.8.3",
     "npm:typescript@~5.8.3": "5.8.3",
+    "npm:vite-tsconfig-paths@^5.1.4": "5.1.4_vite@6.3.5__picomatch@4.0.2_typescript@5.8.3",
     "npm:vite@^6.3.5": "6.3.5_picomatch@4.0.2"
   },
   "npm": {
@@ -200,6 +202,12 @@
     },
     "@balena/dockerignore@1.0.2": {
       "integrity": "sha512-wMue2Sy4GAVTk6Ic4tJVcnfdau+gx2EnG7S+uAEe+TWJFqE4YoWN4/H8MSLj4eYJKxGg26lZwboEniNiNwZQ6Q=="
+    },
+    "@deno/vite-plugin@1.0.5_vite@6.3.5__picomatch@4.0.2": {
+      "integrity": "sha512-tLja5n4dyMhcze1NzvSs2iiriBymfBlDCZIrjMTxb9O2ru0gvmV6mn5oBD2teNw5Sd92cj3YJzKwsAs8tMJXlg==",
+      "dependencies": [
+        "vite"
+      ]
     },
     "@esbuild/aix-ppc64@0.25.4": {
       "integrity": "sha512-1VCICWypeQKhVbE9oW/sJaAmjLxhVqacdkvPLEjwlttjfwENRSClS8EjBz0KzRyFSCPDIkuXW34Je/vk7zdB7Q==",
@@ -1270,6 +1278,9 @@
     "globals@16.2.0": {
       "integrity": "sha512-O+7l9tPdHCU320IigZZPj5zmRCFG9xHmx9cU8FqU2Rp+JN714seHV+2S9+JslCpY4gJwU2vOGox0wzgae/MCEg=="
     },
+    "globrex@0.1.2": {
+      "integrity": "sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg=="
+    },
     "graceful-fs@4.2.11": {
       "integrity": "sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ=="
     },
@@ -1777,6 +1788,16 @@
         "typescript"
       ]
     },
+    "tsconfck@3.1.6_typescript@5.8.3": {
+      "integrity": "sha512-ks6Vjr/jEw0P1gmOVwutM3B7fWxoWBL2KRDb1JfqGVawBmO5UsvmWOQFGHBPl5yxYz4eERr19E6L7NMv+Fej4w==",
+      "dependencies": [
+        "typescript"
+      ],
+      "optionalPeers": [
+        "typescript"
+      ],
+      "bin": true
+    },
     "tslib@2.8.1": {
       "integrity": "sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w=="
     },
@@ -1866,6 +1887,18 @@
     "util-deprecate@1.0.2": {
       "integrity": "sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw=="
     },
+    "vite-tsconfig-paths@5.1.4_vite@6.3.5__picomatch@4.0.2_typescript@5.8.3": {
+      "integrity": "sha512-cYj0LRuLV2c2sMqhqhGpaO3LretdtMn/BVX4cPLanIZuwwrkVl+lK84E/miEXkCHWXuq65rhNN4rXsBcOB3S4w==",
+      "dependencies": [
+        "debug",
+        "globrex",
+        "tsconfck",
+        "vite"
+      ],
+      "optionalPeers": [
+        "vite"
+      ]
+    },
     "vite@6.3.5_picomatch@4.0.2": {
       "integrity": "sha512-cZn6NDFE7wdTpINgs++ZJ4N49W2vRp8LCKrn3Ob1kYNtOo21vfDoaV5GzBfLU4MovSAB8uNRm4jgzVQZ+mBzPQ==",
       "dependencies": [
@@ -1914,6 +1947,7 @@
     ],
     "packageJson": {
       "dependencies": [
+        "npm:@deno/vite-plugin@^1.0.5",
         "npm:@eslint/js@^9.29.0",
         "npm:@fortawesome/fontawesome-svg-core@^6.7.2",
         "npm:@fortawesome/free-brands-svg-icons@^6.7.2",
@@ -1945,6 +1979,7 @@
         "npm:react@^19.1.0",
         "npm:typescript-eslint@^8.34.1",
         "npm:typescript@~5.8.3",
+        "npm:vite-tsconfig-paths@^5.1.4",
         "npm:vite@^6.3.5"
       ]
     }

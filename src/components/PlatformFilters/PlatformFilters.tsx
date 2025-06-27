@@ -1,5 +1,6 @@
 import { faApple, faLinux, faWindows } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconFilter2, IconFilter2Cancel } from "@tabler/icons-react";
 
 import {
     ActionIcon,
@@ -12,13 +13,16 @@ import {
 } from "@mantine/core";
 import { useContext } from "react";
 
-import { IconFilter2, IconFilter2Cancel } from "@tabler/icons-react";
-import { PlayerDisplayContext } from "../../contexts/PlayerDisplayContext";
-import { PlayerListContext } from "../../contexts/PlayerListContext";
-import { DisplayType } from "../../reducers/PlayerDisplayReducer";
-import type { PlatformButtonProps, PlatformFiltersProps } from "../../types/Header";
-import { Platform } from "../../utils/CheckAvailability";
-import classes from "./PlatformFilters.module.css";
+import { PlayerDisplayContext } from "@contexts/PlayerDisplayContext";
+import { PlayerListContext } from "@contexts/PlayerListContext";
+import type {
+    PlatformButtonProps,
+    PlatformFiltersProps,
+} from "@project-types/Header";
+import { DisplayType } from "@reducers/PlayerDisplayReducer";
+import classes from "@styles/PlatformFilters.module.css";
+import { Platform } from "@utils/CheckAvailability";
+import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 
 const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
     const playerListState = useContext(PlayerListContext);
@@ -40,12 +44,13 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
             faIcon: faLinux,
             activeState: playerListState.platforms.Linux,
         },
-        // {
-        //     platform: Platform.WEB,
-        //     faIcon: faGlobe,
-        //     activeState: playerListState.platforms.Web,
-        // },
     ];
+
+    const web: PlatformButtonProps = {
+        platform: Platform.WEB,
+        faIcon: faGlobe,
+        activeState: playerListState.platforms.Web,
+    };
 
     const PlatformFilterButton = ({
         platform,
@@ -59,7 +64,7 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
                     onClick={() => {
                         handleTagClick(platform);
                     }}
-                    key={platform}
+                    key={`${platform}Button`}
                     size={"xl"}
                 >
                     <VisuallyHidden>{platform}</VisuallyHidden>
@@ -74,7 +79,7 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
         activeState,
     }: PlatformButtonProps) => {
         return (
-            <Table.Th>
+            <Table.Th key={`${platform}Header`}>
                 <Button
                     rightSection={
                         activeState ? <IconFilter2 /> : <IconFilter2Cancel />
@@ -83,7 +88,7 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
                     onClick={() => {
                         handleTagClick(platform);
                     }}
-                    key={platform}
+                    key={`${platform}HeaderButton`}
                 >
                     {platform}
                 </Button>
@@ -95,15 +100,19 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
         callback && callback(platform);
     };
 
+    const getPlatforms = () => {
+        return playerListState.showWeb ? platforms.concat(web) : platforms;
+    };
+
     return playerDisplayState.display === DisplayType.CARDS ? (
         <div className={classes.inner}>
             <Text size="sm">Platform:</Text>
             <ActionIconGroup>
-                {platforms.map((platform) => PlatformFilterButton(platform))}
+                {getPlatforms().map((platform) => PlatformFilterButton(platform))}
             </ActionIconGroup>
         </div>
     ) : (
-        <>{platforms.map((platform) => PlatformFilterHeaderButton(platform))}</>
+        <>{getPlatforms().map((platform) => PlatformFilterHeaderButton(platform))}</>
     );
 };
 

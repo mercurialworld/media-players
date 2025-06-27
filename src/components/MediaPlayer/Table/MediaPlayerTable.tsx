@@ -1,21 +1,22 @@
-import { Button, Table, Tooltip } from "@mantine/core";
 import { IconSortAscending, IconSortDescending } from "@tabler/icons-react";
+
+import { Button, Table, Tooltip } from "@mantine/core";
 import { useContext } from "react";
 
-import { LoadStateContext } from "../../../contexts/LoadStateContext";
+import { GetIconURL } from "@components/MediaPlayer/common";
+import MediaPlayersTableRow from "@components/MediaPlayer/Table/MediaPlayerTableRow";
+import PlatformFilters from "@components/PlatformFilters/PlatformFilters";
+import { LoadStateContext } from "@contexts/LoadStateContext";
 import {
     PlayerListContext,
     PlayerListDispatchContext,
-} from "../../../contexts/PlayerListContext";
-import { SortOptions } from "../../../reducers/PlayerListManipReducer";
-import type { MediaPlayer } from "../../../types/MediaPlayer";
-import type { MediaPlayersListProps } from "../../../types/MediaPlayerDisplay";
-import type { Platform } from "../../../utils/CheckAvailability";
-import PlatformFilters from "../../PlatformFilters/PlatformFilters";
-import { GetIconURL } from "../common";
-import MediaPlayersTableRow from "./MediaPlayerTableRow";
+} from "@contexts/PlayerListContext";
+import type { MediaPlayer } from "@project-types/MediaPlayer";
+import type { MediaPlayersListProps } from "@project-types/MediaPlayerDisplay";
+import { SortOptions } from "@reducers/PlayerListManipReducer";
+import type { Platform } from "@utils/CheckAvailability";
 
-const MediaPlayersTable = ({ players, icons }: MediaPlayersListProps) => {
+const MediaPlayersTable = ({ players, icons, showWeb }: MediaPlayersListProps) => {
     // Initial list
     const loadState = useContext(LoadStateContext);
     // List after filters
@@ -30,6 +31,7 @@ const MediaPlayersTable = ({ players, icons }: MediaPlayersListProps) => {
                 key={`${player.id}-table-row`}
                 player={player}
                 icon={iconURL}
+                showWeb={showWeb}
             />
         );
     });
@@ -42,14 +44,11 @@ const MediaPlayersTable = ({ players, icons }: MediaPlayersListProps) => {
 
     const FilterDispatch = (platform: Platform) => {
         playerListDispatch({
-            type: playerListState.platforms[platform] ? "removeFilter" : "addFilter",
+            type: playerListState.platforms[platform]
+                ? "removeFilterTable"
+                : "addFilterTable",
             players: loadState.players,
             platform: platform,
-        });
-
-        // sort afterwards
-        playerListDispatch({
-            type: "sort",
         });
     };
 

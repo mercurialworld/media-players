@@ -1,8 +1,11 @@
 .card {
-    background-color: var(--mantine-color-body);
+    background-color: light-dark(
+        lighten(var(--mantine-color-body), 10%),
+        var(--mantine-color-body)
+    );
     display: flex;
     justify-content: center;
-    box-shadow: 5px 5px 10px var(--mantine-color-dark-9);
+    box-shadow: 5px 5px 10px var(--shadow-color);
 
     transition: transform 250ms;
 }
@@ -28,7 +31,7 @@
     line-height: 1;
     font-size: 1.6em;
     font-family: "Nunito", sans-serif;
-    color: var(--mantine-color-white);
+    color: var(--important-text-color);
 }
 
 .inner {

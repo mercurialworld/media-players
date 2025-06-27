@@ -16,7 +16,11 @@
         --gradient-begin-color: #fefefe;
         --gradient-end-color: #e0e0e0;
 
+<<<<<<< HEAD
         --shadow-color: #A0A0A0;
+=======
+        --shadow-color: #525252;
+>>>>>>> 42da918a27f19c40f9ab42263152c406aad01334
 
         --dimmed-text-color: #808080;
         --dimmed-link-text-color: #757575;

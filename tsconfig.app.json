@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
         "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-        "target": "ES2020",
+        "target": "ES2021",
         "useDefineForClassFields": true,
-        "lib": ["ES2020", "DOM", "DOM.Iterable"],
+        "lib": ["ES2021", "DOM", "DOM.Iterable"],
         "module": "ESNext",
         "skipLibCheck": true,
 
@@ -21,7 +21,19 @@
         "noUnusedParameters": true,
         "erasableSyntaxOnly": false,
         "noFallthroughCasesInSwitch": true,
-        "noUncheckedSideEffectImports": true
+        "noUncheckedSideEffectImports": true,
+
+        /* Paths */
+        "baseUrl": "./",
+        "paths": {
+            "@project-types/*": ["src/types/*"],
+            "@components/*": ["src/components/*"],
+            "@styles/*": ["src/styles/*"],
+            "@hooks/*": ["src/hooks/*"],
+            "@reducers/*": ["src/reducers/*"],
+            "@contexts/*": ["src/contexts/*"],
+            "@utils/*": ["src/utils/*"]
+        }
     },
     "include": ["src"]
 }

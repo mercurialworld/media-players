@@ -1,24 +1,29 @@
-import { Button, Image, Table } from "@mantine/core";
 import { IconExternalLink } from "@tabler/icons-react";
-import type { MediaPlayerProps } from "../../../types/MediaPlayerDisplay";
+
+import { Button, Image, Table, Title } from "@mantine/core";
+
 import {
     LinuxAvailability,
     MacAvailability,
+    WebAvailability,
     WindowsAvailability,
-} from "../MediaPlayerPlatforms";
-import classes from "./MediaPlayerTable.module.css";
+} from "@components/MediaPlayer/MediaPlayerPlatforms";
+import type { MediaPlayerProps } from "@project-types/MediaPlayerDisplay";
 
-const MediaPlayersTableRow = ({ player, icon }: MediaPlayerProps) => {
+import commonClasses from "@styles/MediaPlayerDisplay.module.css";
+import classes from "@styles/MediaPlayerTable.module.css";
+
+const MediaPlayersTableRow = ({ player, icon, showWeb }: MediaPlayerProps) => {
     return (
         <Table.Tr>
             <Table.Td>
                 <div className={classes.name}>
                     <Image
                         src={icon}
-                        className={classes.image}
+                        className={`${classes.image} ${commonClasses.playerLogo}`}
                         alt={`The logo for ${player.name}.`}
                     />
-                    <span>{player.name}</span>
+                    <Title order={4}>{player.name}</Title>
                 </div>
             </Table.Td>
             <Table.Td>
@@ -30,9 +35,11 @@ const MediaPlayersTableRow = ({ player, icon }: MediaPlayerProps) => {
             <Table.Td>
                 <LinuxAvailability source={player.sources} size={"xl"} />
             </Table.Td>
-            {/* <Table.Td> 
-                <WebAvailability source={player.sources} size={"xl"} />
-            </Table.Td> */}
+            {showWeb && (
+                <Table.Td>
+                    <WebAvailability source={player.sources} size={"xl"} />
+                </Table.Td>
+            )}
             <Table.Td>
                 <div className={classes.site}>
                     <Button

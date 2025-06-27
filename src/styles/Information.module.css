@@ -15,7 +15,15 @@
 }
 
 .info h1 {
-    font-size: 3.5em;
+    font-size: calc(2rem + 3vw);
     font-family: "Nunito", sans-serif;
-    color: var(--mantine-color-white);
+    color: var(--important-text-color);
+}
+
+.settings {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.titleGroup {
 }
