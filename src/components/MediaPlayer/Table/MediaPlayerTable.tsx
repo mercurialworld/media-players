@@ -44,7 +44,9 @@ const MediaPlayersTable = ({ players, icons, showWeb }: MediaPlayersListProps) =
 
     const FilterDispatch = (platform: Platform) => {
         playerListDispatch({
-            type: playerListState.platforms[platform] ? "removeFilter" : "addFilter",
+            type: playerListState.platforms[platform]
+                ? "removeFilterTable"
+                : "addFilterTable",
             players: loadState.players,
             platform: platform,
         });

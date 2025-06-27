@@ -64,6 +64,20 @@ type RemoveFilter = {
     platform: Platform;
     showWeb: boolean;
 };
+// add filter
+type AddFilterTable = {
+    type: "addFilterTable";
+    players: MediaPlayer[];
+    platform: Platform;
+    showWeb: boolean;
+};
+// remove filter
+type RemoveFilterTable = {
+    type: "removeFilterTable";
+    players: MediaPlayer[];
+    platform: Platform;
+    showWeb: boolean;
+};
 
 export type PlayerListManipActions =
     | Initialize
@@ -73,7 +87,9 @@ export type PlayerListManipActions =
     | Refresh
     | Search
     | AddFilter
-    | RemoveFilter;
+    | RemoveFilter
+    | AddFilterTable
+    | RemoveFilterTable;
 
 export const InitialFilterState: FilterState = {
     Windows: false,
@@ -160,6 +176,15 @@ function FilterByPlatform(
             return platformCount === platforms.length;
         }
     });
+}
+
+function GetEveryOtherPlayer(
+    allPlayers: MediaPlayer[],
+    filteredPlayers: MediaPlayer[],
+) {
+    return allPlayers.filter((player) =>
+        filteredPlayers.find((x) => player.id === x.id) ? false : true,
+    );
 }
 
 function ApplyEverything(
@@ -292,6 +317,50 @@ export function PlayerListManipReducer(
                     state.sortDirection,
                     state.showWeb,
                     state.showRepresentations,
+                ),
+            };
+        }
+        case "addFilterTable": {
+            state.platforms[action.platform] = true;
+
+            let newPlayers = ApplyEverything(
+                action.players,
+                state.query,
+                state.platforms,
+                state.sortDirection,
+                state.showWeb,
+                state.showRepresentations,
+            );
+
+            return {
+                ...state,
+                filteredPlayers: newPlayers.concat(
+                    SortAndOrder(
+                        GetEveryOtherPlayer(action.players, newPlayers),
+                        state.sortDirection,
+                    ),
+                ),
+            };
+        }
+        case "removeFilterTable": {
+            state.platforms[action.platform] = false;
+
+            let newPlayers = ApplyEverything(
+                action.players,
+                state.query,
+                state.platforms,
+                state.sortDirection,
+                state.showWeb,
+                state.showRepresentations,
+            );
+
+            return {
+                ...state,
+                filteredPlayers: newPlayers.concat(
+                    SortAndOrder(
+                        GetEveryOtherPlayer(action.players, newPlayers),
+                        state.sortDirection,
+                    ),
                 ),
             };
         }
