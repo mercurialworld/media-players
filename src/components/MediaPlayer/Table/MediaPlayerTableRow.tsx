@@ -5,6 +5,7 @@ import { Button, Image, Table, Title } from "@mantine/core";
 import {
     LinuxAvailability,
     MacAvailability,
+    WebAvailability,
     WindowsAvailability,
 } from "@components/MediaPlayer/MediaPlayerPlatforms";
 import type { MediaPlayerProps } from "@project-types/MediaPlayerDisplay";
@@ -12,7 +13,7 @@ import type { MediaPlayerProps } from "@project-types/MediaPlayerDisplay";
 import commonClasses from "@styles/MediaPlayerDisplay.module.css";
 import classes from "@styles/MediaPlayerTable.module.css";
 
-const MediaPlayersTableRow = ({ player, icon }: MediaPlayerProps) => {
+const MediaPlayersTableRow = ({ player, icon, showWeb }: MediaPlayerProps) => {
     return (
         <Table.Tr>
             <Table.Td>
@@ -34,9 +35,11 @@ const MediaPlayersTableRow = ({ player, icon }: MediaPlayerProps) => {
             <Table.Td>
                 <LinuxAvailability source={player.sources} size={"xl"} />
             </Table.Td>
-            {/* <Table.Td> 
-                <WebAvailability source={player.sources} size={"xl"} />
-            </Table.Td> */}
+            {showWeb && (
+                <Table.Td>
+                    <WebAvailability source={player.sources} size={"xl"} />
+                </Table.Td>
+            )}
             <Table.Td>
                 <div className={classes.site}>
                     <Button

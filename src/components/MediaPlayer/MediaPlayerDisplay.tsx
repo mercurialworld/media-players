@@ -12,9 +12,17 @@ import classes from "@styles/MediaPlayerDisplay.module.css";
 
 const ShowMediaPlayers = (type: DisplayType, components: MediaPlayersListProps) => {
     return type === DisplayType.CARDS ? (
-        <MediaPlayerCards players={components.players} icons={components.icons} />
+        <MediaPlayerCards
+            players={components.players}
+            icons={components.icons}
+            showWeb={components.showWeb}
+        />
     ) : (
-        <MediaPlayerTable players={components.players} icons={components.icons} />
+        <MediaPlayerTable
+            players={components.players}
+            icons={components.icons}
+            showWeb={components.showWeb}
+        />
     );
 };
 
@@ -38,6 +46,7 @@ const MediaPlayerDisplay = () => {
                     ShowMediaPlayers(playerDisplayState.display, {
                         players: playerListState.filteredPlayers,
                         icons: loadState.icons,
+                        showWeb: playerListState.showWeb,
                     })}
             </div>
         </div>

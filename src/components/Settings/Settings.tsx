@@ -1,9 +1,11 @@
 import { ColourSchemeToggle } from "@components/Settings/Setting/ColourSchemeToggle";
 import SettingsModal from "@components/Settings/SettingsModal";
-import { ActionIcon, Switch } from "@mantine/core";
+import { ActionIcon } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import type { SettingsSection } from "@project-types/Settings";
 import { IconSettings } from "@tabler/icons-react";
+import { RepresentsToggle } from "./Setting/RepresentsToggle";
+import { WebToggle } from "./Setting/WebToggle";
 
 const Settings = () => {
     const [isOpen, { open, close }] = useDisclosure(false);
@@ -26,11 +28,7 @@ const Settings = () => {
                     settingTitle: "Show representations while searching",
                     settingDescription:
                         'e.g. Cider appears when searching for "apple" as it\'s an Apple Music client',
-                    setter: <Switch />,
-                },
-                {
-                    settingTitle: "Default display",
-                    setter: <Switch />,
+                    setter: <RepresentsToggle />,
                 },
             ],
         },
@@ -46,7 +44,7 @@ const Settings = () => {
                             DISCORD SERVER.
                         </strong>
                     ),
-                    setter: <Switch />,
+                    setter: <WebToggle />,
                 },
             ],
         },

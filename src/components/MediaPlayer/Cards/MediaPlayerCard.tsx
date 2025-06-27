@@ -4,6 +4,7 @@ import { IconExternalLink } from "@tabler/icons-react";
 import {
     LinuxAvailability,
     MacAvailability,
+    WebAvailability,
     WindowsAvailability,
 } from "@components/MediaPlayer/MediaPlayerPlatforms";
 import type { MediaPlayerProps } from "@project-types/MediaPlayerDisplay";
@@ -11,7 +12,7 @@ import type { MediaPlayerProps } from "@project-types/MediaPlayerDisplay";
 import classes from "@styles/MediaPlayerCard.module.css";
 import commonClasses from "@styles/MediaPlayerDisplay.module.css";
 
-const MediaPlayerCard = ({ player, icon }: MediaPlayerProps) => {
+const MediaPlayerCard = ({ player, icon, showWeb }: MediaPlayerProps) => {
     return (
         <Card withBorder p="xl" radius="md" className={classes.card}>
             <div className={classes.inner} color="#000">
@@ -40,7 +41,7 @@ const MediaPlayerCard = ({ player, icon }: MediaPlayerProps) => {
                         <WindowsAvailability source={player.sources} />
                         <MacAvailability source={player.sources} />
                         <LinuxAvailability source={player.sources} />
-                        {/* <WebAvailability source={player.sources} /> */}
+                        {showWeb && <WebAvailability source={player.sources} />}
                     </div>
                 </div>
             </div>

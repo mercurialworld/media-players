@@ -33,6 +33,7 @@ import {
     InitialListState,
     PlayerListManipReducer,
 } from "@reducers/PlayerListManipReducer";
+import { readLocalStorageValue } from "@mantine/hooks";
 
 function App() {
     // reducers
@@ -54,6 +55,15 @@ function App() {
         "https://live.musicpresence.app/v3/players.json",
     );
 
+    const representations = readLocalStorageValue<boolean>({
+        key: "show-represents",
+        getInitialValueInEffect: false,
+    });
+    const web = readLocalStorageValue<boolean>({
+        key: "show-web",
+        getInitialValueInEffect: false,
+    });
+
     useEffect(() => {
         if (players.length > 0) {
             loadStateDispatch({
@@ -65,6 +75,8 @@ function App() {
             playersListDispatch({
                 type: "init",
                 players: players,
+                showRepresentations: representations,
+                showWeb: web,
             });
         } else if (error) {
             loadStateDispatch({
@@ -80,7 +92,6 @@ function App() {
 
     return (
         <MantineProvider defaultColorScheme="dark" theme={MantineTheme}>
-            <Info />
             <LoadStateContext value={loadState}>
                 <PlayerListContext value={playersList}>
                     <PlayerListDispatchContext value={playersListDispatch}>
@@ -88,6 +99,7 @@ function App() {
                             <PlayerDisplayDispatchContext
                                 value={displayTypeDispatch}
                             >
+                                <Info />
                                 <Header />
                                 <div className="content">
                                     <MediaPlayerDisplay />

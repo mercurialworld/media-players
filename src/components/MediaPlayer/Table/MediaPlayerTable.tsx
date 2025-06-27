@@ -16,7 +16,7 @@ import type { MediaPlayersListProps } from "@project-types/MediaPlayerDisplay";
 import { SortOptions } from "@reducers/PlayerListManipReducer";
 import type { Platform } from "@utils/CheckAvailability";
 
-const MediaPlayersTable = ({ players, icons }: MediaPlayersListProps) => {
+const MediaPlayersTable = ({ players, icons, showWeb }: MediaPlayersListProps) => {
     // Initial list
     const loadState = useContext(LoadStateContext);
     // List after filters
@@ -31,6 +31,7 @@ const MediaPlayersTable = ({ players, icons }: MediaPlayersListProps) => {
                 key={`${player.id}-table-row`}
                 player={player}
                 icon={iconURL}
+                showWeb={showWeb}
             />
         );
     });
@@ -46,11 +47,6 @@ const MediaPlayersTable = ({ players, icons }: MediaPlayersListProps) => {
             type: playerListState.platforms[platform] ? "removeFilter" : "addFilter",
             players: loadState.players,
             platform: platform,
-        });
-
-        // sort afterwards
-        playerListDispatch({
-            type: "sort",
         });
     };
 

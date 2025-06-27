@@ -22,33 +22,55 @@ export interface ListState {
     query: string;
     // The sort direction.
     sortDirection: SortOptions;
+    // Whether to show representations or not.
+    showRepresentations: boolean;
+    // Whether to show web players or not.
+    showWeb: boolean;
 }
 
 // set initial list of filtered players
-type Initialize = { type: "init"; players: MediaPlayer[] };
-// toggle ascending/descending
+type Initialize = {
+    type: "init";
+    players: MediaPlayer[];
+    showRepresentations: boolean;
+    showWeb: boolean;
+};
+// toggle and sort ascending/descending
 type ToggleSort = { type: "toggleSort" };
-// sort ascending/descending
-type Sort = { type: "sort" };
+// toggle and sort web players
+type ToggleWeb = { type: "setWeb"; value: boolean };
+// toggle looking up representations
+type ToggleRepresentations = { type: "setRepresentations"; value: boolean };
+// refresh players (if representations/web have changed)
+type Refresh = { type: "refresh"; players: MediaPlayer[] };
 // search by query
-type Search = { type: "search"; players: MediaPlayer[]; query: string };
+type Search = {
+    type: "search";
+    players: MediaPlayer[];
+    query: string;
+    representations: boolean;
+};
 // add filter
 type AddFilter = {
     type: "addFilter";
     players: MediaPlayer[];
     platform: Platform;
+    showWeb: boolean;
 };
 // remove filter
 type RemoveFilter = {
     type: "removeFilter";
     players: MediaPlayer[];
     platform: Platform;
+    showWeb: boolean;
 };
 
 export type PlayerListManipActions =
     | Initialize
     | ToggleSort
-    | Sort
+    | ToggleWeb
+    | ToggleRepresentations
+    | Refresh
     | Search
     | AddFilter
     | RemoveFilter;
@@ -65,6 +87,8 @@ export const InitialListState: ListState = {
     platforms: InitialFilterState,
     query: "",
     sortDirection: SortOptions.ASCENDING,
+    showRepresentations: false,
+    showWeb: false,
 };
 
 /* Sorts a list of media players by their name. */
@@ -78,19 +102,30 @@ function SortByName(a: MediaPlayer, b: MediaPlayer): number {
     }
 }
 
+function SortAndOrder(lst: MediaPlayer[], direction: SortOptions) {
+    let newList = lst.sort(SortByName);
+
+    return direction === SortOptions.ASCENDING ? newList : newList.reverse();
+}
+
 /* Filters a list of media players by a query. */
-function FilterByQuery(players: MediaPlayer[], query: string = ""): MediaPlayer[] {
+function FilterByQuery(
+    players: MediaPlayer[],
+    query: string = "",
+    showRepresentations: boolean,
+): MediaPlayer[] {
     return players.filter(
         (player: MediaPlayer) =>
             // there's a match in the name itself
             player.name.toLowerCase().includes(query.toLowerCase()) ||
-            // there's a match in the players it represents
-            player.represents
-                // [TODO] remove once schema is updated
-                ?.filter((playerName) => !playerName.endsWith("-placeholder"))
-                .find((playerName) =>
-                    playerName.replace("-", " ").includes(query.toLowerCase()),
-                ),
+            // OPTIONAL: there's a match in the players it represents
+            (showRepresentations &&
+                player.represents
+                    // [TODO] remove once schema is updated
+                    ?.filter((playerName) => !playerName.endsWith("-placeholder"))
+                    .find((playerName) =>
+                        playerName.replace("-", " ").includes(query.toLowerCase()),
+                    )),
     );
 }
 
@@ -98,18 +133,20 @@ function FilterByQuery(players: MediaPlayer[], query: string = ""): MediaPlayer[
 function FilterByPlatform(
     players: MediaPlayer[],
     platforms: Platform[] = [],
+    showWeb: boolean,
 ): MediaPlayer[] {
     return players.filter(function (player: MediaPlayer) {
         // no platforms selected
         if (platforms.length === 0) {
-            /// [TODO] remove this once the web extension is released
-            return (
-                AvailableOn(Platform.WINDOWS, player.sources) ||
-                AvailableOn(Platform.MAC, player.sources) ||
-                AvailableOn(Platform.LINUX, player.sources)
-            );
-
-            // return true;
+            if (showWeb) {
+                return true;
+            } else {
+                return (
+                    AvailableOn(Platform.WINDOWS, player.sources) ||
+                    AvailableOn(Platform.MAC, player.sources) ||
+                    AvailableOn(Platform.LINUX, player.sources)
+                );
+            }
         } else {
             // counts if the player is available in all platforms listed
             var platformCount = 0;
@@ -125,8 +162,26 @@ function FilterByPlatform(
     });
 }
 
-const CreatePlatformsList = (newPlatforms: FilterState) =>
-    Object.entries(newPlatforms)
+function ApplyEverything(
+    players: MediaPlayer[],
+    query: string = "",
+    platforms: FilterState,
+    sortDirection: SortOptions,
+    showWeb: boolean,
+    showRepresentations: boolean,
+): MediaPlayer[] {
+    return SortAndOrder(
+        FilterByPlatform(
+            FilterByQuery(players, query, showRepresentations),
+            CreatePlatformsList(platforms),
+            showWeb,
+        ),
+        sortDirection,
+    );
+}
+
+const CreatePlatformsList = (platforms: FilterState) =>
+    Object.entries(platforms)
         .filter(([_, val]) => val)
         .map(([plat, _]) => plat as Platform);
 
@@ -138,7 +193,8 @@ export function PlayerListManipReducer(
         case "init":
             return {
                 ...state,
-                filteredPlayers: FilterByPlatform(action.players),
+                showWeb: action.showWeb,
+                showRepresentations: action.showRepresentations,
                 platforms: {
                     Windows: false,
                     MacOS: false,
@@ -147,67 +203,95 @@ export function PlayerListManipReducer(
                 },
                 query: "",
                 sortDirection: SortOptions.ASCENDING,
+                filteredPlayers: FilterByPlatform(
+                    action.players,
+                    [],
+                    action.showWeb,
+                ),
             };
         case "toggleSort": {
             let newSortDirection =
                 state.sortDirection === SortOptions.ASCENDING
                     ? SortOptions.DESCENDING
                     : SortOptions.ASCENDING;
-            let sortedPlayers = state.filteredPlayers.sort(SortByName);
+
+            let sortedPlayers = SortAndOrder(
+                state.filteredPlayers,
+                newSortDirection,
+            );
 
             return {
                 ...state,
                 sortDirection: newSortDirection,
-                filteredPlayers:
-                    newSortDirection === SortOptions.ASCENDING
-                        ? sortedPlayers
-                        : sortedPlayers.reverse(),
+                filteredPlayers: sortedPlayers,
             };
         }
-        case "sort": {
-            let sortedPlayers = state.filteredPlayers.sort(SortByName);
-
+        case "setWeb": {
             return {
                 ...state,
-                filteredPlayers:
-                    state.sortDirection === SortOptions.ASCENDING
-                        ? sortedPlayers
-                        : sortedPlayers.reverse(),
+                showWeb: action.value,
+            };
+        }
+        case "setRepresentations": {
+            return {
+                ...state,
+                showRepresentations: action.value,
+            };
+        }
+        case "refresh": {
+            return {
+                ...state,
+                filteredPlayers: ApplyEverything(
+                    action.players,
+                    state.query,
+                    state.platforms,
+                    state.sortDirection,
+                    state.showWeb,
+                    state.showRepresentations,
+                ),
             };
         }
         case "search": {
             return {
                 ...state,
                 query: action.query,
-                filteredPlayers: FilterByPlatform(
-                    FilterByQuery(action.players, action.query),
-                    Object.entries(state.platforms)
-                        .filter(([_, val]) => val)
-                        .map(([plat, _]) => plat as Platform),
+                filteredPlayers: ApplyEverything(
+                    action.players,
+                    action.query,
+                    state.platforms,
+                    state.sortDirection,
+                    state.showWeb,
+                    state.showRepresentations,
                 ),
             };
         }
         case "addFilter": {
             state.platforms[action.platform] = true;
-            let newPlatsList = CreatePlatformsList(state.platforms);
 
             return {
                 ...state,
-                filteredPlayers: FilterByPlatform(
-                    FilterByQuery(action.players, state.query),
-                    newPlatsList,
+                filteredPlayers: ApplyEverything(
+                    action.players,
+                    state.query,
+                    state.platforms,
+                    state.sortDirection,
+                    state.showWeb,
+                    state.showRepresentations,
                 ),
             };
         }
         case "removeFilter": {
             state.platforms[action.platform] = false;
-            let newPlatsList = CreatePlatformsList(state.platforms);
 
             return {
                 ...state,
-                filteredPlayers: FilterByPlatform(
-                    FilterByQuery(action.players, state.query),
-                    newPlatsList,
+                filteredPlayers: ApplyEverything(
+                    action.players,
+                    state.query,
+                    state.platforms,
+                    state.sortDirection,
+                    state.showWeb,
+                    state.showRepresentations,
                 ),
             };
         }

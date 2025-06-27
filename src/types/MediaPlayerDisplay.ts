@@ -5,11 +5,13 @@ import type { MediaPlayer, Source } from "./MediaPlayer";
 export type MediaPlayersListProps = {
     players: MediaPlayer[];
     icons: string[];
+    showWeb: boolean;
 };
 
 export type MediaPlayerProps = {
     player: MediaPlayer;
     icon: string;
+    showWeb: boolean;
 };
 
 export type SourceProps = {
@@ -20,4 +22,5 @@ export type SourceProps = {
 export type DisplayProps = {
     type: DisplayType;
     componentProps: MediaPlayersListProps;
+    showWeb: boolean;
 };

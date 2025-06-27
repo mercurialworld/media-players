@@ -34,10 +34,6 @@ const Header = () => {
             players: loadState.players,
             query: query,
         });
-
-        playerListDispatch({
-            type: "sort",
-        });
     };
 
     const FilterDispatch = (platform: Platform) => {
@@ -51,7 +47,7 @@ const Header = () => {
     const DisplayToggleDispatch = () => {
         // reset list and filters
         playerListDispatch({
-            type: "init",
+            type: "refresh",
             players: loadState.players,
         });
 
