@@ -10,6 +10,8 @@ A single web page that populates itself from a call to the Music Presence media 
 
 The search bar filters by the official, human-readable name, as well as whatever services the player can represent. The filters check for the existence of sources for each platform.
 
+This site was originally meant as a React playground, so I have no idea if anything I'm doing is best practices. If you like this site and thought it was useful, though, [feel free to buy me a coffee](https://coff.ee/mercurialworld) so I can pay for the server this is deployed on.
+
 ## How to run
 
 Install [Deno](https://deno.land). Then, run
