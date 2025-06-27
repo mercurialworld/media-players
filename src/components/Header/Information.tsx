@@ -1,5 +1,5 @@
 import Settings from "@components/Settings/Settings";
-import { Text, Title } from "@mantine/core";
+import { Image, Group, Text, Title } from "@mantine/core";
 import classes from "@styles/Information.module.css";
 
 const Info = () => {
@@ -8,9 +8,30 @@ const Info = () => {
             <div className={classes.settings}>
                 <Settings />
             </div>
-            <div className={classes.title}>
+            <Group
+                className={classes.title}
+                gap="xs"
+                align="center"
+                justify="center"
+            >
+                <Image
+                    darkHidden
+                    h="calc(2rem + 2.5vw)"
+                    w="auto"
+                    fit="contain"
+                    alt="The logo for Music Presence."
+                    src="https://raw.githubusercontent.com/music-presence/icons/refs/heads/master/dist/tray-light.png"
+                />
+                <Image
+                    lightHidden
+                    h="calc(2rem + 2.5vw)"
+                    w="auto"
+                    fit="contain"
+                    alt="The logo for Music Presence."
+                    src="https://raw.githubusercontent.com/music-presence/icons/refs/heads/master/dist/tray-dark.png"
+                />
                 <Title order={1}>Media Players</Title>
-            </div>
+            </Group>
             <br />
             <div>
                 <Text>
