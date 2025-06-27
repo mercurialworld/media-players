@@ -1,6 +1,6 @@
 import { ColourSchemeToggle } from "@components/Settings/Setting/ColourSchemeToggle";
 import SettingsModal from "@components/Settings/SettingsModal";
-import { ActionIcon, Switch, Title } from "@mantine/core";
+import { ActionIcon, Switch } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import type { SettingsSection } from "@project-types/Settings";
 import { IconSettings } from "@tabler/icons-react";
@@ -57,7 +57,7 @@ const Settings = () => {
             <SettingsModal
                 opened={isOpen}
                 onClose={close}
-                title={<Title order={1}>Settings</Title>}
+                title={"Settings"}
                 centered={!isMobile}
                 fullScreen={isMobile}
                 transitionProps={{ transition: "fade", duration: 200 }}

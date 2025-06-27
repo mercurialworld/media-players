@@ -24,12 +24,17 @@ const SettingsModal = ({
             centered={centered}
             fullScreen={fullScreen}
             transitionProps={transitionProps}
+            size={"xl"}
         >
             <Stack gap={"lg"}>
                 {settings.map((section) => (
-                    <SettingSection title={section.sectionTitle}>
+                    <SettingSection
+                        key={`${section.sectionTitle}Settings`}
+                        title={section.sectionTitle}
+                    >
                         {section.sectionSettings.map((setting) => (
                             <SettingDisplay
+                                key={`${setting.settingTitle} section`}
                                 title={setting.settingTitle}
                                 description={setting.settingDescription ?? null}
                             >

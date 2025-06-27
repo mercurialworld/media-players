@@ -1,19 +1,28 @@
-import { ActionIcon } from "@mantine/core";
-import { useLocalStorage } from "@mantine/hooks";
+import {
+    Button,
+    useComputedColorScheme,
+    useMantineColorScheme,
+} from "@mantine/core";
 import { IconMoonStars, IconSun } from "@tabler/icons-react";
 
 export function ColourSchemeToggle() {
-    const [colourScheme, setColourScheme] = useLocalStorage<"light" | "dark">({
-        key: "colour-scheme",
-        defaultValue: "light",
+    const { setColorScheme } = useMantineColorScheme();
+    const computedColorScheme = useComputedColorScheme("dark", {
+        getInitialValueInEffect: true,
     });
 
-    const toggleColorScheme = () =>
-        setColourScheme((current) => (current === "dark" ? "light" : "dark"));
+    const toggleColorScheme = () => {
+        setColorScheme(computedColorScheme === "dark" ? "light" : "dark");
+    };
 
     return (
-        <ActionIcon onClick={toggleColorScheme}>
-            {colourScheme === "dark" ? <IconMoonStars /> : <IconSun />}
-        </ActionIcon>
+        <Button
+            onClick={toggleColorScheme}
+            rightSection={
+                computedColorScheme === "dark" ? <IconMoonStars /> : <IconSun />
+            }
+        >
+            {computedColorScheme === "dark" ? "Dark" : "Light"}
+        </Button>
     );
 }

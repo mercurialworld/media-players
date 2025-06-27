@@ -2,7 +2,6 @@ import "@mantine/core/styles.css";
 import "@styles/App.css";
 
 import { MantineProvider } from "@mantine/core";
-import { useLocalStorage } from "@mantine/hooks";
 import { useEffect, useReducer } from "react";
 import { MantineTheme } from "./theme";
 
@@ -55,11 +54,6 @@ function App() {
         "https://live.musicpresence.app/v3/players.json",
     );
 
-    // settings
-    const [colourScheme, setColourScheme] = useLocalStorage<"light" | "dark">({
-        key: "colour-scheme",
-    });
-
     useEffect(() => {
         if (players.length > 0) {
             loadStateDispatch({
@@ -84,17 +78,8 @@ function App() {
         }
     }, [players]);
 
-    useEffect(() => {
-        const storedValue = window.localStorage.getItem("colour-scheme");
-        try {
-            setColourScheme(storedValue as "light" | "dark");
-        } catch (e) {
-            console.log("Failed to parse stored value");
-        }
-    }, []);
-
     return (
-        <MantineProvider defaultColorScheme={colourScheme} theme={MantineTheme}>
+        <MantineProvider defaultColorScheme="dark" theme={MantineTheme}>
             <Info />
             <LoadStateContext value={loadState}>
                 <PlayerListContext value={playersList}>
