@@ -1,6 +1,6 @@
 import type { SizeProp } from "@fortawesome/fontawesome-svg-core";
-import type { DisplayType } from "../reducers/PlayerDisplayReducer";
-import type { MediaPlayer, Source } from "./MediaPlayer";
+import type { DisplayType } from "@reducers/PlayerDisplayReducer";
+import type { MediaPlayer, Source } from "@project-types/MediaPlayer";
 
 export type MediaPlayersListProps = {
     players: MediaPlayer[];

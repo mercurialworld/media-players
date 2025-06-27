@@ -7,4 +7,5 @@ import {
 
 export const PlayerDisplayContext = createContext<DisplayState>(InitialDisplayState);
 // [TODO] better typing on this
+// deno-lint-ignore no-explicit-any
 export const PlayerDisplayDispatchContext = createContext<any>({});

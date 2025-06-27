@@ -119,7 +119,7 @@ function SortByName(a: MediaPlayer, b: MediaPlayer): number {
 }
 
 function SortAndOrder(lst: MediaPlayer[], direction: SortOptions) {
-    let newList = lst.sort(SortByName);
+    const newList = lst.sort(SortByName);
 
     return direction === SortOptions.ASCENDING ? newList : newList.reverse();
 }
@@ -138,8 +138,10 @@ function FilterByQuery(
             (showRepresentations &&
                 player.represents
                     // [TODO] remove once schema is updated
-                    ?.filter((playerName) => !playerName.endsWith("-placeholder"))
-                    .find((playerName) =>
+                    ?.filter(
+                        (playerName: string) => !playerName.endsWith("-placeholder"),
+                    )
+                    .find((playerName: string) =>
                         playerName.replace("-", " ").includes(query.toLowerCase()),
                     )),
     );
@@ -165,7 +167,7 @@ function FilterByPlatform(
             }
         } else {
             // counts if the player is available in all platforms listed
-            var platformCount = 0;
+            let platformCount = 0;
 
             platforms.forEach((platform) => {
                 if (AvailableOn(platform, player.sources)) {
@@ -235,12 +237,12 @@ export function PlayerListManipReducer(
                 ),
             };
         case "toggleSort": {
-            let newSortDirection =
+            const newSortDirection =
                 state.sortDirection === SortOptions.ASCENDING
                     ? SortOptions.DESCENDING
                     : SortOptions.ASCENDING;
 
-            let sortedPlayers = SortAndOrder(
+            const sortedPlayers = SortAndOrder(
                 state.filteredPlayers,
                 newSortDirection,
             );
@@ -291,6 +293,7 @@ export function PlayerListManipReducer(
             };
         }
         case "addFilter": {
+            // @ts-ignore the keys in platforms correspond to the enum
             state.platforms[action.platform] = true;
 
             return {
@@ -306,6 +309,7 @@ export function PlayerListManipReducer(
             };
         }
         case "removeFilter": {
+            // @ts-ignore the keys in platforms correspond to the enum
             state.platforms[action.platform] = false;
 
             return {
@@ -321,9 +325,10 @@ export function PlayerListManipReducer(
             };
         }
         case "addFilterTable": {
+            // @ts-ignore the keys in platforms correspond to the enum
             state.platforms[action.platform] = true;
 
-            let newPlayers = ApplyEverything(
+            const newPlayers = ApplyEverything(
                 action.players,
                 state.query,
                 state.platforms,
@@ -343,9 +348,10 @@ export function PlayerListManipReducer(
             };
         }
         case "removeFilterTable": {
+            // @ts-ignore the keys in platforms correspond to the enum
             state.platforms[action.platform] = false;
 
-            let newPlayers = ApplyEverything(
+            const newPlayers = ApplyEverything(
                 action.players,
                 state.query,
                 state.platforms,

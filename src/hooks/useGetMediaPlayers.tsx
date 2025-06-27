@@ -14,20 +14,20 @@ function useGetMediaPlayers(url: string) {
             .then((response) => response.json())
             .then((data) => {
                 if (!ignore) {
-                    var players = data.players;
+                    const players = data.players;
 
                     // some music players have "-zh-placeholder" at the end of their names
                     // (or, whatever language code besides ZH).
                     players.forEach((player: MediaPlayer) => {
                         if (player.id.endsWith("-placeholder")) {
                             // strip the placeholder part out of the id
-                            var actualPlayerID = player.id.substring(
+                            const actualPlayerID = player.id.substring(
                                 0,
                                 player.id.length - 15,
                             );
 
                             // and then transplant the info from the non-placeholder
-                            var nonPlaceholderPlayer: MediaPlayer = players.find(
+                            const nonPlaceholderPlayer: MediaPlayer = players.find(
                                 (player: MediaPlayer) => player.id == actualPlayerID,
                             );
 
