@@ -1,11 +1,13 @@
-import { ColourSchemeToggle } from "@components/Settings/Setting/ColourSchemeToggle";
-import SettingsModal from "@components/Settings/SettingsModal";
-import { ActionIcon } from "@mantine/core";
-import { useDisclosure, useMediaQuery } from "@mantine/hooks";
-import type { SettingsSection } from "@project-types/Settings";
 import { IconSettings } from "@tabler/icons-react";
-import { RepresentsToggle } from "./Setting/RepresentsToggle";
-import { WebToggle } from "./Setting/WebToggle";
+
+import { Button, Tooltip } from "@mantine/core";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
+
+import { ColourSchemeToggle } from "@components/Settings/Setting/ColourSchemeToggle";
+import { RepresentsToggle } from "@components/Settings/Setting/RepresentsToggle";
+import { WebToggle } from "@components/Settings/Setting/WebToggle";
+import SettingsModal from "@components/Settings/SettingsModal";
+import type { SettingsSection } from "@project-types/Settings";
 
 const Settings = () => {
     const [isOpen, { open, close }] = useDisclosure(false);
@@ -62,9 +64,18 @@ const Settings = () => {
                 settings={settings}
             />
 
-            <ActionIcon size={"xl"} variant="weblink" onClick={open}>
-                <IconSettings size={"md"} />
-            </ActionIcon>
+            <Tooltip label="Website settings">
+                {/* "Why not use an ActionIcon here?" 
+                because for some reason it's not visible on webkit.
+                for now we can just use a Button with no text */}
+                <Button
+                    key="SettingsButton"
+                    rightSection={<IconSettings size={40} />}
+                    size={"compact-xl"}
+                    variant="settings"
+                    onClick={open}
+                />
+            </Tooltip>
         </>
     );
 };

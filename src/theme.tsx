@@ -26,6 +26,15 @@ export const MantineTheme = createTheme({
             };
         }
 
+        if (input.variant === "settings") {
+            return {
+                ...defaultResolvedColors,
+                color: "var(--important-text-color)",
+                background: "var(--mantine-color-body)",
+                hover: "var(--mantine-color-body)",
+            };
+        }
+
         if (input.variant === "filterunpressed") {
             return {
                 ...defaultResolvedColors,
