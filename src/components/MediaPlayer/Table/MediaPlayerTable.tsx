@@ -24,7 +24,7 @@ const MediaPlayersTable = ({ players, icons, showWeb }: MediaPlayersListProps) =
     const playerListDispatch = useContext(PlayerListDispatchContext);
 
     const rows = players.map((player: MediaPlayer) => {
-        let iconURL = GetIconURL(icons, player.id);
+        const iconURL = GetIconURL(icons, player.id);
 
         return (
             <MediaPlayersTableRow

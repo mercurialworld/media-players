@@ -33,7 +33,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.CONTAINER_REGISTRY }}/${{ github.repository }}
-      
+
       - name: Build Docker image
         id: build
         uses: docker/build-push-action@v5
@@ -60,14 +60,14 @@ jobs:
         uses: denoland/setup-deno@v2
         with:
           deno-version: ${{ env.DENO_VERSION }}
-      
+
       - name: Install Deno packages
         shell: bash
         run: deno install
 
       - name: Synth AWS-CDK stack
-        run: deno run cdk synth --ci --no-lookups --strict 
-      
+        run: deno run cdk synth --ci --no-lookups --strict
+
       - name: Upload synth artifact
         uses: actions/upload-artifact@v4
         with:
@@ -97,7 +97,7 @@ jobs:
           registry: ${{ env.CONTAINER_REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      
+
       - name: Download image artifact
         uses: actions/download-artifact@v4
         with:
@@ -132,7 +132,7 @@ jobs:
         uses: denoland/setup-deno@v2
         with:
           deno-version: ${{ env.DENO_VERSION }}
-      
+
       - name: Install Deno packages
         shell: bash
         run: deno install
@@ -171,12 +171,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Download outputs artifact
         uses: actions/download-artifact@v4
         with:
           name: aws-cdk-outputs
-      
+
       - name: Create environment/config files
         working-directory: codedeploy
         run: |
@@ -189,7 +189,7 @@ jobs:
         uses: mercurialworld/chaeri-actions/parse-cdk@v1
         with:
           file: outputs.json
-      
+
       - name: Setup AWS
         uses: mercurialworld/chaeri-actions/setup-aws@v1
         with:

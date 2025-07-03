@@ -10,7 +10,7 @@
 }
 
 .playerLogo {
-    /* 
+    /*
      * Man, even light mode is an afterthought in logo design.
      */
     @mixin light {

@@ -7,7 +7,7 @@ import type { MediaPlayersListProps } from "@project-types/MediaPlayerDisplay";
 
 const MediaPlayerCards = ({ players, icons, showWeb }: MediaPlayersListProps) => {
     const createPlayerCard = (player: MediaPlayer) => {
-        let icon = GetIconURL(icons, player.id);
+        const icon = GetIconURL(icons, player.id);
 
         return (
             <MediaPlayerCard

@@ -1,11 +1,11 @@
 import { createContext } from "react";
 
 import {
-    InitialDisplayState,
     type DisplayState,
+    InitialDisplayState,
 } from "@reducers/PlayerDisplayReducer";
 
 export const PlayerDisplayContext = createContext<DisplayState>(InitialDisplayState);
 // [TODO] better typing on this
-// deno-lint-ignore no-explicit-any
+// eslint-disable-next-line no-explicit-any
 export const PlayerDisplayDispatchContext = createContext<any>({});

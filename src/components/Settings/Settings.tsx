@@ -65,7 +65,7 @@ const Settings = () => {
             />
 
             <Tooltip label="Website settings">
-                {/* "Why not use an ActionIcon here?" 
+                {/* "Why not use an ActionIcon here?"
                 because for some reason it's not visible on webkit.
                 for now we can just use a Button with no text */}
                 <Button

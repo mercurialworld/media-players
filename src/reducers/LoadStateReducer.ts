@@ -20,7 +20,7 @@ export interface LoadState {
 }
 
 type Loading = { type: LoadStateType.LOADING };
-// deno-lint-ignore no-explicit-any
+// eslint-disable-next-line no-explicit-any
 type Error = { type: LoadStateType.ERROR; error: any };
 type Loaded = {
     type: LoadStateType.LOADED;

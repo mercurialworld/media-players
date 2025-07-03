@@ -1,5 +1,5 @@
 import Settings from "@components/Settings/Settings";
-import { Image, Group, Text, Title } from "@mantine/core";
+import { Group, Image, Text, Title } from "@mantine/core";
 import classes from "@styles/Information.module.css";
 
 const Info = () => {

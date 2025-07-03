@@ -1,5 +1,5 @@
 version: 0.0
-os: linux 
+os: linux
 files:
   - source: /
     destination: /var/lib/codedeploy-apps/media-players
@@ -11,4 +11,3 @@ hooks:
   ApplicationStop:
     - location: hooks/ApplicationStop.sh
       timeout: 60
-  

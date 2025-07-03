@@ -20,6 +20,7 @@ import {
     PlayerListDispatchContext,
 } from "@contexts/PlayerListContext";
 import useGetMediaPlayers from "@hooks/useGetMediaPlayers";
+import { readLocalStorageValue } from "@mantine/hooks";
 import {
     InitialLoadState,
     LoadStateReducer,
@@ -33,7 +34,6 @@ import {
     InitialListState,
     PlayerListManipReducer,
 } from "@reducers/PlayerListManipReducer";
-import { readLocalStorageValue } from "@mantine/hooks";
 
 function App() {
     // reducers
@@ -88,6 +88,8 @@ function App() {
                 type: LoadStateType.LOADING,
             });
         }
+        // this re-runs if i add more
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [players]);
 
     return (
