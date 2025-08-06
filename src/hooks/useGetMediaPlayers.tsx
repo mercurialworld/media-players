@@ -14,7 +14,7 @@ function useGetMediaPlayers(url: string) {
             .then((response) => response.json())
             .then((data) => {
                 if (!ignore) {
-                    const players = data.players;
+                    var players: MediaPlayer[] = data.players;
 
                     // some music players have "-zh-placeholder" at the end of their names
                     // (or, whatever language code besides ZH).
@@ -29,12 +29,17 @@ function useGetMediaPlayers(url: string) {
                             // and then transplant the info from the non-placeholder
                             const nonPlaceholderPlayer: MediaPlayer = players.find(
                                 (player: MediaPlayer) => player.id == actualPlayerID,
-                            );
+                            )!;
 
                             player.sources = nonPlaceholderPlayer.sources;
                             player.url = nonPlaceholderPlayer.url;
                         }
                     });
+
+                    // https://github.com/ungive/discord-music-presence/issues/244
+                    players = players.filter(
+                        (player: MediaPlayer) => player.id !== "qobuz",
+                    );
 
                     setPlayers(players);
                     setIcons(data.icons);
