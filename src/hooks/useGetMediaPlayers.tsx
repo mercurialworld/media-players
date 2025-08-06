@@ -14,7 +14,7 @@ function useGetMediaPlayers(url: string) {
             .then((response) => response.json())
             .then((data) => {
                 if (!ignore) {
-                    var players: MediaPlayer[] = data.players;
+                    let players: MediaPlayer[] = data.players;
 
                     // some music players have "-zh-placeholder" at the end of their names
                     // (or, whatever language code besides ZH).
