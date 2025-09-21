@@ -1,3 +1,5 @@
+# DO NOT CONTACT ME ABOUT THIS. I WILL NOT ANSWER ANYTHING RELATED TO THIS SITE UNTIL OCTOBER 2ND
+
 # Media Players Web Page
 
 ![Deno Badge](https://img.shields.io/badge/Deno-70FFAF?logo=deno&logoColor=000&style=flat) ![Docker Badge](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff&style=flat) ![Mantine Badge](https://img.shields.io/badge/Mantine-339AF0?logo=mantine&logoColor=fff&style=flat) ![React Badge](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=000&style=flat)
@@ -35,3 +37,4 @@ This repository uses [`pre-commit`](https://pre-commit.com/). Install this Pytho
 uv tool install pre-commit
 pre-commit
 ```
+
