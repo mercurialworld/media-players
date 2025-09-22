@@ -1,4 +1,4 @@
-# DO NOT CONTACT ME ABOUT THIS. I WILL NOT ANSWER ANYTHING RELATED TO THIS SITE UNTIL OCTOBER 2ND
+# DO NOT CONTACT ME ABOUT THIS. I WILL NOT ANSWER ANYTHING RELATED TO THIS SITE
 
 # Media Players Web Page
 
@@ -36,4 +36,5 @@ This repository uses [`pre-commit`](https://pre-commit.com/). Install this Pytho
 uv tool install pre-commit
 pre-commit
 ```
+
 
