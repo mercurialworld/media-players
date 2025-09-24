@@ -40,19 +40,28 @@ const Info = () => {
                 </Text>
                 <br />
                 <Text>
-                    Note that some media players listed might need additional setup.
-                    Check the{" "}
+                    Note that, although the player might be listed here, <strong>it might not be detected right away</strong>.
+                    If that is the case, check the {" "}
                     <a href="https://github.com/ungive/discord-music-presence/blob/master/documentation/supported-media-players.md#additional-notes">
                         Additional Notes
                     </a>{" "}
-                    section for more information.
+                    section for more information, or join the {" "}
+                    <a href="https://discord.gg/musicpresence">
+                        Discord server
+                    </a>{" "}
+                    for more help if needed.
                 </Text>
                 <br />
                 <Text>
-                    Don't see your media player?{" "}
+                    If you can see your media player in your operating system's media controls (see{" "} 
+                    <a href="https://imgur.com/a/media-control-interfaces-on-windows-mac-YDQegwW">
+                        these images
+                    </a>){" "}
+                    , and it's not on this list, you should{" "}
                     <a href="https://github.com/ungive/discord-music-presence/blob/master/documentation/troubleshooting.md#if-your-media-player-is-still-not-detected">
-                        Submit it!
-                    </a>
+                        submit it
+                    </a>{" "}
+                    so that the program can detect it.
                 </Text>
             </div>
         </div>
