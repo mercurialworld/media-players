@@ -5,7 +5,7 @@ import { useContext } from "react";
 
 import { GetIconURL } from "@components/MediaPlayer/common";
 import MediaPlayersTableRow from "@components/MediaPlayer/Table/MediaPlayerTableRow";
-import PlatformFilters from "@components/PlatformFilters/PlatformFilters";
+import PlatformFilters from "@components/FilterSettings/PlatformFilters";
 import { LoadStateContext } from "@contexts/LoadStateContext";
 import {
     PlayerListContext,

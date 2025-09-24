@@ -3,13 +3,13 @@ import { IconSettings } from "@tabler/icons-react";
 import { Button, Tooltip } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 
-import { ColourSchemeToggle } from "@components/Settings/Setting/ColourSchemeToggle";
-import { RepresentsToggle } from "@components/Settings/Setting/RepresentsToggle";
-import { WebToggle } from "@components/Settings/Setting/WebToggle";
 import SettingsModal from "@components/Settings/SettingsModal";
+import { ColourSchemeToggle } from "@components/SiteSettings/Setting/ColourSchemeToggle";
+import { RepresentsToggle } from "@components/SiteSettings/Setting/RepresentsToggle";
+import { WebToggle } from "@components/SiteSettings/Setting/WebToggle";
 import type { SettingsSection } from "@project-types/Settings";
 
-const Settings = () => {
+const SiteSettings = () => {
     const [isOpen, { open, close }] = useDisclosure(false);
     const isMobile = useMediaQuery("(max-width: 50em)");
 
@@ -80,4 +80,4 @@ const Settings = () => {
     );
 };
 
-export default Settings;
+export default SiteSettings;
