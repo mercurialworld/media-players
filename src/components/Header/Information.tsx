@@ -1,4 +1,4 @@
-import Settings from "@components/Settings/Settings";
+import SiteSettings from "@components/SiteSettings/SiteSettings";
 import { Group, Image, Text, Title } from "@mantine/core";
 import classes from "@styles/Information.module.css";
 
@@ -6,7 +6,7 @@ const Info = () => {
     return (
         <div className={classes.info}>
             <div className={classes.settings}>
-                <Settings />
+                <SiteSettings />
             </div>
             <Group
                 className={classes.title}

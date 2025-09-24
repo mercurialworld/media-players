@@ -7,7 +7,6 @@ import {
     ActionIconGroup,
     Button,
     Table,
-    Text,
     Tooltip,
     VisuallyHidden,
 } from "@mantine/core";
@@ -15,6 +14,7 @@ import { useContext } from "react";
 
 import { PlayerDisplayContext } from "@contexts/PlayerDisplayContext";
 import { PlayerListContext } from "@contexts/PlayerListContext";
+import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 import type {
     PlatformButtonProps,
     PlatformFiltersProps,
@@ -22,7 +22,6 @@ import type {
 import { DisplayType } from "@reducers/PlayerDisplayReducer";
 import classes from "@styles/PlatformFilters.module.css";
 import { Platform } from "@utils/CheckAvailability";
-import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 
 const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
     const playerListState = useContext(PlayerListContext);
@@ -106,7 +105,6 @@ const PlatformFilters = ({ callback }: PlatformFiltersProps) => {
 
     return playerDisplayState.display === DisplayType.CARDS ? (
         <div className={classes.inner}>
-            <Text size="sm">Platform:</Text>
             <ActionIconGroup>
                 {getPlatforms().map((platform) => PlatformFilterButton(platform))}
             </ActionIconGroup>

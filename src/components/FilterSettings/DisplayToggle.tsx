@@ -16,8 +16,8 @@ const DisplayToggle = ({ callback }: DisplayToggleProps) => {
         <div>
             <Button variant="filterunpressed" onClick={() => OnPress()}>
                 {playerDisplayState.display === DisplayType.CARDS
-                    ? "Show Table"
-                    : "Show Cards"}
+                    ? "Cards"
+                    : "Table"}
             </Button>
         </div>
     );
