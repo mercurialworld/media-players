@@ -56,7 +56,7 @@ const Info = () => {
                     If you can see your media player in your operating system's media controls (see{" "} 
                     <a href="https://imgur.com/a/media-control-interfaces-on-windows-mac-YDQegwW">
                         these images
-                    </a>){" "}
+                    </a>)
                     , and it's not on this list, you should{" "}
                     <a href="https://github.com/ungive/discord-music-presence/blob/master/documentation/troubleshooting.md#if-your-media-player-is-still-not-detected">
                         submit it
