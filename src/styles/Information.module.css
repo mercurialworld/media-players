@@ -4,9 +4,6 @@
     padding: 1rem;
     text-align: center;
 
-    @media (max-width: $mantine-breakpoint-sm) {
-        width: 100%;
-    }
 }
 
 .logoIcon {
@@ -25,5 +22,12 @@
     flex-direction: row-reverse;
 }
 
-.titleGroup {
+.infotext {
+    margin: 0 auto;
+    text-align: center;
+    width: 50%;
+
+    @media (max-width: $mantine-breakpoint-sm) {
+        width: 100%;
+    }
 }
