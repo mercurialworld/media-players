@@ -35,7 +35,7 @@ const Info = () => {
             <br />
             <div>
                 <Text>
-                    This is a list of all media players that Music Presence can
+                    This is a list of all media players with desktop programs that Music Presence can
                     detect. It is always kept up to date from official sources.
                 </Text>
                 <br />
@@ -57,7 +57,7 @@ const Info = () => {
                     <a href="https://imgur.com/a/media-control-interfaces-on-windows-mac-YDQegwW">
                         these images
                     </a>)
-                    , and it's not on this list, you should{" "}
+                    and it's not on this list, you should{" "}
                     <a href="https://github.com/ungive/discord-music-presence/blob/master/documentation/troubleshooting.md#if-your-media-player-is-still-not-detected">
                         submit it
                     </a>{" "}
@@ -67,5 +67,6 @@ const Info = () => {
         </div>
     );
 };
+
 
 export default Info;
