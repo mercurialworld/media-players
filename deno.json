@@ -1,8 +1,8 @@
 {
     "imports": {
-        "aws-cdk-lib": "npm:aws-cdk-lib@^2.202.0",
-        "aws-cdk-github-oidc": "npm:aws-cdk-github-oidc@2",
-        "constructs": "npm:constructs",
+        "aws-cdk-lib": "npm:aws-cdk-lib@^2.222.0",
+        "aws-cdk-github-oidc": "npm:aws-cdk-github-oidc@^2.4.1",
+        "constructs": "npm:constructs@10.4.2",
         "chaeri/": "https://raw.githubusercontent.com/mercurialworld/chaeri/refs/heads/main/lib/",
         "https://raw.githubusercontent.com/mercurialworld/chaeri/refs/heads/main/lib/types": "https://raw.githubusercontent.com/mercurialworld/chaeri/refs/heads/main/lib/types.ts"
     }
