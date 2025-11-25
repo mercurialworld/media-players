@@ -19,6 +19,7 @@
         "@mantine/core": "^8.3.6",
         "@mantine/dates": "^8.3.6",
         "@mantine/hooks": "^8.3.6",
+        "@reduxjs/toolkit": "^2.10.1",
         "@tabler/icons-react": "^3.35.0",
         "clsx": "^2.1.1",
         "constructs": "^10.4.2",
@@ -26,7 +27,8 @@
         "prettier": "^3.6.2",
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
-        "react-error-boundary": "^6.0.0"
+        "react-error-boundary": "^6.0.0",
+        "react-redux": "^9.2.0"
     },
     "devDependencies": {
         "@eslint/js": "^9.39.1",

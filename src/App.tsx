@@ -2,7 +2,7 @@ import "@mantine/core/styles.css";
 import "@styles/App.css";
 
 import { MantineProvider } from "@mantine/core";
-import { useEffect, useReducer } from "react";
+import { use, useEffect, useReducer } from "react";
 import { MantineTheme } from "./theme";
 
 import Footer from "@components/Footer/Footer";
@@ -19,7 +19,7 @@ import {
     PlayerListContext,
     PlayerListDispatchContext,
 } from "@contexts/PlayerListContext";
-import useGetMediaPlayers from "@hooks/useGetMediaPlayers";
+import useGetMediaPlayers, { GetMediaPlayers } from "@hooks/useGetMediaPlayers";
 import { readLocalStorageValue } from "@mantine/hooks";
 import {
     InitialLoadState,
@@ -50,11 +50,6 @@ function App() {
         InitialDisplayState,
     );
 
-    // initial loading
-    const { players, icons, error } = useGetMediaPlayers(
-        "https://live.musicpresence.app/v3/players.json",
-    );
-
     const representations = readLocalStorageValue<boolean>({
         key: "show-represents",
         getInitialValueInEffect: false,
@@ -64,33 +59,37 @@ function App() {
         getInitialValueInEffect: false,
     });
 
-    useEffect(() => {
-        if (players.length > 0) {
-            loadStateDispatch({
-                type: LoadStateType.LOADED,
-                players: players,
-                icons: icons,
-            });
+    const {replacementPlayers, replacementIcons} = GetMediaPlayers(
+        "https://live.musicpresence.app/v3/players.json"
+    );
 
-            playersListDispatch({
-                type: "init",
-                players: players,
-                showRepresentations: representations,
-                showWeb: web,
-            });
-        } else if (error) {
-            loadStateDispatch({
-                type: LoadStateType.ERROR,
-                error: error,
-            });
-        } else {
-            loadStateDispatch({
-                type: LoadStateType.LOADING,
-            });
-        }
-        // this re-runs if i add more
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [players]);
+    // useEffect(() => {
+    //     if (players.length > 0) {
+    //         loadStateDispatch({
+    //             type: LoadStateType.LOADED,
+    //             players: players,
+    //             icons: icons,
+    //         });
+
+    //         playersListDispatch({
+    //             type: "init",
+    //             players: players,
+    //             showRepresentations: representations,
+    //             showWeb: web,
+    //         });
+    //     } else if (error) {
+    //         loadStateDispatch({
+    //             type: LoadStateType.ERROR,
+    //             error: error,
+    //         });
+    //     } else {
+    //         loadStateDispatch({
+    //             type: LoadStateType.LOADING,
+    //         });
+    //     }
+    //     // this re-runs if i add more
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [players]);
 
     return (
         <MantineProvider defaultColorScheme="dark" theme={MantineTheme}>
@@ -104,7 +103,7 @@ function App() {
                                 <Info />
                                 <Header />
                                 <div className="content">
-                                    <MediaPlayerDisplay />
+                                    <MediaPlayerDisplay players={replacementPlayers} icons={replacementIcons} />
                                 </div>
                             </PlayerDisplayDispatchContext>
                         </PlayerDisplayContext>

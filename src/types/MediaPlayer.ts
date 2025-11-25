@@ -2,6 +2,8 @@ export interface MediaPlayer {
     id: string;
     name: string;
     url: string;
+    // probably better to do it here than to have an extra thing in memory for this
+    icon?: string;
     represents?: string[];
     sources: Source;
     attributes: Attributes;

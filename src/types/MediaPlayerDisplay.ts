@@ -24,3 +24,8 @@ export type DisplayProps = {
     componentProps: MediaPlayersListProps;
     showWeb: boolean;
 };
+
+export type ActualDisplayProps = {
+    players: MediaPlayer[];
+    icons: string[];
+}
