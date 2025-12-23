@@ -10,22 +10,28 @@ export interface IconEntry {
     md5?: string
 }
 
-export interface BasePlayersState {
+export interface PlayersResponse {
     players: MediaPlayer[],
-    icons: Map<string, IconEntry[]>
+    icons: Map<string, IconEntry[]>,
 }
+
+export interface BasePlayersState extends PlayersResponse {
+    status: "init" | "loading" | "loaded" | "failed",
+    error: string | null
+};
 
 export const initialBasePlayerState: BasePlayersState = {
     players: [],
-    icons: new Map<string, any>(),
-}
+    icons: new Map<string, IconEntry[]>(),
+    status: "init",
+    error: null
+};
 
 export const BasePlayersSlice = createSlice({
     name: "BasePlayers",
     initialState: initialBasePlayerState,
     reducers: {
-        // [TODO] these should both be thunks
-        // whoa balatro reference
+        // these will probably never be called
         setPlayers: (state, action: PayloadAction<MediaPlayer[]>) => {
             state.players = action.payload
         },
@@ -36,13 +42,30 @@ export const BasePlayersSlice = createSlice({
     selectors: {
         selectPlayers: (state) => state.players,
         selectIcons: (state) => state.icons
+    },
+    extraReducers: builder =>{
+        builder
+            .addCase(GetPlayersAsync.pending, state => {
+                state.status = "loading";
+            })
+            .addCase(GetPlayersAsync.fulfilled, (state, action) => {
+                state.status = "loaded";
+                state.players = action.payload.players;
+                state.icons = action.payload.icons;
+            })
+            .addCase(GetPlayersAsync.rejected, state => {
+                state.status = "failed";
+            })
     }
-})
+});
 
 export const GetPlayersAsync = createAsyncThunk(
     "BasePlayers/FetchPlayers",
-    GetMediaPlayers
-)
+    async (url: string) => {
+        const {players, icons} = await GetMediaPlayers(url);
+        return {players, icons};
+    }
+);
 
 export const { setPlayers, setIcons } = BasePlayersSlice.actions;
 

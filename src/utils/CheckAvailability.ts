@@ -24,3 +24,21 @@ export function AvailableOn(platform: Platform, source: Source): boolean | null 
             return null;
     }
 }
+
+export function AvailableOnWithString(platform: string, source: Source): boolean | null {
+    switch (platform) {
+        case "Linux":
+            return source.lin_mpris !== undefined;
+        case "Windows":
+            return source.win_winrt !== undefined || source.win_smtc !== undefined;
+        case "MacOS":
+            return (
+                source.mac_mediaremote !== undefined ||
+                source.mac_bundle !== undefined
+            );
+        case "Web":
+            return source.web_domain !== undefined;
+        default:
+            return null;
+    }
+}

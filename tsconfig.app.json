@@ -32,7 +32,8 @@
             "@hooks/*": ["src/hooks/*"],
             "@reducers/*": ["src/reducers/*"],
             "@contexts/*": ["src/contexts/*"],
-            "@utils/*": ["src/utils/*"]
+            "@utils/*": ["src/utils/*"],
+            "@redux-app/*": ["src/app/*"],
         }
     },
     "include": ["src"]

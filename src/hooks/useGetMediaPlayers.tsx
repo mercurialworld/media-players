@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
 
 import type { MediaPlayer } from "@project-types/MediaPlayer";
+import type { IconEntry, PlayersResponse } from "@redux-app/slices/BasePlayerSlice";
 
-export const GetMediaPlayers = async (url: string) => {
-    const res = await fetch(url);
+export const GetMediaPlayers = async (url: string): Promise<PlayersResponse> => {
+    let data;
 
-    res.json()
-        .then((data) => {
-            let players = data.players;
-            const icons = data.icons;
+    try {
+        const res = await fetch(url);
+        data = await res.json();
+
+        if (res.ok) {
+            let players: MediaPlayer[] = data.players;
+            let icons: Map<string, IconEntry[]> = data.icons;
+
 
             // some music players have "-zh-placeholder" at the end of their names
             // (or, whatever language code besides ZH).
@@ -38,9 +43,11 @@ export const GetMediaPlayers = async (url: string) => {
             );
 
             return {players, icons};
-        })
-        .catch((err) => err)
-        .finally(() => console.log("done"))
+        }
+        throw new Error(res.statusText);
+    } catch (err: any) {
+        return Promise.reject(err.message ? err.message : data);
+    }
 }
 
 function useGetMediaPlayers(url: string) {
